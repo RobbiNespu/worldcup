@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Ping masters</title>
+<title>World Cup 2018</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
