@@ -1,17 +1,17 @@
 
 package com.ssn.worldcup.model;
 
-import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.ssn.core.utils.Utils;
 
@@ -22,36 +22,34 @@ import com.ssn.core.utils.Utils;
 		@NamedQuery(name = User.USER_ALL, query = "from User"), //
 		@NamedQuery(name = User.USER_BY_NAME_AND_PASS, query = "from User where user = :user and password = :pass"), //
 })
-public class User implements Serializable, Comparable<User> {
+public class User {
 	public static final String USER_BY_NAME = "User.by.name";
 	public static final String USER_BY_NAME_AND_PASS = "User.by.name.and.pass";
-	private static final long serialVersionUID = 1L;
 	public static final String USER_ALL = "Users.all";
 
 	@Id
-	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
-	@SequenceGenerator(initialValue = 1, sequenceName = "seq_gen", name = "gen")
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private long id;
 
 	@Column(name = "username")
 	private String user;
 	private String password;
-	private String name;
-	private String surname;
+	private String email;
+	private boolean validated;
 	private boolean admin;
-	private int rating = -1;
+	private String validationCode;
 
 	public User() {
 		//
 	}
 
-	public User(String user, String password, String name, String surname, boolean admin) {
+	public User(String user, String password, String email, boolean admin, boolean validated) {
 		this.user = user;
 		this.password = Utils.encrypt(password);
-		this.name = name;
-		this.surname = surname;
 		this.admin = admin;
+		this.validated = validated;
+		this.validationCode = UUID.randomUUID().toString();
 	}
 
 	public void setId(long id) {
@@ -62,42 +60,8 @@ public class User implements Serializable, Comparable<User> {
 		return user.equals(pname);
 	}
 
-	@Override
-	public String toString() {
-		return user + " (" + getRating() + ")";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
-
 	public boolean hasPassword(String pass) {
 		return password.equals(Utils.encrypt(pass));
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public String getUser() {
@@ -116,18 +80,6 @@ public class User implements Serializable, Comparable<User> {
 		this.password = password;
 	}
 
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -144,17 +96,28 @@ public class User implements Serializable, Comparable<User> {
 		this.admin = admin;
 	}
 
-	public void setRating(int rating) {
-		this.rating = rating;
+	public String getEmail() {
+		return email;
 	}
 
-	public int getRating() {
-		return rating;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	@Override
-	public int compareTo(User o) {
-		return o.getRating() - this.getRating();
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
+
+	public String getValidationCode() {
+		return validationCode;
+	}
+
+	public void setValidationCode(String validationCode) {
+		this.validationCode = validationCode;
 	}
 
 }

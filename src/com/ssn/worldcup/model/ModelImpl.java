@@ -35,7 +35,7 @@ public class ModelImpl implements Model {
 				ModelManager tm = new ModelManager(session);
 				List<User> findAllUsers = tm.findAllUsers();
 				if (findAllUsers.size() == 0) {
-					session.save(new User("raz", "raz", "Razvan", "Veina", true));
+					session.save(new User("raz", "raz", "razvan.veina@ss-schaefer.com", true, true));
 				}
 			}
 
