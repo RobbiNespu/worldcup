@@ -1,12 +1,17 @@
 
 package com.ssn.worldcup.model;
 
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,6 +44,17 @@ public class User {
 	private boolean validated;
 	private boolean admin;
 	private String validationCode;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "user_tournament", //
+			joinColumns = { @JoinColumn(name = "user_id") }, //
+			inverseJoinColumns = { @JoinColumn(name = "tournament_id") })
+	private List<Tournament> tournaments;
+
+	// @OneToMany(mappedBy = "user")
+	// private List<WinningTeamForecast> winningTeamForecasts;
+	//
+	// private List<Forecast> forecasts;
 
 	public User() {
 		//
@@ -118,6 +134,14 @@ public class User {
 
 	public void setValidationCode(String validationCode) {
 		this.validationCode = validationCode;
+	}
+
+	public List<Tournament> getTournaments() {
+		return tournaments;
+	}
+
+	public void setTournaments(List<Tournament> tournaments) {
+		this.tournaments = tournaments;
 	}
 
 }
