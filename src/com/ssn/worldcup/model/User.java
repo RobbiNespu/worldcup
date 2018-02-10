@@ -1,6 +1,7 @@
 
 package com.ssn.worldcup.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -47,14 +49,15 @@ public class User {
 
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "user_tournament", //
-			joinColumns = { @JoinColumn(name = "user_id") }, //
-			inverseJoinColumns = { @JoinColumn(name = "tournament_id") })
-	private List<Tournament> tournaments;
+	joinColumns = { @JoinColumn(name = "user_id") }, //
+	inverseJoinColumns = { @JoinColumn(name = "tournament_id") })
+	private List<Tournament> tournaments = new ArrayList<>();
 
-	// @OneToMany(mappedBy = "user")
-	// private List<WinningTeamForecast> winningTeamForecasts;
-	//
-	// private List<Forecast> forecasts;
+	@OneToMany(mappedBy = "user")
+	private List<WinningTeamForecast> winningTeamForecasts = new ArrayList<>();;
+
+	@OneToMany(mappedBy = "user")
+	private List<Forecast> forecasts = new ArrayList<>();;
 
 	public User() {
 		//
@@ -142,6 +145,22 @@ public class User {
 
 	public void setTournaments(List<Tournament> tournaments) {
 		this.tournaments = tournaments;
+	}
+
+	public List<WinningTeamForecast> getWinningTeamForecasts() {
+		return winningTeamForecasts;
+	}
+
+	public void setWinningTeamForecasts(List<WinningTeamForecast> winningTeamForecasts) {
+		this.winningTeamForecasts = winningTeamForecasts;
+	}
+
+	public List<Forecast> getForecasts() {
+		return forecasts;
+	}
+
+	public void setForecasts(List<Forecast> forecasts) {
+		this.forecasts = forecasts;
 	}
 
 }

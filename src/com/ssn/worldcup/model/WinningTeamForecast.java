@@ -28,4 +28,46 @@ public class WinningTeamForecast {
 	@JoinColumn(name = "team_id", nullable = false)
 	private Team team;
 
+	public WinningTeamForecast() {
+	}
+
+	public WinningTeamForecast(User user, Tournament tournament, Team team) {
+		super();
+		this.user = user;
+		this.tournament = tournament;
+		this.team = team;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Tournament getTournament() {
+		return tournament;
+	}
+
+	public void setTournament(Tournament tournament) {
+		this.tournament = tournament;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 }

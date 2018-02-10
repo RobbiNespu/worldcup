@@ -28,6 +28,9 @@ public class Tournament {
 	@OneToMany(mappedBy = "tournament")
 	private List<Team> teams;
 
+	@OneToMany(mappedBy = "tournament")
+	private List<Match> matches;
+
 	private boolean active;
 
 	public Tournament(String name, int year) {
@@ -75,6 +78,14 @@ public class Tournament {
 	@Override
 	public String toString() {
 		return "Tournament [name=" + name + ", year=" + year + "]";
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }
