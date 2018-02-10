@@ -1,0 +1,39 @@
+<HTML>
+<BODY>
+<A href="http://192.168.222.55:2010/worldcup2010">http://192.168.222.55:2010/worldcup2010</A>
+<HR/> 
+<B>Set Result</B>
+<form method="get" action="http://timx001:8080/worldcup2014/setResult.jsp">
+Match id<input type="text" name="id" />
+goals 1<input type="text" name="g1" />
+goals 2<input type="text" name="g2" />
+<input type="submit" value="Set result" />
+</form>
+<HR/>
+
+<B>Set Teams</B>
+<form method="get" action="http://timx001:8080/worldcup2014/setTeams.jsp">
+Match id<input type="text" name="id" />
+Team 1 name<input type="text" name="t1" />
+Team 2 name<input type="text" name="t2" />
+<input type="submit" value="Set teams" />
+</form>
+<HR/>
+
+<B>Set Match Qualified Team</B>
+<form method="get" action="http://timx001:8080/worldcup2014/setMatchQualifiedTeam.jsp">
+Match id<input type="text" name="id" />
+Team (1/2)<input type="text" name="team" />
+<input type="submit" value="Set match qualified team" />
+</form>
+<HR/>
+
+<B>Remove user</B>
+<form method="get" action="http://timx001/worldcup2014/delUser.jsp">
+User id<input type="text" name="id" />
+<input type="submit" value="Remove user" />
+</form>
+
+<HR/>
+</BODY>
+</HTML>

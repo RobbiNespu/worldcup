@@ -1,22 +1,39 @@
-<%@page import="com.ssn.core.ApplicationFactory"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="com.ssn.worldcup.model.*, com.ssn.core.*"%>
-<%
-	String userS = request.getParameter("user");
-	String pass = request.getParameter("pass");
 
-	User userLogin = ApplicationFactory.getInstance().getModel().checkLogin(userS, pass);
+<%@ page import="com.ssn.core.*"%>
+<%@ page import="com.ssn.worldcup.model.*"%>
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
+<meta name="description" content="2014 competition" />
+</head>
 
-	if (userLogin != null) {
-		session.setAttribute("user", userLogin);
-	} else {
-%>
-<font face="verdana" color="green">Invalid username or password!
-	please try again </font>
-<br />
-<%
-	}
-%>
+<body>
+	<center>
+		<%
+			String user = request.getParameter("user");
+			String pass = request.getParameter("password");
+			String ip = request.getRemoteAddr();
 
-<%@include file="index.jsp"%>
+			User theUser = ApplicationFactory.getInstance().getModel().checkLogin(user, pass);
+			if (user != null) {
+				session.setAttribute("user", user);
+		%>
+		<%
+				response.sendRedirect("classification.jsp");
+		%>
+		<%
+			} else {
+				out.write("<SPAN class=SIMPLE_TEXT_ERROR>Unknown user or wrong password. ");
+				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
+			}
+			/*
+			} else if (result == -2) {
+				out.write(
+						"<SPAN class=SIMPLE_TEXT_ERROR>Your account was not validated yet. Please reply to the validation mail. ");
+				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
+			}
+			*/
+		%>
+	
+</body>
+</html>

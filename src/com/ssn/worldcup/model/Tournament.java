@@ -6,12 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@NamedQueries({ //
+		@NamedQuery(name = Tournament.TOURNAMENT_ACTIVE, query = "from Tournament where active = true"), //
+})
 public class Tournament {
+
+	public static final String TOURNAMENT_ACTIVE = "Tournament.active";
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -77,7 +84,7 @@ public class Tournament {
 
 	@Override
 	public String toString() {
-		return "Tournament [name=" + name + ", year=" + year + "]";
+		return name + " " + year;
 	}
 
 	public boolean isActive() {

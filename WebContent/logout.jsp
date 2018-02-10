@@ -1,8 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="com.ssn.core.utils.*"%>
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8"/>
+	<LINK type="text/css" rel="stylesheet" href="wm.css"/>
+</head>
+<body>
+<%@ page import = "java.sql.*" %>
+<%@ page import = "java.util.*" %>
 <% 
-	session.removeAttribute("user");
+  String user = (String)(session.getAttribute("user"));
+  session.invalidate();
+	  %>
+		  <jsp:include page="index.jsp"/>
+	  <%
 %>
 
-<%@include file="index.jsp"%>
+
+</td>
+</tr>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.ssn.worldcup.model;
+package com.ssn.worldcup.manager;
 
 import java.util.List;
 
@@ -6,6 +6,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.ssn.core.utils.Utils;
+import com.ssn.worldcup.model.Tournament;
+import com.ssn.worldcup.model.User;
 
 public class ModelManager {
 
@@ -35,6 +37,12 @@ public class ModelManager {
 		Query query = session.getNamedQuery(User.USER_ALL);
 		List result = query.list();
 		return (List<User>) result;
+	}
+
+	public Tournament findActiveTournament() {
+		Query query = session.getNamedQuery(Tournament.TOURNAMENT_ACTIVE);
+		Tournament result = (Tournament) query.uniqueResult();
+		return result;
 	}
 
 }

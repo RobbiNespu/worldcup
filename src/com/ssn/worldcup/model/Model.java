@@ -1,11 +1,17 @@
 package com.ssn.worldcup.model;
 
+import java.util.List;
+
 public interface Model {
 
-	User checkLogin(String user, String password);
+	public User checkLogin(String user, String password);
 
-	void init();
+	public void init();
 
-	boolean changePassword(String oldUser, String oldPass, String newPass);
+	public boolean changePassword(String oldUser, String oldPass, String newPass);
+
+	public Tournament getActiveTournament();
+
+	public List<User> getUsers();
 
 }

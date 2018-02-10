@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.core.utils.Utils;
+import com.ssn.worldcup.manager.ModelManager;
 
 public class ModelImpl implements Model {
 
@@ -96,6 +97,29 @@ public class ModelImpl implements Model {
 				} else {
 					setReturnValue(false);
 				}
+			}
+		}.run();
+	}
+
+	@Override
+	public Tournament getActiveTournament() {
+		return new WithSessionAndTransaction<Tournament>() {
+
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager mm = new ModelManager(session);
+				setReturnValue(mm.findActiveTournament());
+			}
+		}.run();
+	}
+
+	@Override
+	public List<User> getUsers() {
+		return new WithSessionAndTransaction<List<User>>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				setReturnValue(tm.findAllUsers());
 			}
 		}.run();
 	}
