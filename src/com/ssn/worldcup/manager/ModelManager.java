@@ -45,4 +45,29 @@ public class ModelManager {
 		return result;
 	}
 
+	@SuppressWarnings("rawtypes")
+	public User findUserByUserName(String name) {
+		Query query = session.getNamedQuery(User.USER_BY_NAME);
+		query.setParameter("user", name);
+		List result = query.list();
+
+		if (result.size() == 0) {
+			return null;
+		}
+
+		return (User) result.get(0);
+	}
+
+	public User findUserByEmail(String email) {
+		Query query = session.getNamedQuery(User.USER_BY_EMAIL);
+		query.setParameter("email", email);
+		List result = query.list();
+
+		if (result.size() == 0) {
+			return null;
+		}
+
+		return (User) result.get(0);
+	}
+
 }

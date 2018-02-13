@@ -19,7 +19,7 @@
 				session.setAttribute("user", user);
 		%>
 		<%
-				response.sendRedirect("classification.jsp");
+				response.sendRedirect("settings.jsp");
 		%>
 		<%
 			} else {

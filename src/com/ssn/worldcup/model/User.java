@@ -26,6 +26,7 @@ import com.ssn.core.utils.Utils;
 @Table(name = "PLAYER")
 @NamedQueries({ //
 		@NamedQuery(name = User.USER_BY_NAME, query = "from User where user = :user"), //
+		@NamedQuery(name = User.USER_BY_EMAIL, query = "from User where email = :email"), //
 		@NamedQuery(name = User.USER_ALL, query = "from User"), //
 		@NamedQuery(name = User.USER_BY_NAME_AND_PASS, query = "from User where user = :user and password = :pass"), //
 })
@@ -33,6 +34,7 @@ public class User {
 	public static final String USER_BY_NAME = "User.by.name";
 	public static final String USER_BY_NAME_AND_PASS = "User.by.name.and.pass";
 	public static final String USER_ALL = "Users.all";
+	public static final String USER_BY_EMAIL = "Users.by.email";
 
 	@Id
 	@GeneratedValue(generator = "increment")

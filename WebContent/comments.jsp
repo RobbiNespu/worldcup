@@ -16,6 +16,7 @@
 			<li>Organizatorii isi rezerva dreptul de a sterge userii care nu permit identificarea clara a unui participant (nume, prenume, nick mirc, porecla cunoscuta de toata lumea).</li>
 			<li>Puteti consulta regulamentul <A href="links.jsp">aici</A>.</li-->
 <%
+/*
 Hashtable<String, User> users = Database.getInstance().getUsers();
 Enumeration e = users.elements();
 
@@ -27,7 +28,7 @@ for (;e.hasMoreElements();)
     out.write("<li><SPAN style=\"color: black;\"><B>" + u.name + ": </B><I> " + u.comment.replaceAll(">", "&gt;").replaceAll("<", "&lt;") + "</I></SPAN><BR/></li>");
   }
 }
-
+*/
 %>			
         </ul>
     </div>

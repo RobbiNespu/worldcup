@@ -30,6 +30,15 @@
 <td align=left >
   <input type="password" name="password" value="" />
 </td>
+</tr>
+<tr>
+
+<td class=SIMPLE_TEXT>
+  Email*
+</td>
+<td align=left >
+  <input type="text" name="email" value="@ssi-schaefer.com" /> 
+</td>
 <tr>
 <td class=SIMPLE_TEXT>
   <input type="submit" value="Create user" />

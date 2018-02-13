@@ -123,4 +123,25 @@ public class ModelImpl implements Model {
 			}
 		}.run();
 	}
+
+	@Override
+	public boolean createUser(String name, String password, String email) {
+		return new WithSessionAndTransaction<Boolean>() {
+
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager mm = new ModelManager(session);
+				User foundUser = mm.findUserByUserName(name);
+				User foundEmail = mm.findUserByEmail(email);
+
+				if (foundUser != null || foundEmail != null) {
+					setReturnValue(false);
+				}
+
+				User user = new User(name, password, email, false, false);
+				session.save(user);
+				setReturnValue(true);
+			}
+		}.run();
+	}
 }

@@ -14,4 +14,6 @@ public interface Model {
 
 	public List<User> getUsers();
 
+	public boolean createUser(String name, String password, String email);
+
 }
