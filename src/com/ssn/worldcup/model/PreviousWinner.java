@@ -1,4 +1,4 @@
-package wmdb;
+package com.ssn.worldcup.model;
 
 import java.util.ArrayList;
 

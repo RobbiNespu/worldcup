@@ -2,7 +2,7 @@
 
  */
 
-package wmdb;
+package com.ssn.worldcup.model;
 
 import java.io.Serializable;
 

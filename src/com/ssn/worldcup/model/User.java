@@ -56,10 +56,10 @@ public class User {
 	private List<Tournament> tournaments = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user")
-	private List<WinningTeamForecast> winningTeamForecasts = new ArrayList<>();;
+	private List<WinningTeamForecast> winningTeamForecasts = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user")
-	private List<Forecast> forecasts = new ArrayList<>();;
+	private List<Forecast> forecasts = new ArrayList<>();
 
 	public User() {
 		//

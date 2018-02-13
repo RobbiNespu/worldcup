@@ -1,5 +1,6 @@
 
-<%@ page import = "wmdb.*" %>
+<%@page import="com.ssn.core.ApplicationFactory"%>
+<%@ page import = "com.ssn.worldcup.model.*" %>
 <%@ page import = "java.util.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -48,7 +49,7 @@
 	<%
 	  out.write("<select name=\"teamid\" "+(!before?"":"disabled='true'")+">");
 
-			Vector<Team> vec = 	Database.getInstance().getTeams();
+			Vector<Team> vec = 	ApplicationFactory.getInstance().getModel().getTeams();
 /*      for (int i=0; i<vec.size(); i++){
         Team t = vec.get(i);
         for (int j=i+1; j<vec.size(); j++){
