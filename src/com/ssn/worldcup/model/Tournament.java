@@ -98,4 +98,28 @@ public class Tournament {
 		this.active = active;
 	}
 
+	public List<Match> getMatches() {
+		return matches;
+	}
+
+	public void setMatches(List<Match> matches) {
+		this.matches = matches;
+	}
+
+	public List<WinningTeamForecast> getWinnersForecasts() {
+		return winnersForecasts;
+	}
+
+	public void setWinnersForecasts(List<WinningTeamForecast> winnersForecasts) {
+		this.winnersForecasts = winnersForecasts;
+	}
+
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
+
 }

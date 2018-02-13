@@ -1,11 +1,15 @@
 package com.ssn.worldcup.model;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -40,9 +44,16 @@ public class Match {
 	@JoinColumn(name = "tournament_id", nullable = false)
 	private Tournament tournament;
 
-	public Match(int number, Team team1, Team team2, Tournament tournament) {
+	@OneToMany(mappedBy = "match")
+	private List<Forecast> forecasts;
+
+	@Column(name = "match_date")
+	private Date date;
+
+	public Match(int number, Date date, Team team1, Team team2, Tournament tournament) {
 		super();
 		this.number = number;
+		this.date = date;
 		this.team1 = team1;
 		this.team2 = team2;
 		this.tournament = tournament;
@@ -108,4 +119,52 @@ public class Match {
 		this.tournament = tournament;
 	}
 
+	public List<Forecast> getForecasts() {
+		return forecasts;
+	}
+
+	public void setForecasts(List<Forecast> forecasts) {
+		this.forecasts = forecasts;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public boolean isPlayed() {
+		return score1 > -1;
+	}
+
+	public boolean isWonByTeam1() {
+		return isPlayed() && score1 > score2;
+	}
+
+	public boolean isWonByTeam2() {
+		return isPlayed() && score1 < score2;
+	}
+
+	public boolean isDraw() {
+		return isPlayed() && score1 == score2;
+	}
+
+	public Forecast getForecastByUser(User user) {
+		for (Forecast f : forecasts) {
+			if (f.getUser().equals(user)) {
+				return f;
+			}
+		}
+		return null;
+	}
 }

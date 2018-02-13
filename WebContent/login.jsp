@@ -16,7 +16,7 @@
 
 			User theUser = ApplicationFactory.getInstance().getModel().checkLogin(user, pass);
 			if (user != null) {
-				session.setAttribute("user", user);
+				session.setAttribute("user", theUser);
 		%>
 		<%
 				response.sendRedirect("settings.jsp");

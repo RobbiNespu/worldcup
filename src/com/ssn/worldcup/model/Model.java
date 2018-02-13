@@ -16,4 +16,6 @@ public interface Model {
 
 	public boolean createUser(String name, String password, String email);
 
+	public List<Match> getMatchesForActiveTournament();
+
 }

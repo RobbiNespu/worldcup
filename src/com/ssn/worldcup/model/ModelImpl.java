@@ -1,6 +1,10 @@
 package com.ssn.worldcup.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.Session;
 
@@ -67,10 +71,17 @@ public class ModelImpl implements Model {
 					WinningTeamForecast wDvr = new WinningTeamForecast(raz, tour, rom);
 					session.save(wDvr);
 
-					Match m1 = new Match(1, eng, rom, tour);
-					session.save(m1);
-					Match m2 = new Match(2, ger, fra, tour);
-					session.save(m2);
+					DateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
+					Match m1;
+					Match m2;
+					try {
+						m1 = new Match(1, format.parse("10.06.2018 18:00"), eng, rom, tour);
+						session.save(m1);
+						m2 = new Match(2, format.parse("10.06.2018 21:00"), ger, fra, tour);
+						session.save(m2);
+					} catch (ParseException e) {
+						throw new RuntimeException(e);
+					}
 
 					session.save(new Forecast(raz, m1, 1, 1));
 					session.save(new Forecast(sorin, m1, 0, 1));
@@ -141,6 +152,22 @@ public class ModelImpl implements Model {
 				User user = new User(name, password, email, false, false);
 				session.save(user);
 				setReturnValue(true);
+			}
+		}.run();
+	}
+
+	@Override
+	public List<Match> getMatchesForActiveTournament() {
+		return new WithSessionAndTransaction<List<Match>>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				Tournament tour = tm.findActiveTournament();
+				List<Match> matches = tour.getMatches();
+				for (Match m : matches) {
+					m.getForecasts().toString();
+				}
+				setReturnValue(matches);
 			}
 		}.run();
 	}

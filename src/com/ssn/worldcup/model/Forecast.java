@@ -71,4 +71,27 @@ public class Forecast {
 		this.score2 = score2;
 	}
 
+	public int getBalls() {
+		int result = 0;
+
+		if (match.isPlayed()) {
+			if (match.getScore1() == score1 && match.getScore2() == score2) {
+				result = 3;
+				if (score1 + score2 > 3) {
+					result = score1 + score2;
+				}
+			} else if ((match.isWonByTeam1() && score1 > score2) //
+					|| (match.isWonByTeam2() && score1 < score2) //
+					|| (match.isDraw() && score1 == score2)) {
+				result = 1;
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return user + " " + match;
+	}
 }
