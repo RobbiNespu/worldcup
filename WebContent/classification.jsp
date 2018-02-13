@@ -36,7 +36,7 @@ if (true) return;
 	<center>
 	
 	<% 
-	  String user = (String)(session.getAttribute("user"));
+	  User user = (User)(session.getAttribute("user"));
 	
 	  if (user==null) {
 		  out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
