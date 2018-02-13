@@ -3,3 +3,4 @@
 <%
 out.write(Database.getInstance().users.toString());
 %>
+<%="random" %>
