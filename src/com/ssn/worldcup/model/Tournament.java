@@ -38,6 +38,9 @@ public class Tournament {
 	@OneToMany(mappedBy = "tournament")
 	private List<Match> matches;
 
+	@OneToMany(mappedBy = "tournament")
+	private List<WinningTeamForecast> winnersForecasts;
+
 	private boolean active;
 
 	public Tournament(String name, int year) {
