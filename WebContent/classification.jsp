@@ -29,60 +29,71 @@
 		style='DISPLAY: none; background-color: #FFFFdd; font-family: tahoma; font-size: 2pt; text-align: left; WIDTH: 250px; HEIGHT: 200px; border: 1px solid black; overflow: auto;'
 		runat='server'></div>
 
-		<%
+	<%
 			User user = (User) (session.getAttribute("user"));
 
 			if (user == null) {
 				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
 		%>
-		<jsp:include page="index.jsp" />
-		<%
+	<jsp:include page="index.jsp" />
+	<%
 			} else {
 		%>
-		<jsp:include page="menuHeader.jsp">
-			<jsp:param name="menu" value="0" />
-		</jsp:include>
+	<jsp:include page="menuHeader.jsp">
+		<jsp:param name="menu" value="0" />
+	</jsp:include>
 
-		<table width="100%" onmouseout="tooltip.hide();return;hideDiv();">
-			<tr valign=top>
-				<td width="100%"><table border=1 cellspacing=1 class=TBL>
+	<table width="100%" onmouseout="tooltip.hide();return;hideDiv();">
+		<tr valign=top>
+			<td width="100%"><table border=1 cellspacing=1 class=TBL>
 
-						<tr>
-							<td class=FHCELL>Locul</td>
-							<td class=FHCELL>User</td>
-							<td class=FHCELL title="Numarul de scoruri corecte ghicite">Scoruri</td>
-							<td class=FHCELL
-								title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</td>
-							<td class=FHCELL title="Suma precedentelor doua coloane">S +
-								C</td>
-							<td class=FHCELL
-								title="Reprezinta cate scoruri au fost pronosticate corect din numarul total de meciuri la care castigatoarea a fost pronosticata corect.">Noroc</td>
-							<td class=FHCELL title="Numarul punctelor 'normale'">Puncte</td>
-							<td class=FHCELL title="Numarul punctelor bonus">Pct. bonus</td>
-							<td class=FHCELL title="Echipa favorita aleasa">Favorita</td>
-							<td class=FHCELL
-								title="Numarul total de puncte (puncte+puncte bonus)">Total</td>
-						</tr>
-						<%
+					<tr>
+						<td class=FHCELL>Locul</td>
+						<td class=FHCELL>User</td>
+						<td class=FHCELL title="Numarul de scoruri corecte ghicite">Scoruri</td>
+						<td class=FHCELL
+							title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</td>
+						<td class=FHCELL title="Suma precedentelor doua coloane">S +
+							C</td>
+						<td class=FHCELL
+							title="Reprezinta cate scoruri au fost pronosticate corect din numarul total de meciuri la care castigatoarea a fost pronosticata corect.">Noroc</td>
+						<td class=FHCELL title="Numarul punctelor 'normale'">Puncte</td>
+						<td class=FHCELL title="Numarul punctelor bonus">Pct. bonus</td>
+						<td class=FHCELL title="Echipa favorita aleasa">Favorita</td>
+						<td class=FHCELL
+							title="Numarul punctelor bonus pentru echipa favorita">Bonus
+							favorita</td>
+						<td class=FHCELL
+							title="Numarul total de puncte (puncte+puncte bonus)">Total</td>
+					</tr>
+					<%
 							int counter = 0;
 								List<Classification> vec = ApplicationFactory.getInstance().getModel().getClassification();
 
 								for (Classification c : vec) {
 									counter++;
 						%>
-						<TR>
-							<td><%=counter%></td>
-							<td><%=c.getName()%></td>
-							<td><%=c.getScores()%></td>
-							<td><%=c.getWinners()%></td>
-						</TR>
+					<TR>
+						<td><%=counter%></td>
+						<td><%=c.getName()%></td>
+						<td><%=c.getScores()%></td>
+						<td><%=c.getWinners()%></td>
+						<td><%=c.getScores()+c.getWinners()%></td>
+						<td><%=c.getScores()+c.getWinners() > 0 ? 100*c.getScores()/(c.getScores()+c.getWinners()) : 0%>%</td>
+						<td><%=c.getWinners()+c.getScores()*3%></td>
+						<td><%=c.getScoreBonus()%></td>
+						<td><%=c.getBonusTeam()%></td>
+						<td><%=c.getTeamBonus()%></td>
+						<td><%=c.getTeamBonus()+c.getScoreBonus()+c.getWinners()+c.getScores()*3%></td>
 
-						<%
+					</TR>
+
+					<%
 							}
 							}
 						%>
 
-					</table>
-		</table>
+				</table>
+	</table>
 </body>
 </html>

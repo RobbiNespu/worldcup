@@ -66,18 +66,22 @@ public class ModelImpl implements Model {
 
 					WinningTeamForecast wRaz = new WinningTeamForecast(raz, tour, rom);
 					session.save(wRaz);
-					WinningTeamForecast wSor = new WinningTeamForecast(raz, tour, rom);
+					WinningTeamForecast wSor = new WinningTeamForecast(sorin, tour, ger);
 					session.save(wSor);
-					WinningTeamForecast wDvr = new WinningTeamForecast(raz, tour, rom);
+					WinningTeamForecast wDvr = new WinningTeamForecast(dvr, tour, eng);
 					session.save(wDvr);
 
 					DateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
 					Match m1;
 					Match m2;
 					try {
-						m1 = new Match(1, format.parse("10.06.2018 18:00"), eng, rom, tour);
+						m1 = new Match(1, format.parse("10.06.2018 18:00"), eng, rom, tour, 1, 1);
+						m1.setScore1(5);
+						m1.setScore1(0);
 						session.save(m1);
-						m2 = new Match(2, format.parse("10.06.2018 21:00"), ger, fra, tour);
+						m2 = new Match(2, format.parse("10.06.2018 21:00"), ger, fra, tour, 1, 1);
+						m2.setScore1(5);
+						m2.setScore1(0);
 						session.save(m2);
 					} catch (ParseException e) {
 						throw new RuntimeException(e);
@@ -85,7 +89,7 @@ public class ModelImpl implements Model {
 
 					session.save(new Forecast(raz, m1, 1, 1));
 					session.save(new Forecast(sorin, m1, 0, 1));
-					session.save(new Forecast(dvr, m1, 1, 0));
+					session.save(new Forecast(dvr, m1, 5, 0));
 					session.save(new Forecast(raz, m2, 2, 1));
 
 				}

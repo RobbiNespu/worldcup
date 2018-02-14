@@ -21,7 +21,11 @@ public class Classification {
 
 	private int scores;
 
-	private int total;
+	private int scoreBonus;
+
+	private String bonusTeam;
+
+	private int teamBonus;
 
 	public Classification() {
 		//
@@ -59,12 +63,28 @@ public class Classification {
 		this.scores = scores;
 	}
 
-	public int getTotal() {
-		return total;
+	public int getScoreBonus() {
+		return scoreBonus;
 	}
 
-	public void setTotal(int total) {
-		this.total = total;
+	public void setScoreBonus(int bonus) {
+		this.scoreBonus = bonus;
+	}
+
+	public String getBonusTeam() {
+		return bonusTeam;
+	}
+
+	public void setBonusTeam(String bonusTeam) {
+		this.bonusTeam = bonusTeam;
+	}
+
+	public int getTeamBonus() {
+		return teamBonus;
+	}
+
+	public void setTeamBonus(int teamBonus) {
+		this.teamBonus = teamBonus;
 	}
 
 }

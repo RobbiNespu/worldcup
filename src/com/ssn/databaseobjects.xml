@@ -7,21 +7,35 @@
 		<create>
 			create or replace view vw_results as
 			select
-			u.id id, u.USERNAME username, m.id mid, f.SCORE1 fsc1, f.score2 fsc2,
-			m.score1 msc1, m.score2 msc2,
-			sign(f.score1-f.score2) dif_f, sign(m.score1-m.score2) dif_m,
-			decode (sign (sign(f.score1-f.score2) - sign(m.score1-m.score2)), 0, 1, 0)
+			u.id id, u.USERNAME
+			username,
+			m.id mid, f.SCORE1 fsc1, f.score2 fsc2,
+			m.score1 msc1,
+			m.score2 msc2,
+			sign(f.score1-f.score2) dif_f, sign(m.score1-m.score2)
+			dif_m,
+			decode
+			(sign (sign(f.score1-f.score2) -
+			sign(m.score1-m.score2)), 0, 1, 0)
 			points,
-			case when f.score1=m.score1 and f.score2=m.score2 and m.score1 + m.score2 &lt; 4
-			then 2
-			when f.score1=m.score1 and f.score2=m.score2 and m.score1+m.score2>=4
-			then m.score1+m.score2-1
-			else 0 end scorepoints
-			from forecast f
-			inner join match m
+			case when f.score1=m.score1
+			and f.score2=m.score2
+			then 1
+			else 0
+			end scores,
+			case when
+			f.score1=m.score1 and f.score2=m.score2 and
+			m.score1 + m.score2 >= 4
+			then m.score1+m.score2-3
+			else 0 end bonus
+			from
+			forecast f
+			inner join
+			match m
 			on m.id=f.match_id
 			inner join player u
-			on u.id = f.user_id
+			on
+			u.id = f.user_id
 
 		</create>
 
@@ -29,13 +43,58 @@
 			drop view vw_results
 		</drop>
 	</database-object>
+
 	<database-object>
 		<create>
-			create or replace view vw_classification as
-			select id, username name, sum(points) winners, sum(scorepoints) scores,
-			sum(points) + sum(scorepoints) total from vw_results
-			group by id, username
+			create or replace view vw_scores as
+			select vwr.id, vwr.username name, sum(points) winners, sum(scores) scores,
+			sum(bonus) scorebonus,
+			sum(points) + sum(scores) +sum(bonus) total
+			from vw_results vwr
+			left outer join winningteamforecast wtf
+			on vwr.id=wtf.USER_ID
+			group by vwr.id, vwr.username
 			order by total desc
+		</create>
+
+
+		<drop>
+			drop view vw_scores
+		</drop>
+	</database-object>
+
+	<database-object>
+		<create>
+			create or replace view vw_teams as
+			select id, name, sum(presenceValue) + sum(victoryValue) total from (
+			select t.id, name, m.presenceValue, decode (sign(m.SCORE1-m.SCORE2), 1,
+			m.victoryValue, 0) victoryValue
+			from team t
+			inner join match m
+			on m.TEAM1_ID=t.id
+			union all
+			select t.id, name, m.presenceValue, decode (sign(m.SCORE2-m.SCORE1), 1,
+			m.victoryValue, 0) victoryValue
+			from team t
+			inner join match m
+			on m.TEAM2_ID=t.id)
+			group by id, name
+		</create>
+
+
+		<drop>
+			drop view vw_teams
+		</drop>
+	</database-object>
+	<database-object>
+		<create>
+			create or replace view vw_classification as            
+            select vs.*, vt.name bonusteam, vt.total teambonus
+            from vw_scores vs
+            inner join winningteamforecast wtf
+            on wtf.user_id=vs.ID
+            inner join vw_teams vt
+            on vt.id=wtf.team_id
 		</create>
 
 
@@ -43,4 +102,6 @@
 			drop view vw_classification
 		</drop>
 	</database-object>
+
+
 </hibernate-mapping>

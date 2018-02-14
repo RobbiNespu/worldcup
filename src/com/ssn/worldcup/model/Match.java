@@ -50,13 +50,28 @@ public class Match {
 	@Column(name = "match_date")
 	private Date date;
 
-	public Match(int number, Date date, Team team1, Team team2, Tournament tournament) {
+	private int presenceValue;
+
+	private int victoryValue;
+
+	/**
+	 * 1 if team1 goes further, 2 if team2 goes further, any other value if the
+	 * value is not relevant
+	 */
+	private int goesFurther;
+
+	public Match(int number, Date date, Team team1, Team team2, Tournament tournament, int presenceValue,
+			int victoryValue) {
 		super();
 		this.number = number;
 		this.date = date;
 		this.team1 = team1;
 		this.team2 = team2;
 		this.tournament = tournament;
+		this.presenceValue = presenceValue;
+		this.victoryValue = victoryValue;
+		this.score1 = -1;
+		this.score2 = -1;
 	}
 
 	public Match() {
@@ -166,5 +181,29 @@ public class Match {
 			}
 		}
 		return null;
+	}
+
+	public int getPresenceValue() {
+		return presenceValue;
+	}
+
+	public void setPresenceValue(int presenceValue) {
+		this.presenceValue = presenceValue;
+	}
+
+	public int getVictoryValue() {
+		return victoryValue;
+	}
+
+	public void setVictoryValue(int victoryValue) {
+		this.victoryValue = victoryValue;
+	}
+
+	public int getGoesFurther() {
+		return goesFurther;
+	}
+
+	public void setGoesFurther(int goesFurther) {
+		this.goesFurther = goesFurther;
 	}
 }

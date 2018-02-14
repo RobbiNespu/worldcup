@@ -20,6 +20,8 @@ public class Team {
 	@JoinColumn(name = "tournament_id", nullable = false)
 	private Tournament tournament;
 
+	private boolean eliminated;
+
 	public Team() {
 		//
 	}
@@ -52,6 +54,14 @@ public class Team {
 
 	public void setTournament(Tournament tournament) {
 		this.tournament = tournament;
+	}
+
+	public boolean isEliminated() {
+		return eliminated;
+	}
+
+	public void setEliminated(boolean eliminated) {
+		this.eliminated = eliminated;
 	}
 
 }
