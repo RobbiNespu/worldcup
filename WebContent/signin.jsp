@@ -32,6 +32,14 @@
 </td>
 </tr>
 <tr>
+<td class=SIMPLE_TEXT>
+   Confirm Password*
+</td>
+<td align=left >
+  <input type="password" name="confirmPassword" value="" />
+</td>
+</tr>
+<tr>
 
 <td class=SIMPLE_TEXT>
   Email*

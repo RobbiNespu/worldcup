@@ -1,6 +1,5 @@
- <%@ page import = "wmdb.*" %>
+ <%@ page import = "com.ssn.core.*" %>
 <%@ page import = "java.util.*" %>
 <%
-out.write(Database.getInstance().users.toString());
+out.write(ApplicationFactory.getInstance().getModel().getUsers().toString());
 %>
-<%="random2" %>
