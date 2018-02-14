@@ -18,4 +18,6 @@ public interface Model {
 
 	public List<Match> getMatchesForActiveTournament();
 
+	public List<Classification> getClassification();
+
 }

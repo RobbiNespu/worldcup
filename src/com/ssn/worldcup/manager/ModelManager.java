@@ -3,9 +3,11 @@ package com.ssn.worldcup.manager;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import com.ssn.core.utils.Utils;
+import com.ssn.worldcup.model.Classification;
 import com.ssn.worldcup.model.Tournament;
 import com.ssn.worldcup.model.User;
 
@@ -68,6 +70,12 @@ public class ModelManager {
 		}
 
 		return (User) result.get(0);
+	}
+
+	public List<Classification> getClassification() {
+		SQLQuery query = session.createSQLQuery("select * from vw_classification").addEntity(Classification.class);
+		List list = query.list();
+		return list;
 	}
 
 }

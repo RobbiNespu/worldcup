@@ -171,4 +171,15 @@ public class ModelImpl implements Model {
 			}
 		}.run();
 	}
+
+	@Override
+	public List<Classification> getClassification() {
+		return new WithSessionAndTransaction<List<Classification>>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				setReturnValue(tm.getClassification());
+			}
+		}.run();
+	}
 }
