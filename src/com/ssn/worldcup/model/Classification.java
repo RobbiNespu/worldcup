@@ -25,7 +25,7 @@ public class Classification {
 
 	private String bonusTeam;
 
-	private int teamBonus;
+	private Integer teamBonus;
 
 	public Classification() {
 		//
@@ -79,11 +79,11 @@ public class Classification {
 		this.bonusTeam = bonusTeam;
 	}
 
-	public int getTeamBonus() {
-		return teamBonus;
+	public Integer getTeamBonus() {
+		return teamBonus == null ? 0 : teamBonus;
 	}
 
-	public void setTeamBonus(int teamBonus) {
+	public void setTeamBonus(Integer teamBonus) {
 		this.teamBonus = teamBonus;
 	}
 

@@ -80,11 +80,11 @@
 						<td><%=c.getWinners()%></td>
 						<td><%=c.getScores()+c.getWinners()%></td>
 						<td><%=c.getScores()+c.getWinners() > 0 ? 100*c.getScores()/(c.getScores()+c.getWinners()) : 0%>%</td>
-						<td><%=c.getWinners()+c.getScores()*3%></td>
+						<td><%=c.getWinners()+c.getScores()*2%></td>
 						<td><%=c.getScoreBonus()%></td>
 						<td><%=c.getBonusTeam()%></td>
-						<td><%=c.getTeamBonus()%></td>
-						<td><%=c.getTeamBonus()+c.getScoreBonus()+c.getWinners()+c.getScores()*3%></td>
+						<td><%=c.getTeamBonus().toString()%></td>
+						<td><%=c.getTeamBonus().intValue()+c.getScoreBonus()+c.getWinners()+c.getScores()*2%></td>
 
 					</TR>
 

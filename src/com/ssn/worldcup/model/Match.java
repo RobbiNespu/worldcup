@@ -9,13 +9,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@NamedQueries({ //
+		@NamedQuery(name = Match.BY_TOURNAMENT_AND_NUMBER, query = "from Match where tournament = :tournament and number = :number") //
+})
 public class Match {
+	public static final String BY_TOURNAMENT_AND_NUMBER = "match.by.tour.and.number";
+
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
@@ -66,11 +73,12 @@ public class Match {
 	 */
 	private int goesFurther;
 
-	public Match(int number, Date date, Team team1, Team team2, Tournament tournament, int presenceValue,
+	public Match(int number, Date date, String stage, Team team1, Team team2, Tournament tournament, int presenceValue,
 			int victoryValue) {
 		super();
 		this.number = number;
 		this.date = date;
+		this.stage = stage;
 		this.team1 = team1;
 		this.team2 = team2;
 		this.tournament = tournament;
@@ -80,11 +88,12 @@ public class Match {
 		this.score2 = -1;
 	}
 
-	public Match(int number, Date date, String team1PlaceHolder, String team2PlaceHolder, Tournament tournament,
-			int presenceValue, int victoryValue) {
+	public Match(int number, Date date, String stage, String team1PlaceHolder, String team2PlaceHolder,
+			Tournament tournament, int presenceValue, int victoryValue) {
 		super();
 		this.number = number;
 		this.date = date;
+		this.stage = stage;
 		this.team1PlaceHolder = team1PlaceHolder;
 		this.team2PlaceHolder = team2PlaceHolder;
 		this.tournament = tournament;

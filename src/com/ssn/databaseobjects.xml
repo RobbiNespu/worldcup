@@ -90,10 +90,10 @@
 		<create>
 			create or replace view vw_classification as            
             select vs.*, vt.name bonusteam, vt.total teambonus
-            from vw_scores vs
-            inner join winningteamforecast wtf
-            on wtf.user_id=vs.ID
-            inner join vw_teams vt
+            from vw_scores vs            
+            left outer join winningteamforecast wtf
+            on wtf.user_id=vs.ID            
+            left outer join vw_teams vt
             on vt.id=wtf.team_id
 		</create>
 

@@ -7,7 +7,6 @@
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
 <% 
-  String user = (String)(session.getAttribute("user"));
   session.invalidate();
 	  %>
 		  <jsp:include page="index.jsp"/>

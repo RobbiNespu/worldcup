@@ -5,11 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@NamedQueries({ //
+		@NamedQuery(name = Forecast.BY_MATCH_AND_USER, query = "from Forecast where match = :match and user = :user") //
+})
 public class Forecast {
+	public static final String BY_MATCH_AND_USER = "Forecast.by.match.and.user";
+
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")

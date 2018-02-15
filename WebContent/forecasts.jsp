@@ -34,7 +34,7 @@
 		<%
 			User user = (User) (session.getAttribute("user"));
 
-		 DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
 
 			if (user == null) {
 				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
@@ -59,42 +59,99 @@
 					%>
 				
 			<tr>
-				<td class=FHCELL>Numar</td>
+				<td class=FHCELL>Nr</td>
 				<td class=FHCELL>Data</td>
 				<td class=FHCELL>Turul</td>
 				<td class=FHCELL>Echipa 1</td>
 				<td class=FHCELL>Echipa 2</td>
-				<td class=FHCELL>Scor final</td>
+				<td class=FHCELL>Final</td>
 				<td class=FHCELL colspan=2>Scorul tau</td>
 				<td class=FHCELL>Puncte</td>
 				<!-- td class=FHCELL>Value</td-->
 			</tr>
 			<%
-				List<Match> vec = ApplicationFactory.getInstance().getModel().getMatchesForActiveTournament(); 
+				List<Match> vec = ApplicationFactory.getInstance().getModel().getMatchesForActiveTournament();
 					for (Match m : vec) {
 						counter++;
-						Forecast f = m.getForecastByUser(user); 
-						//Forecast f = ApplicationFactory.getInstance().getForecast(user, "" + m.id);
+						Forecast f = m.getForecastByUser(user);
+
 						if (f == null) {
-							f = new Forecast(user, m, -1, -1);
+							// create a dummy forecast if there is no forecast to make displaying easier
+							f = new Forecast(user, m, -1, -1) {
+								public int getBalls(){
+									return 0;
+								}
+							};
 						}
-						/*
-						String matchID = "" + m.getId();
-						//String stage = m.phase;
-						String t1 = m.getTeam1().getName();
-						String t2 = m.getTeam2().getName();
-						String g1 = (m.getScore1() != -1 ? "" + m.getScore1() : null);
-						String g2 = (m.getScore2() != -1 ? "" + m.getScore2() : null);
-						String fg1 = (f.getScore1() != -1 ? "" + f.getScore1() : null);
-						String fg2 = (f.getScore2() != -1 ? "" + f.getScore2() : null);
+			%>
 
-						int balls = f.getBalls(); 
+			<tr class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>"
+				title="test">
+				<td><%=m.getNumber()%><input name="ch<%=m.getNumber() %>" id="ch<%=m.getNumber() %>" type="hidden" value="false" /></td>
+				<td><%=dateFormat.format(m.getDate())%></td>
+				<td><%=m.getStage()%></td>
 
-						Calendar cal = new GregorianCalendar();
-						Date matchDate = m.getDate(); 
-						cal.setTime(matchDate);
-						boolean before = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
-*/
+				<td><%=m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()%>
+				</td>
+
+				<td><%=m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()%>
+				</td>
+
+				<td><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
+				</td>
+
+				<%
+					Calendar cal = new GregorianCalendar();
+							Date matchDate = m.getDate();
+							cal.setTime(matchDate);
+							boolean after = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
+							if (!after) {
+				%>
+				<td class="FCELL"><input class="ROWINP"
+					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
+					type="text" name="fa<%=m.getId()%>" size="1"
+					value="<%=(f.getScore1() != -1 ? f.getScore1() : "")%>"></input></td>
+				<td class="FCELL"><input class="ROWINP"
+					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
+					type="text" name="fb<%=m.getId()%>" size="1"
+					value="<%=(f.getScore2() != -1 ? f.getScore2() : "")%>"></input></td>
+				<%
+					} else {
+				%>
+				<td colspan="2"><%=f.getScore1()%> - <%=f.getScore2()%></td>
+				<%
+					}
+				%>
+
+				<td>
+				<% 
+						for (int j = 0; j < f.getBalls(); j++) {
+							%>
+							<IMG width="12" height="12" src='img/ball.png'/>
+							<%
+						}
+				%>
+				</td>
+			</tr>
+
+			<%
+				/*
+												String matchID = "" + m.getId();
+												//String stage = m.phase;
+												String t1 = m.getTeam1().getName();
+												String t2 = m.getTeam2().getName();
+												String g1 = (m.getScore1() != -1 ? "" + m.getScore1() : null);
+												String g2 = (m.getScore2() != -1 ? "" + m.getScore2() : null);
+												String fg1 = (f.getScore1() != -1 ? "" + f.getScore1() : null);
+												String fg2 = (f.getScore2() != -1 ? "" + f.getScore2() : null);
+												
+												int balls = f.getBalls(); 
+												
+												Calendar cal = new GregorianCalendar();
+												Date matchDate = m.getDate(); 
+												cal.setTime(matchDate);
+												boolean before = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
+												*/
 						// 
 						/*
 						String title = "";
@@ -105,21 +162,21 @@
 						int total1 = 0;
 						int totalx = 0;
 						int total2 = 0;
-
+						
 						while (enUsers.hasMoreElements()) {
 							User u = db.getUsers().get(enUsers.nextElement());
 							Forecast fore = db.getForecast(u.name, "" + m.id);
 							if (fore != null) {
 								total++;
 								String key = fore.g1 + "-" + fore.g2;
-
+						
 								if (fore.g1 > fore.g2) {
 									total1++;
 								} else if (fore.g1 < fore.g2) {
 									total2++;
 								} else
 									totalx++;
-
+						
 								if (ht.containsKey(key)) {
 									int count = ht.get(key).intValue();
 									count++;
@@ -129,7 +186,7 @@
 								}
 							}
 						}
-
+						
 						DecimalFormat df = new DecimalFormat("#.##");
 						Enumeration en = ht.keys();
 						while (en.hasMoreElements()) {
@@ -141,7 +198,7 @@
 								title += (n + " x (" + s + ") = " + (df.format(n * 100.0 / total)) + "%\n");
 							}
 						}
-
+						
 						int totalsum = total1 + totalx + total2;
 						if (totalsum != 0) {
 							title += "----------------------\n";
@@ -153,7 +210,7 @@
 							title += m.t2 + " " + df.format(100.0 * total2 / totalsum) + "%" + "\n";
 							//title+=(""+df.format(100.0/p1)+"-"+df.format(100.0/px)+"-"+df.format(100.0/p2));
 						}
-
+						
 						String bonus = Database.getInstance().getBonusTeam(user);
 						out.write("<tr class=ROW" + ((counter % 2 == 1) ? "ODD" : "EVEN") + " title='" + title + "'>");
 						out.write("<td class=FCELL>" + matchID + "<input name=ch" + matchID + " id=ch" + matchID
@@ -182,7 +239,7 @@
 							out.write("<IMG width=12 height=12 src='ball.png' />");
 						}
 						out.write("</td>");
-
+						
 						/* // match value
 							out.write("<td>");
 							for (int j=0; j<m.getMatchValue(); j++)  
@@ -193,36 +250,10 @@
 						
 						out.write("</tr>");
 						*/
-						
-						%>
-						<tr class=ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%> title="test">						
-						<td>
-						<%=m.getNumber() %>
-						</td>
-						<td>
-						<%=dateFormat.format(m.getDate()) %>
-						</td>
-						<td>
-						<%="" %>
-						</td>
-						<td>
-						<%=m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder() %>
-						</td>
-						<td>
-						<%=m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder() %>
-						</td>
-						<td>
-						<%=m.getScore1() %> - <%=m.getScore2() %> 
-						</td>
-						<td colspan="2">
-						<%=f.getScore1() %> - <%=f.getScore2() %> 
-						</td>
-						<td>
-						<%=f.getBalls() %> 
-						</td>
-						</tr>
-						<% 
-					}
+			%>
+
+			<%
+				}
 
 					out.write("</table>");
 					out.write("</form>");

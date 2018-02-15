@@ -149,10 +149,12 @@ public class ModelImpl implements Model {
 					team2db = new Team(team2, tour);
 					session.save(team2db);
 				}
-				Match m = new Match(number, date, team1db, team2db, tour, presenceValue, victoryValue);
+				Match m = new Match(number, date, stage, team1db, team2db, tour, presenceValue, victoryValue);
+				m.setScore1((int) (5.0 * Math.random()));
+				m.setScore2((int) (5.0 * Math.random()));
 				session.save(m);
 			} else {
-				Match m = new Match(number, date, team1, team2, tour, presenceValue, victoryValue);
+				Match m = new Match(number, date, stage, team1, team2, tour, presenceValue, victoryValue);
 				session.save(m);
 			}
 		} catch (ParseException e) {
@@ -245,6 +247,30 @@ public class ModelImpl implements Model {
 			protected void executeBusinessLogic(Session session) {
 				ModelManager tm = new ModelManager(session);
 				setReturnValue(tm.getClassification());
+			}
+		}.run();
+	}
+
+	@Override
+	public boolean setForecast(User user, int number, int score1, int score2) {
+		return new WithSessionAndTransaction<Boolean>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				Tournament tour = tm.findActiveTournament();
+				session.merge(user);
+				Match match = tm.findMatchByTournamentAndNumber(tour, number);
+
+				Forecast forecast = tm.findForecastByMatchAndUser(match, user);
+				if (forecast == null) {
+					forecast = new Forecast(user, match, score1, score2);
+					session.save(forecast);
+				} else {
+					forecast.setScore1(score1);
+					forecast.setScore2(score2);
+				}
+
+				setReturnValue(true);
 			}
 		}.run();
 	}

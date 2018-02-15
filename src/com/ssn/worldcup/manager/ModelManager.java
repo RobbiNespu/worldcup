@@ -8,6 +8,8 @@ import org.hibernate.Session;
 
 import com.ssn.core.utils.Utils;
 import com.ssn.worldcup.model.Classification;
+import com.ssn.worldcup.model.Forecast;
+import com.ssn.worldcup.model.Match;
 import com.ssn.worldcup.model.Team;
 import com.ssn.worldcup.model.Tournament;
 import com.ssn.worldcup.model.User;
@@ -89,6 +91,32 @@ public class ModelManager {
 		}
 
 		return (Team) result.get(0);
+	}
+
+	public Match findMatchByTournamentAndNumber(Tournament tour, int number) {
+		Query query = session.getNamedQuery(Match.BY_TOURNAMENT_AND_NUMBER);
+		query.setParameter("tournament", tour);
+		query.setParameter("number", number);
+		List result = query.list();
+
+		if (result.size() == 0) {
+			return null;
+		}
+
+		return (Match) result.get(0);
+	}
+
+	public Forecast findForecastByMatchAndUser(Match match, User user) {
+		Query query = session.getNamedQuery(Forecast.BY_MATCH_AND_USER);
+		query.setParameter("match", match);
+		query.setParameter("user", user);
+		List result = query.list();
+
+		if (result.size() == 0) {
+			return null;
+		}
+
+		return (Forecast) result.get(0);
 	}
 
 }
