@@ -190,7 +190,7 @@ a
 }
 
 .ROWODD {
-    background-color:#F1FF59;
+    background-color:#ffbfc8;
 	cursor: default;
 }
 .ROWODD2 {
@@ -198,7 +198,7 @@ a
 	cursor: default;
 }
 .ROWEVEN {
-    background-color:#6DFF59;
+    background-color:#ffffff;
     
 	cursor: default;
 } 

@@ -128,7 +128,7 @@ public class ModelImpl implements Model {
 	private void importMatch(Session session, String s, Tournament tour) {
 		ModelManager mm = new ModelManager(session);
 		try {
-			DateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
+			DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
 			String[] splits = s.split(",");
 			int number = Integer.parseInt(splits[0].trim());
 			String stage = splits[1].trim();

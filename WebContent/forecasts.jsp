@@ -34,6 +34,8 @@
 		<%
 			User user = (User) (session.getAttribute("user"));
 
+		 DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+
 			if (user == null) {
 				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
 		%>
@@ -198,7 +200,7 @@
 						<%=m.getNumber() %>
 						</td>
 						<td>
-						<%=m.getDate() %>
+						<%=dateFormat.format(m.getDate()) %>
 						</td>
 						<td>
 						<%="" %>
