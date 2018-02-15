@@ -15,6 +15,9 @@
 			String ip = request.getRemoteAddr();
 
 			User theUser = ApplicationFactory.getInstance().getModel().checkLogin(user, pass);
+			if(theUser.isValidated()){
+				
+			
 			if (user != null) {
 				session.setAttribute("user", theUser);
 		%>
@@ -26,13 +29,13 @@
 				out.write("<SPAN class=SIMPLE_TEXT_ERROR>Unknown user or wrong password. ");
 				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
 			}
-			/*
-			} else if (result == -2) {
+			
+			} else {
 				out.write(
 						"<SPAN class=SIMPLE_TEXT_ERROR>Your account was not validated yet. Please reply to the validation mail. ");
 				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
 			}
-			*/
+			
 		%>
 	
 </body>

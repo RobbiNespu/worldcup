@@ -48,9 +48,9 @@ public class ModelImpl implements Model {
 				if (findAllUsers.size() == 0) {
 					User raz = new User("raz", "raz", "razvan.veina@ss-schaefer.com", true, true);
 					session.save(raz);
-					User sorin = new User("sorin", "sorin", "razvan.veina@ss-schaefer.com", false, true);
+					User sorin = new User("sorin", "sorin", "razvan.veina@ss-schaefer.com", false, false);
 					session.save(sorin);
-					User dvr = new User("dvr", "dvr", "razvan.veina@ss-schaefer.com", false, true);
+					User dvr = new User("dvr", "dvr", "razvan.veina@ss-schaefer.com", false, false);
 					session.save(dvr);
 
 					Tournament tour = new Tournament("World Cup", 2018);
@@ -271,6 +271,31 @@ public class ModelImpl implements Model {
 				}
 
 				setReturnValue(true);
+			}
+		}.run();
+	}
+	
+	
+	@Override
+	public User getUserByName(String name) {
+		return new WithSessionAndTransaction<User>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				setReturnValue(tm.findUserByUserName(name));
+			}
+		}.run();
+	}
+
+	@Override
+	public void setUserActivated(User user, boolean validated) {
+		 new WithSessionAndTransaction() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				User userLocal=tm.findUserByUserName(user.getUser());
+				userLocal.setValidated(validated);
+				session.update(userLocal);
 			}
 		}.run();
 	}

@@ -21,5 +21,10 @@ public interface Model {
 	public List<Classification> getClassification();
 
 	public boolean setForecast(User user, int number, int score1, int score2);
+	
+public User getUserByName(String name);
+
+	
+	public void setUserActivated(User user, boolean activated); 
 
 }
