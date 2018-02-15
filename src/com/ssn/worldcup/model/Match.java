@@ -25,11 +25,11 @@ public class Match {
 	private int number;
 
 	@OneToOne()
-	@JoinColumn(name = "team1_id", nullable = false)
+	@JoinColumn(name = "team1_id", nullable = true)
 	private Team team1;
 
 	@OneToOne()
-	@JoinColumn(name = "team2_id", nullable = false)
+	@JoinColumn(name = "team2_id", nullable = true)
 	private Team team2;
 
 	private int score1;
@@ -54,6 +54,12 @@ public class Match {
 
 	private int victoryValue;
 
+	private String stage;
+
+	private String team1PlaceHolder;
+
+	private String team2PlaceHolder;
+
 	/**
 	 * 1 if team1 goes further, 2 if team2 goes further, any other value if the
 	 * value is not relevant
@@ -67,6 +73,20 @@ public class Match {
 		this.date = date;
 		this.team1 = team1;
 		this.team2 = team2;
+		this.tournament = tournament;
+		this.presenceValue = presenceValue;
+		this.victoryValue = victoryValue;
+		this.score1 = -1;
+		this.score2 = -1;
+	}
+
+	public Match(int number, Date date, String team1PlaceHolder, String team2PlaceHolder, Tournament tournament,
+			int presenceValue, int victoryValue) {
+		super();
+		this.number = number;
+		this.date = date;
+		this.team1PlaceHolder = team1PlaceHolder;
+		this.team2PlaceHolder = team2PlaceHolder;
 		this.tournament = tournament;
 		this.presenceValue = presenceValue;
 		this.victoryValue = victoryValue;
@@ -205,5 +225,29 @@ public class Match {
 
 	public void setGoesFurther(int goesFurther) {
 		this.goesFurther = goesFurther;
+	}
+
+	public String getStage() {
+		return stage;
+	}
+
+	public void setStage(String stage) {
+		this.stage = stage;
+	}
+
+	public String getTeam1PlaceHolder() {
+		return team1PlaceHolder;
+	}
+
+	public void setTeam1PlaceHolder(String team1PlaceHolder) {
+		this.team1PlaceHolder = team1PlaceHolder;
+	}
+
+	public String getTeam2PlaceHolder() {
+		return team2PlaceHolder;
+	}
+
+	public void setTeam2PlaceHolder(String team2PlaceHolder) {
+		this.team2PlaceHolder = team2PlaceHolder;
 	}
 }

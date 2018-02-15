@@ -5,11 +5,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@NamedQueries({ //
+		@NamedQuery(name = Team.TEAM_BY_NAME, query = "from Team where name = :name"), //
+		@NamedQuery(name = Team.TEAM_ALL, query = "from Team") //
+})
 public class Team {
+	public static final String TEAM_BY_NAME = "team.by.name";
+	public static final String TEAM_ALL = "team.all";
+
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")

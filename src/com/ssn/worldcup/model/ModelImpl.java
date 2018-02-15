@@ -1,8 +1,14 @@
 package com.ssn.worldcup.model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,47 +61,103 @@ public class ModelImpl implements Model {
 					sorin.getTournaments().add(tour);
 					dvr.getTournaments().add(tour);
 
-					Team eng = new Team("England", tour);
-					session.save(eng);
-					Team rom = new Team("Romania", tour);
-					session.save(rom);
-					Team ger = new Team("Germany", tour);
-					session.save(ger);
-					Team fra = new Team("France", tour);
-					session.save(fra);
+					importTeamsAndMatches(session, tour);
 
-					WinningTeamForecast wRaz = new WinningTeamForecast(raz, tour, rom);
-					session.save(wRaz);
-					WinningTeamForecast wSor = new WinningTeamForecast(sorin, tour, ger);
-					session.save(wSor);
-					WinningTeamForecast wDvr = new WinningTeamForecast(dvr, tour, eng);
-					session.save(wDvr);
+					// Team eng = new Team("Rusia", tour);
+					// session.save(eng);
+					// Team rom = new Team("Arabia Saudita", tour);
+					// session.save(rom);
+					// Team ger = new Team("Egipt", tour);
+					// session.save(ger);
+					// Team fra = new Team("Uruguay", tour);
+					// session.save(fra);
 
-					DateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
-					Match m1;
-					Match m2;
-					try {
-						m1 = new Match(1, format.parse("10.06.2018 18:00"), eng, rom, tour, 1, 1);
-						m1.setScore1(5);
-						m1.setScore1(0);
-						session.save(m1);
-						m2 = new Match(2, format.parse("10.06.2018 21:00"), ger, fra, tour, 1, 1);
-						m2.setScore1(5);
-						m2.setScore1(0);
-						session.save(m2);
-					} catch (ParseException e) {
-						throw new RuntimeException(e);
-					}
+					// WinningTeamForecast wRaz = new WinningTeamForecast(raz,
+					// tour, rom);
+					// session.save(wRaz);
+					// WinningTeamForecast wSor = new WinningTeamForecast(sorin,
+					// tour, ger);
+					// session.save(wSor);
+					// WinningTeamForecast wDvr = new WinningTeamForecast(dvr,
+					// tour, eng);
+					// session.save(wDvr);
 
-					session.save(new Forecast(raz, m1, 1, 1));
-					session.save(new Forecast(sorin, m1, 0, 1));
-					session.save(new Forecast(dvr, m1, 5, 0));
-					session.save(new Forecast(raz, m2, 2, 1));
+					// DateFormat format = new SimpleDateFormat("dd.MM.yyyy
+					// hh:mm", Locale.ENGLISH);
+					// Match m1;
+					// Match m2;
+					// try {
+					// m1 = new Match(1, format.parse("14.06.2018 18:00"), eng,
+					// rom, tour, 1, 1);
+					// session.save(m1);
+					// m2 = new Match(2, format.parse("15.06.2018 15:00"), ger,
+					// fra, tour, 1, 1);
+					// session.save(m2);
+					// } catch (ParseException e) {
+					// throw new RuntimeException(e);
+					// }
+
+					// session.save(new Forecast(raz, m1, 1, 1));
+					// session.save(new Forecast(sorin, m1, 0, 1));
+					// session.save(new Forecast(dvr, m1, 5, 0));
+					// session.save(new Forecast(raz, m2, 2, 1));
 
 				}
 			}
 
 		}.run();
+	}
+
+	protected void importTeamsAndMatches(Session session, Tournament tour) {
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("schedule.csv").getFile());
+
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+			while (true) {
+				String s = br.readLine();
+				if (s == null) {
+					break;
+				}
+				importMatch(session, s, tour);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private void importMatch(Session session, String s, Tournament tour) {
+		ModelManager mm = new ModelManager(session);
+		try {
+			DateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
+			String[] splits = s.split(",");
+			int number = Integer.parseInt(splits[0].trim());
+			String stage = splits[1].trim();
+			Date date = format.parse(splits[2].trim());
+			String team1 = splits[3].trim();
+			String team2 = splits[4].trim();
+			int presenceValue = Integer.parseInt(splits[5].trim());
+			int victoryValue = Integer.parseInt(splits[6].trim());
+
+			if (team1.length() > 3) {
+				Team team1db = mm.findTeamByName(team1);
+				if (team1db == null) {
+					team1db = new Team(team1, tour);
+					session.save(team1db);
+				}
+				Team team2db = mm.findTeamByName(team2);
+				if (team2db == null) {
+					team2db = new Team(team2, tour);
+					session.save(team2db);
+				}
+				Match m = new Match(number, date, team1db, team2db, tour, presenceValue, victoryValue);
+				session.save(m);
+			} else {
+				Match m = new Match(number, date, team1, team2, tour, presenceValue, victoryValue);
+				session.save(m);
+			}
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override

@@ -76,7 +76,7 @@
 						if (f == null) {
 							f = new Forecast(user, m, -1, -1);
 						}
-						
+						/*
 						String matchID = "" + m.getId();
 						//String stage = m.phase;
 						String t1 = m.getTeam1().getName();
@@ -92,7 +92,7 @@
 						Date matchDate = m.getDate(); 
 						cal.setTime(matchDate);
 						boolean before = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
-
+*/
 						// 
 						/*
 						String title = "";
@@ -204,10 +204,10 @@
 						<%="" %>
 						</td>
 						<td>
-						<%=m.getTeam1().getName() %>
+						<%=m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder() %>
 						</td>
 						<td>
-						<%=m.getTeam2().getName() %>
+						<%=m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder() %>
 						</td>
 						<td>
 						<%=m.getScore1() %> - <%=m.getScore2() %> 
@@ -226,14 +226,8 @@
 					out.write("</form>");
 				} // else
 			%>
-			</td>
-
-			</tr>
 		</table>
 
-		</td>
-		</tr>
-		</table>
 	</center>
 </body>
 </html>

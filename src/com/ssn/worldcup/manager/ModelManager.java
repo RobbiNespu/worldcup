@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import com.ssn.core.utils.Utils;
 import com.ssn.worldcup.model.Classification;
+import com.ssn.worldcup.model.Team;
 import com.ssn.worldcup.model.Tournament;
 import com.ssn.worldcup.model.User;
 
@@ -76,6 +77,18 @@ public class ModelManager {
 		SQLQuery query = session.createSQLQuery("select * from vw_classification").addEntity(Classification.class);
 		List list = query.list();
 		return list;
+	}
+
+	public Team findTeamByName(String name) {
+		Query query = session.getNamedQuery(Team.TEAM_BY_NAME);
+		query.setParameter("name", name);
+		List result = query.list();
+
+		if (result.size() == 0) {
+			return null;
+		}
+
+		return (Team) result.get(0);
 	}
 
 }
