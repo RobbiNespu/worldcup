@@ -15,17 +15,11 @@
 <td width="100px" class=<%=selMenu==2?"SEL_MENU":"MENU"%>>
   <a href="champions.jsp">Echipa bonus</a>
 </td>
-<td width="100px" class=<%=selMenu==5?"SEL_MENU":"MENU"%>>
-  <a href="results.jsp">Rezultate</a>
-</td>
 <td width="100px" class=<%=selMenu==3?"SEL_MENU":"MENU"%>>
   <a href="links.jsp">Reguli</a>
 </td>
 <td width="100px" class=<%=selMenu==4?"SEL_MENU":"MENU"%>>
   <a href="settings.jsp">Setari</a>
-</td>
-<td width="100px" class=<%=selMenu==7?"SEL_MENU":"MENU"%>>
-  <a href="istoric.jsp">Istoric</a><IMG width="20px" src="img/new.gif"/>
 </td>
 <td width="100px" class=<%=selMenu==6?"SEL_MENU":"MENU"%>>
   <a href="logout.jsp">Iesire</a>
