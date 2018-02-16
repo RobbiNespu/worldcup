@@ -2,6 +2,8 @@ package com.ssn.worldcup.model;
 
 import java.util.List;
 
+import com.ssn.worldcup.mail.Mail;
+
 public interface Model {
 
 	public User checkLogin(String user, String password);
@@ -29,4 +31,8 @@ public interface Model {
 	public List<Team> getTeamsForActiveTournament();
 
 	void setBonusTeam(String username, String name);
+
+	void setSender(String s1, String s2);
+
+	Mail getMail();
 }

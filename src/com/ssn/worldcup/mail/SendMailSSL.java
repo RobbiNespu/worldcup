@@ -11,7 +11,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendMailSSL {
-	public static void main(String[] args) {
+
+	public void sendMail(String sender, String pass, String target, String content) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "timms004.wamas.com");
 		props.put("mail.smtp.socketFactory.port", "25");
@@ -21,7 +22,7 @@ public class SendMailSSL {
 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("rveina", "PASSWORD");
+				return new PasswordAuthentication(sender, pass);
 			}
 		});
 
@@ -29,9 +30,10 @@ public class SendMailSSL {
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("razvan.veina@ssi-schaefer.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("dana.stan@ssi-schaefer.com"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler," + "\n\n No spam to my email, please!");
+			System.out.println(target);
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(target));
+			message.setSubject("User validation");
+			message.setText(content);
 
 			Transport.send(message);
 

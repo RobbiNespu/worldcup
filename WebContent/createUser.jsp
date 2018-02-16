@@ -1,4 +1,4 @@
-<%@ page import="com.ssn.core.*"%>
+<%@ page import="com.ssn.core.*, com.ssn.worldcup.model.*"%>
 <html>
 <body>
 	<% 
@@ -10,12 +10,14 @@
 
   if (user!=null)
   {
-	  if(password==password2){
+	  if(password.equals(password2)){
 
 			boolean result = ApplicationFactory.getInstance().getModel().createUser(user, password, email);
-
+			
 			if (result)
 			{
+				User u=ApplicationFactory.getInstance().getModel().getUserByName(user);
+				ApplicationFactory.getInstance().getModel().getMail().sendMessage(u);
 			out.write("<SPAN class=SIMPLE_TEXT>User " + user + " created. </SPAN>");
 		
 			%>
@@ -31,7 +33,7 @@
 		}
 	  }else{
 		  %>
-		  alert("different passwords were chosen")
+		  alert("different passwords were chosen") <%=password %> <%=password2 %>
 	  
 	  <% }
   }

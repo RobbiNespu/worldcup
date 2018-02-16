@@ -16,9 +16,12 @@ import org.hibernate.Session;
 
 import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.core.utils.Utils;
+import com.ssn.worldcup.mail.Mail;
 import com.ssn.worldcup.manager.ModelManager;
 
 public class ModelImpl implements Model {
+
+	private Mail mail;
 
 	public ModelImpl() {
 		init();
@@ -206,7 +209,6 @@ public class ModelImpl implements Model {
 	@Override
 	public boolean createUser(String name, String password, String email) {
 		return new WithSessionAndTransaction<Boolean>() {
-
 			@Override
 			protected void executeBusinessLogic(Session session) {
 				ModelManager mm = new ModelManager(session);
@@ -222,6 +224,13 @@ public class ModelImpl implements Model {
 				setReturnValue(true);
 			}
 		}.run();
+	}
+
+	private void sendValidationMail(User user) {
+		if (user != null) {
+			mail.sendMessage(user);
+		}
+
 	}
 
 	@Override
@@ -340,4 +349,14 @@ public class ModelImpl implements Model {
 		}.run();
 
 	}
+
+	public void setSender(String user, String pass) {
+		mail = new Mail(user.trim(), pass.trim());
+	}
+
+	public Mail getMail() {
+		return mail;
+	}
+
+
 }

@@ -69,6 +69,7 @@ public class User {
 		this.user = user;
 		this.password = Utils.encrypt(password);
 		this.admin = admin;
+		this.email = email;
 		this.validated = validated;
 		this.validationCode = UUID.randomUUID().toString();
 	}
