@@ -49,9 +49,9 @@
 			<td width="100%"><table border=1 cellspacing=1 class=TBL>
 
 					<tr>
-						<td class=FHCELL>Locul</td>
-						<td class=FHCELL>User</td>
-						<td class=FHCELL title="Numarul de scoruri corecte ghicite">Scoruri</td>
+						<td class="FHCELL">Locul</td>
+						<td class="FHCELL">User</td>
+						<td class="FHCELL" title="Numarul de scoruri corecte ghicite">Scoruri</td>
 						<td class=FHCELL
 							title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</td>
 						<td class=FHCELL title="Suma precedentelor doua coloane">S +
@@ -74,18 +74,18 @@
 								for (Classification c : vec) {
 									counter++;
 						%>
-					<TR>
-						<td><%=counter%></td>
-						<td><%=c.getName()%></td>
-						<td><%=c.getScores()%></td>
-						<td><%=c.getWinners()%></td>
-						<td><%=c.getScores()+c.getWinners()%></td>
-						<td><%=c.getScores()+c.getWinners() > 0 ? 100*c.getScores()/(c.getScores()+c.getWinners()) : 0%>%</td>
-						<td><%=c.getWinners()+c.getScores()*2%></td>
-						<td><%=c.getScoreBonus()%></td>
-						<td><%=c.getBonusTeam()%></td>
-						<td><%=c.getTeamBonus().toString()%></td>
-						<td><%=c.getTeamBonus().intValue()+c.getScoreBonus()+c.getWinners()+c.getScores()*2%></td>
+					<TR class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>">
+						<td class="FCELL"><%=counter%></td>
+						<td class="FCELL"><%=c.getName()%></td>
+						<td class="FCELL"><%=c.getScores()%></td>
+						<td class="FCELL"><%=c.getWinners()%></td>
+						<td class="FCELL"><%=c.getScores()+c.getWinners()%></td>
+						<td class="FCELL"><%=c.getScores()+c.getWinners() > 0 ? 100*c.getScores()/(c.getScores()+c.getWinners()) : 0%>%</td>
+						<td class="FCELL"><%=c.getWinners()+c.getScores()*2%></td>
+						<td class="FCELL"><%=c.getScoreBonus()%></td>
+						<td class="FCELL"><%=c.getBonusTeam() != null ? c.getBonusTeam() : "--"%></td>
+						<td class="FCELL"><%=c.getTeamBonus().toString()%></td>
+						<td class="FCELL"><%=c.getTeamBonus().intValue()+c.getScoreBonus()+c.getWinners()+c.getScores()*2%></td>
 
 					</TR>
 

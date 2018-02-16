@@ -16,7 +16,7 @@
 <table cellspacing=0 >
 <tr>
 <td colspan=2>
-<A><img  src="header.PNG"/></a>
+<A><img width="600px"  src="header.PNG"/></a>
 </td>
 </tr>
 <tr>

@@ -1,5 +1,6 @@
 <%@ page import="com.ssn.worldcup.model.*"%>
 <%@ page import="com.ssn.core.*"%>
+<%@ page import="com.ssn.core.utils.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.*"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,6 +34,8 @@
 	<center>
 		<%
 			User user = (User) (session.getAttribute("user"));
+			user = ApplicationFactory.getInstance().getModel().getUserByName(user.getUser());
+			Tournament tour = ApplicationFactory.getInstance().getModel().getActiveTournament();
 
 			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
 
@@ -87,17 +90,31 @@
 
 			<tr class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>"
 				title="test">
-				<td><%=m.getNumber()%><input name="ch<%=m.getNumber() %>" id="ch<%=m.getNumber() %>" type="hidden" value="false" /></td>
-				<td><%=dateFormat.format(m.getDate())%></td>
-				<td><%=m.getStage()%></td>
+				<td class="FCELL"><%=m.getNumber()%><input name="ch<%=m.getNumber() %>" id="ch<%=m.getNumber() %>" type="hidden" value="false" /></td>
+				<td class="FCELL"><%=dateFormat.format(m.getDate())%></td>
+				<td class="FCELL"><%=m.getStage()%></td>
 
-				<td><%=m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()%>
+				<td class="FCELL">
+				<% 
+				if (user.getWinningTeamForecast(tour) != null && m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
+					out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
+				} else {
+					out.write((m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
+				}
+				%>
 				</td>
 
-				<td><%=m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()%>
+				<td class="FCELL">
+				<%
+				if (user.getWinningTeamForecast(tour)  != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) { 
+					out.write(Utils.bold(m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
+				} else {
+					out.write((m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
+				}
+				%>
 				</td>
 
-				<td><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
+				<td class="FCELL"><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
 				</td>
 
 				<%
@@ -118,16 +135,16 @@
 				<%
 					} else {
 				%>
-				<td colspan="2"><%= f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
+				<td colspan="2" class="FCELL"><%= f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
 				<%
 					}
 				%>
 
-				<td>
+				<td class="FCELL">
 				<% 
 						for (int j = 0; j < f.getBalls(); j++) {
 							%>
-							<IMG width="12" height="12" src='img/ball.png'/>
+							<IMG width="10px" height="10px" src='img/ball.png'/>
 							<%
 						}
 				%>
