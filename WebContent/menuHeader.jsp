@@ -2,7 +2,7 @@
 <table border=0 class="SIMPLE_TEXT_CENTERED"  width="800px" >
 <tr height=100 >
 <td colspan=8>
-<A href="http://www.fifa.com/worldcup/" target="about:blank"><img src="header.PNG"/></a>
+<A href="http://www.fifa.com/worldcup/" target="about:blank"><img width="600px" src="header.PNG"/></a>
 </td>
 </tr>
 <tr>
