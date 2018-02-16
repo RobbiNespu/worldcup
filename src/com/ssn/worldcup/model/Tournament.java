@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,6 +34,7 @@ public class Tournament {
 	private List<User> users;
 
 	@OneToMany(mappedBy = "tournament")
+	@OrderBy(value = "name")
 	private List<Team> teams;
 
 	@OneToMany(mappedBy = "tournament")

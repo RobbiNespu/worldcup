@@ -73,4 +73,8 @@ public class Team {
 		this.eliminated = eliminated;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
 }

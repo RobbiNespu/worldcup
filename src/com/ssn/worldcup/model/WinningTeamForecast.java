@@ -70,4 +70,8 @@ public class WinningTeamForecast {
 		this.team = team;
 	}
 
+	@Override
+	public String toString() {
+		return this.team.getName();
+	}
 }

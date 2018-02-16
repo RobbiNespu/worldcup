@@ -118,7 +118,7 @@
 				<%
 					} else {
 				%>
-				<td colspan="2"><%=f.getScore1()%> - <%=f.getScore2()%></td>
+				<td colspan="2"><%= f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
 				<%
 					}
 				%>

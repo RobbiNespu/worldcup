@@ -34,6 +34,7 @@ public class ModelManager {
 		}
 
 		User user2 = (User) result.get(0);
+		user2.getWinningTeamForecasts().toString();
 		return user2;
 	}
 

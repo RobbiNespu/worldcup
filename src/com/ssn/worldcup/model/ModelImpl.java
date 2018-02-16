@@ -274,29 +274,70 @@ public class ModelImpl implements Model {
 			}
 		}.run();
 	}
-	
-	
+
 	@Override
 	public User getUserByName(String name) {
 		return new WithSessionAndTransaction<User>() {
 			@Override
 			protected void executeBusinessLogic(Session session) {
 				ModelManager tm = new ModelManager(session);
-				setReturnValue(tm.findUserByUserName(name));
+				User user = tm.findUserByUserName(name);
+				user.getWinningTeamForecasts().toString();
+				setReturnValue(user);
+
 			}
 		}.run();
 	}
 
 	@Override
 	public void setUserActivated(User user, boolean validated) {
-		 new WithSessionAndTransaction() {
+		new WithSessionAndTransaction() {
 			@Override
 			protected void executeBusinessLogic(Session session) {
 				ModelManager tm = new ModelManager(session);
-				User userLocal=tm.findUserByUserName(user.getUser());
+				User userLocal = tm.findUserByUserName(user.getUser());
 				userLocal.setValidated(validated);
 				session.update(userLocal);
 			}
 		}.run();
+	}
+
+	@Override
+	public List<Team> getTeamsForActiveTournament() {
+		return new WithSessionAndTransaction<List<Team>>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				Tournament tour = tm.findActiveTournament();
+				List<Team> teams = tour.getTeams();
+				teams.toString();
+				setReturnValue(teams);
+			}
+		}.run();
+	}
+
+	@Override
+	public void setBonusTeam(String username, String name) {
+		new WithSessionAndTransaction<Void>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				Tournament tour = tm.findActiveTournament();
+				User user = tm.findUserByUserName(username);
+
+				WinningTeamForecast wtf = user.getWinningTeamForecast(tour);
+				Team team = tm.findTeamByName(name);
+
+				if (wtf == null) {
+					wtf = new WinningTeamForecast(user, tour, team);
+					session.save(wtf);
+				} else {
+					wtf.setTeam(team);
+					session.update(wtf);
+				}
+
+			}
+		}.run();
+
 	}
 }

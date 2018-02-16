@@ -190,4 +190,13 @@ public class User {
 		return true;
 	}
 
+	public WinningTeamForecast getWinningTeamForecast(Tournament tour) {
+		for (WinningTeamForecast wtf : winningTeamForecasts) {
+			if (wtf.getTournament().getName().equals(tour.getName())) {
+				return wtf;
+			}
+		}
+		return null;
+	}
+
 }

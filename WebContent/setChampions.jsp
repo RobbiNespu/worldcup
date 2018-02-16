@@ -1,12 +1,13 @@
-<%@ page import = "wmdb.*" %>
+<%@ page import="com.ssn.core.*"%>
+<%@ page import="com.ssn.worldcup.model.*"%>
 <html>
 <body>
 <center>
 
 <%@ page import = "java.sql.*" %>
 <% 
-Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
-  String user = (String)(session.getAttribute("user"));
+//Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
+  User user = (User )(session.getAttribute("user"));
 
   if (user==null)
   {
@@ -20,7 +21,7 @@ Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
 
 	  	String teamid = request.getParameter("teamid");
 
-	  	Database.getInstance().setBonusTeam(user, teamid);
+	  	ApplicationFactory.getInstance().getModel().setBonusTeam(user.getUser(), teamid); 
 	  	out.write("<SPAN class=SIMPLE_TEXT>Your data was saved.</SPAN>");
 	  %>
 <jsp:include page="champions.jsp"/>
