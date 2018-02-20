@@ -14,13 +14,14 @@ public class Mail {
 		ssl = new SendMailSSL();
 	}
 
-	public void sendMessage(User user) {
-		ssl.sendMail(sender, pass, user.getEmail(), getLinkFordata(user.getUser(), user.getValidationCode()));
+	public void sendMessage(User user, String serverIP, int serverPort) {
+		ssl.sendMail(sender, pass, user.getEmail(),
+				getLinkFordata(user.getUser(), user.getValidationCode(), serverIP, "" + serverPort));
 	}
 
-	private String getLinkFordata(String user, String code) {
-		return "Ceau! \n\nAcesta e linkul tau de validare: http://timw0030:8080/worldcup/users/validateUser.jsp?user="
-				+ user.trim() + "&vc=" + code.trim() + "\n\n Succes!";
+	private String getLinkFordata(String user, String code, String serverIP, String serverPort) {
+		return "Ceau, " + user + "! \n\nAcesta e linkul tau de validare: http://" + serverIP + ":" + serverPort
+				+ "/worldcup/users/validateUser.jsp?user=" + user.trim() + "&vc=" + code.trim() + "\n\n Succes!";
 	}
 
 	public void setSender(String sender) {
