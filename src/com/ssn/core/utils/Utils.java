@@ -1,6 +1,8 @@
 
 package com.ssn.core.utils;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.Key;
 
 import javax.crypto.Cipher;
@@ -59,5 +61,15 @@ public class Utils {
 
 	public static String bold(String s) {
 		return "<B>" + s + "</B>";
+	}
+
+	public static String getServerHostName() {
+		try {
+			InetAddress inetAddress;
+			inetAddress = InetAddress.getLocalHost();
+			return inetAddress.getHostName();
+		} catch (UnknownHostException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

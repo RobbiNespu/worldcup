@@ -15,27 +15,25 @@
 			String ip = request.getRemoteAddr();
 
 			User theUser = ApplicationFactory.getInstance().getModel().checkLogin(user, pass);
-			if(theUser.isValidated()){
-				
-			
-			if (user != null) {
-				session.setAttribute("user", theUser);
+
+			if (theUser != null) {
+				if (theUser.isValidated()) {
+					session.setAttribute("user", theUser);
 		%>
 		<%
-				response.sendRedirect("settings.jsp");
+			response.sendRedirect("settings.jsp");
 		%>
 		<%
+			} else {
+					out.write(
+							"<SPAN class=SIMPLE_TEXT_ERROR>Your account was not validated yet. Please reply to the validation mail. ");
+					out.write("<a href=\"index.jsp\">Try again</a> or <a href=\"resendValidation.jsp?user="+user+"\">resend validation mail</a></SPAN>");
+				}
+
 			} else {
 				out.write("<SPAN class=SIMPLE_TEXT_ERROR>Unknown user or wrong password. ");
 				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
 			}
-			
-			} else {
-				out.write(
-						"<SPAN class=SIMPLE_TEXT_ERROR>Your account was not validated yet. Please reply to the validation mail. ");
-				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
-			}
-			
 		%>
 	
 </body>

@@ -207,30 +207,17 @@ public class ModelImpl implements Model {
 	}
 
 	@Override
-	public boolean createUser(String name, String password, String email) {
-		return new WithSessionAndTransaction<Boolean>() {
+	public User createUser(String name, String password, String email) {
+		return new WithSessionAndTransaction<User>() {
 			@Override
 			protected void executeBusinessLogic(Session session) {
 				ModelManager mm = new ModelManager(session);
-				User foundUser = mm.findUserByUserName(name);
-				User foundEmail = mm.findUserByEmail(email);
-
-				if (foundUser != null || foundEmail != null) {
-					setReturnValue(false);
-				}
 
 				User user = new User(name, password, email, false, false);
 				session.save(user);
-				setReturnValue(true);
+				setReturnValue(user);
 			}
 		}.run();
-	}
-
-	private void sendValidationMail(User user) {
-		if (user != null) {
-			mail.sendMessage(user);
-		}
-
 	}
 
 	@Override
@@ -358,5 +345,27 @@ public class ModelImpl implements Model {
 		return mail;
 	}
 
+	@Override
+	public User getUserByNameOrEmail(String name, String email) {
+		return new WithSessionAndTransaction<User>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				User user = tm.findUserByUserName(name);
+				if (user != null) {
+					user.getWinningTeamForecasts().toString();
+					setReturnValue(user);
+					return;
+				}
+				user = tm.findUserByEmail(email);
+				if (user != null) {
+					user.getWinningTeamForecasts().toString();
+					setReturnValue(user);
+					return;
+				}
+
+			}
+		}.run();
+	}
 
 }

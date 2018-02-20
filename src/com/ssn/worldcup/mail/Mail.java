@@ -15,6 +15,9 @@ public class Mail {
 	}
 
 	public void sendMessage(User user, String serverIP, int serverPort) {
+		if (sender == null || pass == null) {
+			throw new RuntimeException("Invalid mail");
+		}
 		ssl.sendMail(sender, pass, user.getEmail(),
 				getLinkFordata(user.getUser(), user.getValidationCode(), serverIP, "" + serverPort));
 	}

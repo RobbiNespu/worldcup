@@ -16,7 +16,7 @@ public interface Model {
 
 	public List<User> getUsers();
 
-	public boolean createUser(String name, String password, String email);
+	public User createUser(String name, String password, String email);
 
 	public List<Match> getMatchesForActiveTournament();
 
@@ -25,6 +25,8 @@ public interface Model {
 	public boolean setForecast(User user, int number, int score1, int score2);
 
 	public User getUserByName(String name);
+
+	public User getUserByNameOrEmail(String name, String email);
 
 	public void setUserActivated(User user, boolean activated);
 
