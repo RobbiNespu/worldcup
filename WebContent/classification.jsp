@@ -5,7 +5,7 @@
 <%
 	PreviousWinner previousWinners[] = { new PreviousWinner("dco", 2002), new PreviousWinner("dco", 2004),
 			new PreviousWinner("aci", 2006), new PreviousWinner("tmu", 2008), new PreviousWinner("aio", 2010),
-			new PreviousWinner("gbo", 2012), new PreviousWinner("sorin", 2014) };
+			new PreviousWinner("gbo", 2012), new PreviousWinner("sorin", 2014), new PreviousWinner("sorin", 2016) };
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -74,10 +74,31 @@
 								for (Classification c : vec) {
 									counter++;
 						%>
-					<TR class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>">
+					<TR class="ROW<%=(c.getName().equals(user.getUser()) ? "USER" : ((counter % 2 == 1) ? "ODD" : "EVEN"))%>">
 						<td class="FCELL"><%=counter%></td>
-						<td class="FCELL"><%=c.getName()%></td>
-						<td class="FCELL"><%=c.getScores()%></td>
+						<td class="FCELL"><B>
+						<%=c.getName()%>
+						<%
+						String specialCrowns = "";
+						ArrayList<Integer> result = PreviousWinner.count(previousWinners, c.getName());
+						for (Integer year:result){
+							specialCrowns += " <img src=\"img/smallStar.png\" title=\""+year+"\"/> ";
+						}					
+
+						if (counter == 1) {
+							specialCrowns += " <img src=\"img/cup.png\" title=\"Temporary champion\"/> ";
+						}						
+						%>
+						<%= specialCrowns %>
+						</B>
+						</td>
+						<%String tooltipHTML = "<table><tr><td>asdf</td></tr></table>"; %>
+						
+						<td class="FCELL" 
+						onmouseover="tooltip.show('<%=tooltipHTML%>', 300); return; ShowDiv(event,'<%=tooltipHTML%>')" 
+						>
+						
+						<%=c.getScores()%></td>
 						<td class="FCELL"><%=c.getWinners()%></td>
 						<td class="FCELL"><%=c.getScores()+c.getWinners()%></td>
 						<td class="FCELL"><%=c.getScores()+c.getWinners() > 0 ? 100*c.getScores()/(c.getScores()+c.getWinners()) : 0%>%</td>

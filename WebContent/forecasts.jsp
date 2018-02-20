@@ -7,11 +7,10 @@
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
-<meta name="description"
-	content="European Football Final Tournament 2008 competition" />
 <LINK type="text/css" rel="stylesheet" href="wm.css" />
 <LINK type="text/css" rel="stylesheet" href="css/style.css" />
 <jsp:include page="style.jsp" />
+<script type="text/javascript" language="javascript" src="js/script.js"></script>
 <title>Forecasts</title>
 
 <script language="JavaScript">
@@ -25,9 +24,6 @@
 </script>
 
 </head>
-
-
-
 
 
 <body>
@@ -49,7 +45,7 @@
 		<jsp:include page="menuHeader.jsp">
 			<jsp:param name="menu" value="1" />
 		</jsp:include>
-		<table width=100%>
+		<table width=100% onmouseout="tooltip.hide();return;hideDiv();">
 			<tr valign=top>
 				<td>
 					<%
@@ -89,12 +85,19 @@
 			%>
 
 			<tr class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>"
-				title="test">
+				>
 				<td class="FCELL"><%=m.getNumber()%><input name="ch<%=m.getNumber() %>" id="ch<%=m.getNumber() %>" type="hidden" value="false" /></td>
 				<td class="FCELL"><%=dateFormat.format(m.getDate())%></td>
 				<td class="FCELL"><%=m.getStage()%></td>
 
-				<td class="FCELL">
+				<%
+				  String tooltipT1 = "";
+				  if (m.getTeam1() != null) {
+					  tooltipT1 += m.getTeam1().getMatchesAsTable();
+				  }
+				%>
+				<td class="FCELL"  onmouseover="tooltip.show('<%=tooltipT1%>',300); return;				
+								ShowDiv(event,'<%=tooltipT1%>')" >
 				<% 
 				if (user.getWinningTeamForecast(tour) != null && m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
 					out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
@@ -104,7 +107,14 @@
 				%>
 				</td>
 
-				<td class="FCELL">
+				<%
+				  String tooltipT2 = "";
+				  if (m.getTeam2() != null) {
+					  tooltipT2 += m.getTeam2().getMatchesAsTable();
+				  }
+				%>
+				<td class="FCELL"  onmouseover="tooltip.show('<%=tooltipT2%>',300); return;				
+								ShowDiv(event,'<%=tooltipT2%>')" >
 				<%
 				if (user.getWinningTeamForecast(tour)  != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) { 
 					out.write(Utils.bold(m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));

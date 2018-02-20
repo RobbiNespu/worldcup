@@ -1,5 +1,11 @@
 package com.ssn.worldcup.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -107,6 +113,40 @@ public class Team {
 		} else if (!tournament.equals(other.tournament))
 			return false;
 		return true;
+	}
+
+	public List<Match> getMatches() {
+		List<Match> result = new ArrayList<Match>();
+		List<Match> matches = tournament.getMatches();
+		for (Match match : matches) {
+			if (this.equals(match.getTeam1()) || this.equals(match.getTeam2())) {
+				result.add(match);
+			}
+		}
+		return result;
+	}
+
+	public String getMatchesAsTable() {
+		List<Match> matches = getMatches();
+		String result = "";
+		DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+
+		result += "<TABLE id=detail cellspacing=1 border=0 class=TOOLTIP_TBL >";
+		int counter = 0;
+		for (Match m : matches) {
+			if (m.isPlayed()) {
+				counter++;
+				result += "<TR class=TOOLTIP_ROW" + (counter % 2 == 0 ? "ODD" : "EVEN") + "  >";
+				result += "<TD class=FCELL >" + format.format(m.getDate()) + "</TD>";
+				result += "<TD class=FCELL >" + m.getTeam1() + "</TD>";
+				result += "<TD class=FCELL >" + m.getTeam2() + "</TD>";
+				result += "<TD class=FCELL >" + m.getScore1() + " - " + m.getScore2() + "</TD>";
+				result += "</TR>";
+			}
+		}
+		result += "</TABLE>";
+
+		return result;
 	}
 
 }
