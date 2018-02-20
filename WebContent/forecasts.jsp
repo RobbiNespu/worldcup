@@ -77,51 +77,56 @@
 						if (f == null) {
 							// create a dummy forecast if there is no forecast to make displaying easier
 							f = new Forecast(user, m, -1, -1) {
-								public int getBalls(){
+								public int getBalls() {
 									return 0;
 								}
 							};
 						}
 			%>
 
-			<tr class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>"
-				>
-				<td class="FCELL"><%=m.getNumber()%><input name="ch<%=m.getNumber() %>" id="ch<%=m.getNumber() %>" type="hidden" value="false" /></td>
+			<tr class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>">
+				<td class="FCELL"><%=m.getNumber()%><input
+					name="ch<%=m.getNumber()%>" id="ch<%=m.getNumber()%>" type="hidden"
+					value="false" /></td>
 				<td class="FCELL"><%=dateFormat.format(m.getDate())%></td>
 				<td class="FCELL"><%=m.getStage()%></td>
 
 				<%
-				  String tooltipT1 = "";
-				  if (m.getTeam1() != null) {
-					  tooltipT1 += m.getTeam1().getMatchesAsTable();
-				  }
+					String tooltipT1 = "";
+							if (m.getTeam1() != null) {
+								tooltipT1 += m.getTeam1().getMatchesAsTable();
+							}
 				%>
-				<td class="FCELL"  onmouseover="tooltip.show('<%=tooltipT1%>',300); return;				
-								ShowDiv(event,'<%=tooltipT1%>')" >
-				<% 
-				if (user.getWinningTeamForecast(tour) != null && m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
-					out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
-				} else {
-					out.write((m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
-				}
-				%>
+				<td class="FCELL"
+					onmouseover="tooltip.show('<%=tooltipT1%>',400); return;				
+								ShowDiv(event,'<%=tooltipT1%>')">
+					<%
+						if (user.getWinningTeamForecast(tour) != null
+										&& m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
+									out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
+								} else {
+									out.write((m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
+								}
+					%>
 				</td>
 
 				<%
-				  String tooltipT2 = "";
-				  if (m.getTeam2() != null) {
-					  tooltipT2 += m.getTeam2().getMatchesAsTable();
-				  }
+					String tooltipT2 = "";
+							if (m.getTeam2() != null) {
+								tooltipT2 += m.getTeam2().getMatchesAsTable();
+							}
 				%>
-				<td class="FCELL"  onmouseover="tooltip.show('<%=tooltipT2%>',300); return;				
-								ShowDiv(event,'<%=tooltipT2%>')" >
-				<%
-				if (user.getWinningTeamForecast(tour)  != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) { 
-					out.write(Utils.bold(m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
-				} else {
-					out.write((m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
-				}
-				%>
+				<td class="FCELL"
+					onmouseover="tooltip.show('<%=tooltipT2%>',400); return;				
+								ShowDiv(event,'<%=tooltipT2%>')">
+					<%
+						if (user.getWinningTeamForecast(tour) != null
+										&& m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
+									out.write(Utils.bold(m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
+								} else {
+									out.write((m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
+								}
+					%>
 				</td>
 
 				<td class="FCELL"><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
@@ -132,53 +137,65 @@
 							Date matchDate = m.getDate();
 							cal.setTime(matchDate);
 							boolean after = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
+								String tooltipStats = m.getScoresAsTable();
 							if (!after) {
+								
 				%>
-				<td class="FCELL"><input class="ROWINP"
+				<td class="FCELL"
+					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
+								ShowDiv(event,'<%=tooltipStats%>')"
+
+					><input class="ROWINP"
 					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
 					type="text" name="fa<%=m.getId()%>" size="1"
-					value="<%=(f.getScore1() != -1 ? f.getScore1() : "")%>"></input></td>
-				<td class="FCELL"><input class="ROWINP"
+					value="<%=(f.getScore1() != -1 ? f.getScore1() : "")%>"></input>
+				</td>
+				<td class="FCELL"
+					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
+								ShowDiv(event,'<%=tooltipStats%>')"
+					><input class="ROWINP"
 					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
 					type="text" name="fb<%=m.getId()%>" size="1"
-					value="<%=(f.getScore2() != -1 ? f.getScore2() : "")%>"></input></td>
+					value="<%=(f.getScore2() != -1 ? f.getScore2() : "")%>"></input>
+				</td>
 				<%
 					} else {
 				%>
-				<td colspan="2" class="FCELL"><%= f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
+				<td colspan="2" class="FCELL"
+					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
+								ShowDiv(event,'<%=tooltipStats%>')"
+					><%=f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
 				<%
 					}
 				%>
 
 				<td class="FCELL">
-				<% 
+					<%
 						for (int j = 0; j < f.getBalls(); j++) {
-							%>
-							<IMG width="10px" height="10px" src='img/ball.png'/>
-							<%
-						}
-				%>
+					%> <IMG width="10px" height="10px" src='img/ball.png' /> <%
+ 	}
+ %>
 				</td>
 			</tr>
 
 			<%
 				/*
-												String matchID = "" + m.getId();
-												//String stage = m.phase;
-												String t1 = m.getTeam1().getName();
-												String t2 = m.getTeam2().getName();
-												String g1 = (m.getScore1() != -1 ? "" + m.getScore1() : null);
-												String g2 = (m.getScore2() != -1 ? "" + m.getScore2() : null);
-												String fg1 = (f.getScore1() != -1 ? "" + f.getScore1() : null);
-												String fg2 = (f.getScore2() != -1 ? "" + f.getScore2() : null);
-												
-												int balls = f.getBalls(); 
-												
-												Calendar cal = new GregorianCalendar();
-												Date matchDate = m.getDate(); 
-												cal.setTime(matchDate);
-												boolean before = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
-												*/
+														String matchID = "" + m.getId();
+														//String stage = m.phase;
+														String t1 = m.getTeam1().getName();
+														String t2 = m.getTeam2().getName();
+														String g1 = (m.getScore1() != -1 ? "" + m.getScore1() : null);
+														String g2 = (m.getScore2() != -1 ? "" + m.getScore2() : null);
+														String fg1 = (f.getScore1() != -1 ? "" + f.getScore1() : null);
+														String fg2 = (f.getScore2() != -1 ? "" + f.getScore2() : null);
+														
+														int balls = f.getBalls(); 
+														
+														Calendar cal = new GregorianCalendar();
+														Date matchDate = m.getDate(); 
+														cal.setTime(matchDate);
+														boolean before = cal.getTimeInMillis() - (900 * 1000) < System.currentTimeMillis();
+														*/
 						// 
 						/*
 						String title = "";

@@ -2,6 +2,9 @@ package com.ssn.worldcup.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -259,4 +262,40 @@ public class Match {
 	public void setTeam2PlaceHolder(String team2PlaceHolder) {
 		this.team2PlaceHolder = team2PlaceHolder;
 	}
+
+	public Map<String, Integer> getScoresMap() {
+		Map<String, Integer> map = new TreeMap<String, Integer>();
+
+		for (Forecast f : forecasts) {
+			String key = "" + f.getScore1() + " - " + f.getScore2();
+			Integer value = map.get(key);
+			if (value == null) {
+				value = 0;
+				map.put(key, value);
+			}
+			value = value + 1;
+			map.put(key, value);
+		}
+
+		return map;
+	}
+
+	public String getScoresAsTable() {
+		Map<String, Integer> scores = getScoresMap();
+		String result = "";
+
+		result += "<TABLE id=detail cellspacing=1 border=0 class=TOOLTIP_TBL >";
+		int counter = 0;
+		for (Entry<String, Integer> score : scores.entrySet()) {
+			counter++;
+			result += "<TR class=TOOLTIP_ROW" + (counter % 2 == 0 ? "ODD" : "EVEN") + "  >";
+			result += "<TD class=FCELL >" + score.getKey() + "</TD>";
+			result += "<TD class=FCELL >" + score.getValue() + "</TD>";
+			result += "<TD class=FCELL >" + (int) (100.0 * score.getValue() / forecasts.size()) + "%</TD>";
+			result += "</TR>";
+		}
+		result += "</TABLE>";
+		return result;
+	}
+
 }
