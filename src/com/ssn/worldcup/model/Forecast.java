@@ -101,4 +101,9 @@ public class Forecast {
 	public String toString() {
 		return user + " " + match;
 	}
+
+	public String getScore() {
+		return score1 + " - " + score2;
+	}
+
 }

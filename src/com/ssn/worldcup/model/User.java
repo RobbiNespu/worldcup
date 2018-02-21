@@ -218,8 +218,8 @@ public class User {
 				result += "<TD class=FCELL >" + format.format(f.getMatch().getDate()) + "</TD>";
 				result += "<TD class=FCELL >" + f.getMatch().getTeam1().getName() + "</TD>";
 				result += "<TD class=FCELL >" + f.getMatch().getTeam2().getName() + "</TD>";
-				result += "<TD class=FCELL >" + f.getMatch().getScore1() + " - " + f.getMatch().getScore2() + "</TD>";
-				result += "<TD class=FCELL >" + f.getScore1() + " - " + f.getScore2() + "</TD>";
+				result += "<TD class=FCELL >" + f.getMatch().getScore() + "</TD>";
+				result += "<TD class=FCELL >" + f.getScore() + "</TD>";
 				result += "<TD class=FCELL >" + f.getBalls() + "p</TD>";
 				result += "</TR>";
 			}

@@ -51,9 +51,9 @@ public class ModelImpl implements Model {
 				if (findAllUsers.size() == 0) {
 					User raz = new User("raz", "raz", "razvan.veina@ss-schaefer.com", true, true);
 					session.save(raz);
-					User sorin = new User("sorin", "sorin", "razvan.veina@ss-schaefer.com", false, false);
+					User sorin = new User("sorin", "sorin", "razvan.veina@ss-schaefer.com", false, true);
 					session.save(sorin);
-					User dvr = new User("dvr", "dvr", "razvan.veina@ss-schaefer.com", false, false);
+					User dvr = new User("dvr", "dvr", "razvan.veina@ss-schaefer.com", false, true);
 					session.save(dvr);
 
 					Tournament tour = new Tournament("World Cup", 2018);

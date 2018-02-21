@@ -306,4 +306,7 @@ public class Match {
 		return getTeam2() != null ? getTeam2().getName() : getTeam2PlaceHolder();
 	}
 
+	public String getScore() {
+		return score1 + " - " + score2;
+	}
 }
