@@ -2,7 +2,6 @@
 <%@ page import="com.ssn.worldcup.model.*"%>
 <html>
 <body>
-<center>
 
 <%@ page import = "java.sql.*" %>
 <% 

@@ -90,16 +90,13 @@
  				specialCrowns += " <img src=\"img/cup.png\" title=\"Lider virtual\"/> ";
  			}
  %> <%=specialCrowns%>
-							</B>
-							<%
+							</B> <%
 							User theUser = ApplicationFactory.getInstance().getModel().getUserByName(c.getName());
 							if (theUser.getComment() != null && !theUser.getComment().isEmpty()) {
-								%>
-								<img src="img/comment-icon.png" title="<%=Utils.escapeHTML(theUser.getComment())%>"/>
-								<%
+								%> <img src="img/comment-icon.png"
+								title="<%=Utils.escapeHTML(theUser.getComment())%>" /> <%
 							}
-							%>
-							</td>
+							%></td>
 							<%
 								String cshtml = theUser.getCorrectScoresAsHTML(); 
 								String cswhtml = theUser.getCorrectWinnersAndScoresAsHTML();  
@@ -112,30 +109,30 @@
 								onmouseover="tooltip.show('<%=cshtml%>', 300); return; ShowDiv(event,'<%=cshtml%>')">
 
 								<%=c.getScores()%></td>
-							
+
 							<td class="FCELL"
-							onmouseover="tooltip.show('<%=cwhtml%>', 300); return; ShowDiv(event,'<%=cwhtml%>')">
-							<%=c.getWinners()%>
+								onmouseover="tooltip.show('<%=cwhtml%>', 300); return; ShowDiv(event,'<%=cwhtml%>')">
+								<%=c.getWinners()%>
 							</td>
-							
+
 							<td class="FCELL"
-							onmouseover="tooltip.show('<%=cswhtml%>', 300); return; ShowDiv(event,'<%=cswhtml%>')">
-							<%=c.getScores() + c.getWinners()%>
+								onmouseover="tooltip.show('<%=cswhtml%>', 300); return; ShowDiv(event,'<%=cswhtml%>')">
+								<%=c.getScores() + c.getWinners()%>
 							</td>
-							
+
 							<td class="FCELL"><%=c.getScores() + c.getWinners() > 0
 							? 100 * c.getScores() / (c.getScores() + c.getWinners()) : 0%>%</td>
-							
+
 							<td class="FCELL"
-							onmouseover="tooltip.show('<%=allhtml%>', 300); return; ShowDiv(event,'<%=allhtml%>')">
-							<%=c.getWinners() + c.getScores() * 2%>
+								onmouseover="tooltip.show('<%=allhtml%>', 300); return; ShowDiv(event,'<%=allhtml%>')">
+								<%=c.getWinners() + c.getScores() * 2%>
 							</td>
-							
+
 							<td class="FCELL"
-							onmouseover="tooltip.show('<%=bwhtml%>', 300); return; ShowDiv(event,'<%=bwhtml%>')">
-							<%=c.getScoreBonus()%>							
+								onmouseover="tooltip.show('<%=bwhtml%>', 300); return; ShowDiv(event,'<%=bwhtml%>')">
+								<%=c.getScoreBonus()%>
 							</td>
-							
+
 							<td class="FCELL"><%=c.getBonusTeam() != null ? c.getBonusTeam() : "--"%></td>
 							<td class="FCELL"><%=c.getTeamBonus().toString()%></td>
 							<td class="FCELL"><%=c.getTeamBonus().intValue() + c.getScoreBonus() + c.getWinners() + c.getScores() * 2%></td>

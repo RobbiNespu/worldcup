@@ -18,10 +18,6 @@
 		<%
 			User user = (User) (session.getAttribute("user"));
 
-			Calendar cal = new GregorianCalendar();
-			cal.set(2018, 5, 14, 16, 00, 00);
-			boolean before = cal.getTimeInMillis() < System.currentTimeMillis();
-
 			if (user == null) {
 				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
 		%>
@@ -37,15 +33,16 @@
 				<td width=100%><%@ page import="java.sql.*"%>
 
 					<%
+					boolean before = !ApplicationFactory.getInstance().getModel().getActiveTournament().getMatches().get(0)
+					.isStillOpenForBets();
 						if (!before) {
-					%> <SPAN class=SIMPLE_TEXT>Selectati echipa
-						bonus</SPAN> <%
+					%> <SPAN class=SIMPLE_TEXT>Selectati echipa bonus</SPAN> <%
  	} else {
- %> <SPAN class=SIMPLE_TEXT>Posibilitatea
-						selectarii echipei bonus s-a incheiat. Urmatoarea sansa in 2016.
-						Alegerea ta a fost:</SPAN> <%
- 	}
- %>
+ %> <SPAN class=SIMPLE_TEXT>Posibilitatea selectarii echipei
+						bonus s-a incheiat. Urmatoarea sansa in 2020. Alegerea ta a fost:</SPAN>
+					<%
+						}
+					%>
 
 					<FORM action="setChampions.jsp" method=POST>
 						<%
@@ -56,7 +53,7 @@
 								User user2 = ApplicationFactory.getInstance().getModel().getUserByName(user.getUser());
 								WinningTeamForecast wtf = user2.getWinningTeamForecast(tour);
 								String teamid = (wtf != null ? wtf.getTeam().getName() : "");
-								
+
 								out.write("<option value=\"\" " + (teamid == null || teamid.length() == 0 ? "selected" : "") + ">--");
 								for (Team team : teams) {
 									out.write("<option value=\"" + team.getName() + "\" "

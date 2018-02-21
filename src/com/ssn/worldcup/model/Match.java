@@ -24,6 +24,8 @@ import org.hibernate.annotations.GenericGenerator;
 		@NamedQuery(name = Match.BY_TOURNAMENT_AND_NUMBER, query = "from Match where tournament = :tournament and number = :number") //
 })
 public class Match {
+	private static final int MATCH_TIME_LIMIT = 15 * 60 * 1000;
+
 	public static final String BY_TOURNAMENT_AND_NUMBER = "match.by.tour.and.number";
 
 	@Id
@@ -308,5 +310,12 @@ public class Match {
 
 	public String getScore() {
 		return score1 + " - " + score2;
+	}
+
+	public boolean isStillOpenForBets() {
+		long currentTime = System.currentTimeMillis();
+		long matchTime = getDate().getTime();
+
+		return currentTime < matchTime - MATCH_TIME_LIMIT;
 	}
 }

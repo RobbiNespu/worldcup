@@ -32,7 +32,7 @@ public interface Model {
 
 	public List<Team> getTeamsForActiveTournament();
 
-	void setBonusTeam(String username, String name);
+	boolean setBonusTeam(String username, String name);
 
 	void setSender(String s1, String s2);
 

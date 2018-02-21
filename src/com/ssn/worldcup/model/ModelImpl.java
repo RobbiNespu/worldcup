@@ -190,7 +190,9 @@ public class ModelImpl implements Model {
 			@Override
 			protected void executeBusinessLogic(Session session) {
 				ModelManager mm = new ModelManager(session);
-				setReturnValue(mm.findActiveTournament());
+				Tournament tour = mm.findActiveTournament();
+				tour.getMatches().toString();
+				setReturnValue(tour);
 			}
 		}.run();
 	}
@@ -257,16 +259,20 @@ public class ModelImpl implements Model {
 				session.merge(user);
 				Match match = tm.findMatchByTournamentAndNumber(tour, number);
 
-				Forecast forecast = tm.findForecastByMatchAndUser(match, user);
-				if (forecast == null) {
-					forecast = new Forecast(user, match, score1, score2);
-					session.save(forecast);
+				if (match.isStillOpenForBets()) {
+					Forecast forecast = tm.findForecastByMatchAndUser(match, user);
+					if (forecast == null) {
+						forecast = new Forecast(user, match, score1, score2);
+						session.save(forecast);
+					} else {
+						forecast.setScore1(score1);
+						forecast.setScore2(score2);
+					}
+					setReturnValue(true);
 				} else {
-					forecast.setScore1(score1);
-					forecast.setScore2(score2);
+					setReturnValue(false);
 				}
 
-				setReturnValue(true);
 			}
 		}.run();
 	}
@@ -314,23 +320,28 @@ public class ModelImpl implements Model {
 	}
 
 	@Override
-	public void setBonusTeam(String username, String name) {
-		new WithSessionAndTransaction<Void>() {
+	public boolean setBonusTeam(String username, String name) {
+		return new WithSessionAndTransaction<Boolean>() {
 			@Override
 			protected void executeBusinessLogic(Session session) {
 				ModelManager tm = new ModelManager(session);
 				Tournament tour = tm.findActiveTournament();
 				User user = tm.findUserByUserName(username);
 
-				WinningTeamForecast wtf = user.getWinningTeamForecast(tour);
-				Team team = tm.findTeamByName(name);
+				if (tour.getMatches().get(0).isStillOpenForBets()) {
+					WinningTeamForecast wtf = user.getWinningTeamForecast(tour);
+					Team team = tm.findTeamByName(name);
 
-				if (wtf == null) {
-					wtf = new WinningTeamForecast(user, tour, team);
-					session.save(wtf);
+					if (wtf == null) {
+						wtf = new WinningTeamForecast(user, tour, team);
+						session.save(wtf);
+					} else {
+						wtf.setTeam(team);
+						session.update(wtf);
+					}
+					setReturnValue(true);
 				} else {
-					wtf.setTeam(team);
-					session.update(wtf);
+					setReturnValue(false);
 				}
 
 			}
