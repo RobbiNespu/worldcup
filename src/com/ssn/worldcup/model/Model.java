@@ -37,4 +37,6 @@ public interface Model {
 	void setSender(String s1, String s2);
 
 	Mail getMail();
+
+	public void setUserComment(User user, String comment);
 }

@@ -1,4 +1,5 @@
 <%@page import="com.ssn.core.ApplicationFactory"%>
+<%@page import="com.ssn.core.utils.*"%>
 <%@ page import="com.ssn.worldcup.model.*"%>
 <%@ page import="java.util.*"%>
 
@@ -50,7 +51,7 @@
 				<td width="100%"><table border=1 cellspacing=1 class=TBL>
 
 						<tr>
-							<td class="FHCELL">Locul</td>
+							<td class="FHCELL"></td>
 							<td class="FHCELL">User</td>
 							<td class="FHCELL" title="Numarul de scoruri corecte ghicite">Scoruri</td>
 							<td class=FHCELL
@@ -82,16 +83,24 @@
  	String specialCrowns = "";
  			ArrayList<Integer> result = PreviousWinner.count(previousWinners, c.getName());
  			for (Integer year : result) {
- 				specialCrowns += " <img src=\"img/smallStar.png\" title=\"" + year + "\"/> ";
+ 				specialCrowns += " <img src=\"img/smallStar.png\" title=\"Campion in " + year + "\"/> ";
  			}
 
  			if (counter == 1) {
- 				specialCrowns += " <img src=\"img/cup.png\" title=\"Temporary champion\"/> ";
+ 				specialCrowns += " <img src=\"img/cup.png\" title=\"Lider virtual\"/> ";
  			}
  %> <%=specialCrowns%>
-							</B></td>
+							</B>
 							<%
-								User theUser = ApplicationFactory.getInstance().getModel().getUserByName(c.getName());
+							User theUser = ApplicationFactory.getInstance().getModel().getUserByName(c.getName());
+							if (theUser.getComment() != null && !theUser.getComment().isEmpty()) {
+								%>
+								<img src="img/comment-icon.png" title="<%=Utils.escapeHTML(theUser.getComment())%>"/>
+								<%
+							}
+							%>
+							</td>
+							<%
 								String cshtml = theUser.getCorrectScoresAsHTML(); 
 								String cswhtml = theUser.getCorrectWinnersAndScoresAsHTML();  
 								String cwhtml = theUser.getCorrectWinnersAsHTML(); 

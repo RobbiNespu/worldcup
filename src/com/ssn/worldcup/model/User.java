@@ -64,6 +64,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Forecast> forecasts = new ArrayList<>();
 
+	@Column(name = "usercomment")
+	private String comment;
+
 	public User() {
 		//
 	}
@@ -292,4 +295,13 @@ public class User {
 		}
 		return color;
 	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 }

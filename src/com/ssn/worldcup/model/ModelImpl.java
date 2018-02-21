@@ -369,4 +369,16 @@ public class ModelImpl implements Model {
 		}.run();
 	}
 
+	@Override
+	public void setUserComment(User user, String comment) {
+		new WithSessionAndTransaction<Void>() {
+			@Override
+			protected void executeBusinessLogic(Session session) {
+				ModelManager tm = new ModelManager(session);
+				User userDb = tm.findUserByUserName(user.getUser());
+				userDb.setComment(comment);
+			}
+		}.run();
+	}
+
 }

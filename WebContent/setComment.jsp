@@ -1,11 +1,10 @@
-<%@ page import = "wmdb.*" %>
+<%@ page import = "com.ssn.worldcup.model.*" %>
+<%@ page import = "com.ssn.core.*" %>
 <html>
 <body>
-<center>
 
 <% 
-Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
-  String user = (String)(session.getAttribute("user"));
+  User user = (User)(session.getAttribute("user"));
 
   if (user==null)
   {
@@ -20,8 +19,7 @@ Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
 
 	String decl = request.getParameter("declaration");
 
-	Database.getInstance().getUsers().get(user).comment = decl;
-	Database.getInstance().save();
+	ApplicationFactory.getInstance().getModel().setUserComment(user, decl);
 	out.write("<SPAN class=SIMPLE_TEXT>Your comment was saved.</SPAN>");
 %>
 <jsp:include page="settings.jsp"/>
