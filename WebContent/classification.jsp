@@ -26,7 +26,7 @@
 
 </head>
 <body>
-	<div>
+	<div >
 
 		<div id="Tooltip"
 			style='DISPLAY: none; background-color: #FFFFdd; font-family: tahoma; font-size: 2pt; text-align: left; WIDTH: 250px; HEIGHT: 200px; border: 1px solid black; overflow: auto;'

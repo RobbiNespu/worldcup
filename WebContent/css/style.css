@@ -2,6 +2,10 @@
 body {
   font:11px/1.5 Verdana, Arial, Helvetica, sans-serif;
   background-color:   #B2D1FF;
+  display: block; 
+  margin-left: 20%; 
+  width: 60%; 
+  margin-right: 20%;
 }
 
 ul
