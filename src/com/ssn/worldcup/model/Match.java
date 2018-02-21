@@ -298,4 +298,12 @@ public class Match {
 		return result;
 	}
 
+	public String getTeam1OrPlaceholder() {
+		return getTeam1() != null ? getTeam1().getName() : getTeam1PlaceHolder();
+	}
+
+	public String getTeam2OrPlaceholder() {
+		return getTeam2() != null ? getTeam2().getName() : getTeam2PlaceHolder();
+	}
+
 }

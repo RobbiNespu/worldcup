@@ -1,8 +1,11 @@
 
 package com.ssn.worldcup.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -200,4 +203,93 @@ public class User {
 		return null;
 	}
 
+	public String getScoresAsHTML(Predicate<Forecast> predicate) {
+		String result = "";
+		DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+		result += "<TABLE id=detail cellspacing=1 border=0 class=TOOLTIP_TBL >";
+		int counter = 0;
+
+		for (Forecast f : forecasts) {
+			if (predicate.test(f)) {
+				counter++;
+				result += "<TR style=color:" + getColorByBalls(f.getBalls()) + " class=TOOLTIP_ROW"
+						+ (counter % 2 == 0 ? "ODD" : "EVEN") + "  >";
+				result += "<TD class=FCELL >" + f.getMatch().getNumber() + ".</TD>";
+				result += "<TD class=FCELL >" + format.format(f.getMatch().getDate()) + "</TD>";
+				result += "<TD class=FCELL >" + f.getMatch().getTeam1().getName() + "</TD>";
+				result += "<TD class=FCELL >" + f.getMatch().getTeam2().getName() + "</TD>";
+				result += "<TD class=FCELL >" + f.getMatch().getScore1() + " - " + f.getMatch().getScore2() + "</TD>";
+				result += "<TD class=FCELL >" + f.getScore1() + " - " + f.getScore2() + "</TD>";
+				result += "<TD class=FCELL >" + f.getBalls() + "p</TD>";
+				result += "</TR>";
+			}
+		}
+
+		result += "</TABLE>";
+
+		return result;
+	}
+
+	public String getCorrectScoresAsHTML() {
+		return getScoresAsHTML(new Predicate<Forecast>() {
+
+			@Override
+			public boolean test(Forecast f) {
+				return f.getBalls() >= 3;
+			}
+		});
+	}
+
+	public String getCorrectWinnersAsHTML() {
+		return getScoresAsHTML(new Predicate<Forecast>() {
+
+			@Override
+			public boolean test(Forecast f) {
+				return f.getBalls() == 1;
+			}
+		});
+	}
+
+	public String getCorrectWinnersAndScoresAsHTML() {
+		return getScoresAsHTML(new Predicate<Forecast>() {
+
+			@Override
+			public boolean test(Forecast f) {
+				return f.getBalls() >= 1;
+			}
+		});
+	}
+
+	public String getBonusWinnersAsHTML() {
+		return getScoresAsHTML(new Predicate<Forecast>() {
+
+			@Override
+			public boolean test(Forecast f) {
+				return f.getBalls() > 3;
+			}
+		});
+	}
+
+	public String getAllScoresAsHTML() {
+		return getScoresAsHTML(new Predicate<Forecast>() {
+
+			@Override
+			public boolean test(Forecast f) {
+				return true;
+			}
+		});
+	}
+
+	private String getColorByBalls(int balls) {
+		String color = "gray";
+		if (balls > 3) {
+			color = "#8000FF";
+		}
+		if (balls == 3) {
+			color = "green";
+		} else if (balls == 1) {
+			color = "black";
+		}
+		return color;
+	}
 }

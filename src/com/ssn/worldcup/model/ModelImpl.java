@@ -279,6 +279,7 @@ public class ModelImpl implements Model {
 				ModelManager tm = new ModelManager(session);
 				User user = tm.findUserByUserName(name);
 				user.getWinningTeamForecasts().toString();
+				user.getForecasts().toString();
 				setReturnValue(user);
 
 			}
