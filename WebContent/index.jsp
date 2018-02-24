@@ -11,32 +11,36 @@
 </head>
 <body onload="document.all['user'].focus()">
 <center>
-
 <form action="login.jsp" method="post">
-<table cellspacing=0 >
-<tr>
+<table cellspacing=0 border=0>
+<tr >
 <td colspan=2>
-<A><img width="600px"  src="header.PNG"/></a>
+<A><img width="700px"  src="img/header1.png"/></a>
 </td>
 </tr>
+<tr><td><br/></td></tr>
 <tr>
 <td class=SIMPLE_TEXT>
-  User 
+ <strong> User &nbsp</strong>
 </td>
 <td align=left >
   <input type="text" name="user" value="" />
 </td>
 <tr>
 <td class=SIMPLE_TEXT>
-  Password 
+ <strong>Password &nbsp</strong>
 </td>
 <td align=left width="400px">
   <input type="password" name="password" value="" />
 </td>
-<tr>
-<td class=SIMPLE_TEXT>
-  <input type="submit" value="Login" />
+</tr>
+<tr><td><br/></td></tr>
+<tr >
+<td class=SIMPLE_TEXT_CENTERED colspan="2">
+  <input type="submit"  value="Login" />
 </td>
+</tr>
+<tr><td><br/><br/></td></tr>
 <tr>
 <td class=SIMPLE_TEXT_CENTERED colspan="2" align="center">
   New user? <a href="signin.jsp">Sign in</a>

@@ -1,15 +1,12 @@
-<%@ page import = "wmdb.*" %>
+
 <%@ page import = "java.util.*" %>
- 
-   <div id="newsticker" style="height: 55px; font:11px/1.5 Verdana, Arial, Helvetica, sans-serif;">
-        <ul>
-<li>Castigatorul editiei 2014 a concursului de pronosticuri este <B>sorin</B>. Dupa ce a fost foarte aproape de cupa in 2010 si 2012, anul acesta a castigat.</li>
-<li>Felicitari <B>sorin</b>, multumiri tuturor participantilor si sa ne vedem cu bine in 2016!</li>
-<li>Cele mai multe scoruri: <B>sorin</B> - 11</li>
-<li>Cele mai multe rezultate: <B>dco, ghena</B> - 36</li>
-<li>Cel mai norocos: <B>dza</B> - 10 scoruri din 24 de rezultate</li>
-<li>Cel mai ghinionist: <B>marcel</B> - nici un scor din 29 de rezultate</li>
-<li>Cele mai multe puncte bonus pentru scor mare: <B>tmo, iRO, mihai.arba</B> - 3</li>
+   <div id="newsticker">
+   <ul>
+<li >Castigatorul editiei 2014 a concursului de pronosticuri este <B>sorin</B>. Dupa ce a fost foarte aproape de cupa in 2010 si 2012, anul acesta a castigat.</li>
+<li >Felicitari <B>sorin</b>, multumiri tuturor participantilor si sa ne vedem cu bine in 2016!</li>
+<li >Cele mai multe scoruri: <B>sorin</B> - 11</li>
+<li >Cele mai multe rezultate: <B>dco, ghena</B> - 36</li>
+
 			<!-- li>Bine ati venit la a 7-a editie a concursului de pronosticuri Schaefer!</li>
 			<li>Mult succes tuturor!</li>
 			<li>Nu uitati sa va setati <A href="champions.jsp">echipa favorita</A> <B>pana la inceperea turneului</B>!</li>
@@ -33,5 +30,3 @@ for (;e.hasMoreElements();)
         </ul>
     </div>
 
-
-</DIV>

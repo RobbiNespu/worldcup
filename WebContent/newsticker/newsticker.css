@@ -1,14 +1,17 @@
 
 #newsticker {
-	background: #ffffaf;
+background-color:rgba(255, 255, 255, 0.5);
 	position: relative;
+	width:70%;
+	    margin-left: 15%;
+    margin-right: 15%;
+	height: 60px;
 }
 #newsticker ul {
-	border: 1px solid #fcf498;
 	list-style: none;
-	min-height: 1.6em;
-	padding: 10px 15px;
-	padding-right: 30px;
+	height: 40px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 * html #newsticker ul {
 	height: 1.6em;
@@ -18,7 +21,7 @@
 	color: #f00;
 }
 #newsticker #togglenewsticker {
-	background: transparent url("icon_closenewsticker.gif") no-repeat 0 0;
+	background: transparent url("close.png") no-repeat 0 0;
 	overflow: hidden;
 	position: absolute;
 	right: 10px;
