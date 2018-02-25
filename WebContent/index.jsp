@@ -21,17 +21,19 @@
 <tr><td><br/></td></tr>
 <tr>
 <td class=SIMPLE_TEXT>
- <strong> User &nbsp</strong>
+<br>
 </td>
 <td align=left >
-  <input type="text" name="user" value="" />
+  <input required='' name="user"  type='text' >
+  <label alt="User" placeholder='User'></label>
 </td>
 <tr>
 <td class=SIMPLE_TEXT>
- <strong>Password &nbsp</strong>
+<br>
 </td>
 <td align=left width="400px">
-  <input type="password" name="password" value="" />
+  <input required='' name="password"  type='password' >
+  <label alt="Password" placeholder='Password'></label>
 </td>
 </tr>
 <tr><td><br/></td></tr>

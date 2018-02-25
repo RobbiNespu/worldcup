@@ -28,8 +28,12 @@
   Password*
 </td>
 <td align=left >
-  <input type="password" name="password" value="" />
+
+<input required='' name="password"  type='password' >
+  <label alt="Password" placeholder='Password'></label>
 </td>
+
+
 </tr>
 <tr>
 <td class=SIMPLE_TEXT>

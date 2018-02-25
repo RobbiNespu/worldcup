@@ -6,13 +6,22 @@
 %>
 <div class="clearfix">
 	<div class="addBox1">
-		<strong>Login</strong> User: <br> Password: <br>
+		<strong>Login</strong> Userrr: <br> Password: <br>
 	</div>
 	<div class="addBox1">
 		<strong> &nbsp</strong>
 		<FORM action="<%=relLF%>login.jsp" method="POST">
-			<INPUT type="text" name="user" /><BR /> <INPUT type="password"
-				name="pass" /><br> <br> <INPUT type="submit" value="Login" />
+			<INPUT type="text" name="user" /><BR /> 
+			
+					<input required='' name="user"  type='text' >
+  <label alt="User" placeholder='User'></label>
+			
+			<input required='' name="password"  type='password' >
+  <label alt="Password" placeholder='Password'></label>
+
+			
+			
+			<br> <br> <INPUT type="submit" value="Login" />
 		</FORM>
 	</div>
 </div>
