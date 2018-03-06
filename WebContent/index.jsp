@@ -1,71 +1,114 @@
 <%@page import="com.ssn.core.ApplicationFactory"%>
-<%@ page import = "com.ssn.core.*" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="com.ssn.core.*"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8"/>
-    <meta name="description" content="" />
-	<LINK type="text/css" rel="stylesheet" href="css/style.css"/>
-	<jsp:include page="style.jsp"/>
-	<title><%= ApplicationFactory.getInstance().getModel().getActiveTournament().toString() %></title> 
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
+<meta name="description" content="" />
+<title><%=ApplicationFactory.getInstance().getModel().getActiveTournament().toString()%></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+.modal-header, h4, .close {
+	background-color: #5cb85c;
+	color: white !important;
+	text-align: center;
+	font-size: 30px;
+}
+
+.modal-footer {
+	background-color: #f9f9f9;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.bg {
+    /* The image used */
+    background-image: url("img/background1.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+</style>
+
 </head>
-<body onload="document.all['user'].focus()">
-<center>
-<form action="login.jsp" method="post">
-<table cellspacing=0 border=0>
-<tr >
-<td colspan=2>
-<A><img width="700px"  src="img/header1.png"/></a>
-</td>
-</tr>
-<tr><td><br/></td></tr>
-<tr>
-<td class=SIMPLE_TEXT>
-<br>
-</td>
-<td align=left >
-  <input required='' name="user"  type='text' >
-  <label alt="User" placeholder='User'></label>
-</td>
-<tr>
-<td class=SIMPLE_TEXT>
-<br>
-</td>
-<td align=left width="400px">
-  <input required='' name="password"  type='password' >
-  <label alt="Password" placeholder='Password'></label>
-</td>
-</tr>
-<tr><td><br/></td></tr>
-<tr >
-<td class=SIMPLE_TEXT_CENTERED colspan="2">
-  <input type="submit"  value="Login" />
-</td>
-</tr>
-<tr><td><br/><br/></td></tr>
-<tr>
-<td class=SIMPLE_TEXT_CENTERED colspan="2" align="center">
-  New user? <a href="signin.jsp">Sign in</a>
-</td>
-</tr>
-<tr>
-<td class=SIMPLE_TEXT_CENTERED colspan="2" align="center">
-  Registered users: <B> <%=ApplicationFactory.getInstance().getModel().getUsers().size()%> </B>
-</td>
-</tr>
-<tr><td colspan="2" align="center">
-<IMG src="img/cupa.jpg" height="300" width="400"></img>
-<br/>
+<body onload="document.all['user'].focus()" >
 
-<SPAN class=FCELL style='text-color:gray;'>Server time: 
-<%java.util.Date d = new java.util.Date();
-out.write(d.toString());
-%>
-</SPAN>
-</td></tr>
-</table>
-</form>
-</center>
-
+<div class="bg">
+<img class="img-responsive" src="img/header.png" alt="Chania" width="1920"/> 
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">SSI World Cup Competition</a>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+					Sign Up</a></li>
+			<li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span>
+					Login</a></li>
+		</ul>
+	</div>
+	</nav>
+	</div>
+	
+	
+	<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;" method="post">
+          <form role="form" action="login.jsp">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" name="user" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="text" class="form-control" name="password" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <p>Not a member? <a href="#">Sign Up</a></p>
+          <p>Forgot <a href="#">Password?</a></p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+});
+</script>
 </body>
 </html>
+

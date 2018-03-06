@@ -1,14 +1,6 @@
 
 <%@ page import="com.ssn.core.*"%>
 <%@ page import="com.ssn.worldcup.model.*"%>
-<html>
-<head>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
-<meta name="description" content="2014 competition" />
-</head>
-
-<body>
-	<center>
 		<%
 			String user = request.getParameter("user");
 			String pass = request.getParameter("password");
@@ -21,10 +13,19 @@
 					session.setAttribute("user", theUser);
 		%>
 		<%
-			response.sendRedirect("settings.jsp");
+			response.sendRedirect("classification.jsp");
 		%>
 		<%
-			} else {
+			} else { %>
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
+<meta name="description" content="2014 competition" />
+</head>
+
+<body>
+	<center>
+	<%
 					out.write(
 							"<SPAN class=SIMPLE_TEXT_ERROR>Your account was not validated yet. Please reply to the validation mail. ");
 					out.write("<a href=\"index.jsp\">Try again</a> or <a href=\"resendValidation.jsp?user="+user+"\">resend validation mail</a></SPAN>");
