@@ -3,13 +3,18 @@
 <%@ page import="com.ssn.core.utils.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.*"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
-<LINK type="text/css" rel="stylesheet" href="wm.css" />
-<LINK type="text/css" rel="stylesheet" href="css/style.css" />
-<jsp:include page="style.jsp" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" language="javascript" src="js/script.js"></script>
 <title>Forecasts</title>
 
@@ -22,12 +27,34 @@
 		}
 	}
 </script>
-
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+</style>
 </head>
 
 
 <body>
-	<center>
+<div class="bg">
+	<img class="img-responsive" src="img/header.png" alt="Chania"
+		width="1920" />
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">SSI World Cup Competition</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="classification.jsp">Clasament</a></li>
+				<li class="active"><a href="forecasts.jsp">Pronosticuri</a></li>
+				<li><a href="#">Echipa bonus</a></li>
+				<li><a href="#">Reguli</a></li>
+				<li><a href="#">Setari</a></li>
+				<li><a href="#">Iesire</a></li>
+			</ul>
+		</div>
+	</nav>
 		<%
 			User user = (User) (session.getAttribute("user"));
 			user = ApplicationFactory.getInstance().getModel().getUserByName(user.getUser());
@@ -42,32 +69,31 @@
 		<%
 			} else {
 		%>
-		<jsp:include page="menuHeader.jsp">
-			<jsp:param name="menu" value="1" />
-		</jsp:include>
-		<table width=100% onmouseout="tooltip.hide();return;hideDiv();">
-			<tr valign=top>
+	<div class="container">		
+	<form action=setScore.jsp method=POST>
+	<input type=submit value='Salveaza' onclick='dataChanged = false;'/><SPAN class=SIMPLE_COMMENT>&nbsp;Nu uitati sa apasati butonul <B>Salveaza</B>  dupa ce ati editat scorurile, pentru a le salva in baza de date!!!</SPAN>
+			<tr>
 				<td>
 					<%
-						out.write("<form action=setScore.jsp method=POST>");
-							out.write(
-									"<input type=submit value='Salveaza' onclick='dataChanged = false;'/><SPAN class=SIMPLE_COMMENT>&nbsp;Nu uitati sa apasati butonul <B>Salveaza</B>  dupa ce ati editat scorurile, pentru a le salva in baza de date!!!</SPAN>");
-							out.write("<table cellspacing=1 border=0 class=TBL>");
 
 							int counter = 0;
 					%>
+		<table class="table table-bordered table-striped table-hover table-condensed">
+		<thead>
 				
 			<tr>
-				<td class=FHCELL>Nr</td>
-				<td class=FHCELL>Data</td>
-				<td class=FHCELL>Turul</td>
-				<td class=FHCELL>Echipa 1</td>
-				<td class=FHCELL>Echipa 2</td>
-				<td class=FHCELL>Final</td>
-				<td class=FHCELL colspan=2>Scorul tau</td>
-				<td class=FHCELL>Puncte</td>
+				<th >Nr</th>
+				<th >Data</th>
+				<th >Turul</th>
+				<th >Echipa 1</th>
+				<th >Echipa 2</th>
+				<th >Final</th>
+				<th colspan=2>Scorul tau</th>
+				<th >Puncte</th>
 				<!-- td class=FHCELL>Value</td-->
 			</tr>
+			</thead>
+			<tbody>
 			<%
 				List<Match> vec = ApplicationFactory.getInstance().getModel().getMatchesForActiveTournament();
 					for (Match m : vec) {
@@ -84,12 +110,12 @@
 						}
 			%>
 
-			<tr class="ROW<%=((counter % 2 == 1) ? "ODD" : "EVEN")%>">
-				<td class="FCELL"><%=m.getNumber()%><input
+			<tr>
+				<td><%=m.getNumber()%><input
 					name="ch<%=m.getNumber()%>" id="ch<%=m.getNumber()%>" type="hidden"
 					value="false" /></td>
-				<td class="FCELL"><%=dateFormat.format(m.getDate())%></td>
-				<td class="FCELL"><%=m.getStage()%></td>
+				<td><%=dateFormat.format(m.getDate())%></td>
+				<td><%=m.getStage()%></td>
 
 				<%
 					String tooltipT1 = "";
@@ -97,7 +123,7 @@
 								tooltipT1 += m.getTeam1().getMatchesAsTable();
 							}
 				%>
-				<td class="FCELL"
+				<td
 					onmouseover="tooltip.show('<%=tooltipT1%>',400); return;				
 								ShowDiv(event,'<%=tooltipT1%>')">
 					<%
@@ -116,7 +142,7 @@
 								tooltipT2 += m.getTeam2().getMatchesAsTable();
 							}
 				%>
-				<td class="FCELL"
+				<td
 					onmouseover="tooltip.show('<%=tooltipT2%>',400); return;				
 								ShowDiv(event,'<%=tooltipT2%>')">
 					<%
@@ -129,7 +155,7 @@
 					%>
 				</td>
 
-				<td class="FCELL"><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
+				<td><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
 				</td>
 
 				<%
@@ -137,14 +163,14 @@
 							if (m.isStillOpenForBets()) {
 								
 				%>
-				<td class="FCELL"
+				<td
 					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
 								ShowDiv(event,'<%=tooltipStats%>')"><input
 					class="ROWINP"
 					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
 					type="text" name="fa<%=m.getId()%>" size="1"
 					value="<%=(f.getScore1() != -1 ? f.getScore1() : "")%>"></input></td>
-				<td class="FCELL"
+				<td
 					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
 								ShowDiv(event,'<%=tooltipStats%>')"><input
 					class="ROWINP"
@@ -154,14 +180,14 @@
 				<%
 					} else {
 				%>
-				<td colspan="2" class="FCELL"
+				<td colspan="2" 
 					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
 								ShowDiv(event,'<%=tooltipStats%>')"><%=f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
 				<%
 					}
 				%>
 
-				<td class="FCELL">
+				<td >
 					<%
 						for (int j = 0; j < f.getBalls(); j++) {
 					%> <IMG width="10px" height="10px" src='img/ball.png' /> <%
@@ -173,12 +199,14 @@
 			<%
 				}
 
-					out.write("</table>");
-					out.write("</form>");
+					%>
+					<%
 				} // else
 			%>
+			</tbody>
 		</table>
-
-	</center>
+					</form>
+</div>
+</div>
 </body>
 </html>

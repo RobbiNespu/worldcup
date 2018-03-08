@@ -35,7 +35,7 @@ body, html {
 }
 .bg {
     /* The image used */
-    background-image: url("img/background1.jpg");
+    /*background-image: url("img/background1.jpg");*/
 
     /* Full height */
     height: 100%; 
@@ -60,53 +60,17 @@ body, html {
 				<a class="navbar-brand" href="#">SSI World Cup Competition</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Clasament</a></li>
-				<li><a href="#">Pronosticuri</a></li>
+				<li class="active"><a href="classification.jsp">Clasament</a></li>
+				<li><a href="forecasts.jsp">Pronosticuri</a></li>
 				<li><a href="#">Echipa bonus</a></li>
 				<li><a href="#">Reguli</a></li>
 				<li><a href="#">Setari</a></li>
 				<li><a href="#">Iesire</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-						Sign Up</a></li>
-				<li><a href="#" id="myBtn"><span
-						class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			</ul>
 		</div>
 	</nav>
 
-<div class="container">
-  <h2>Bordered Table</h2>
-  <p>The .table-bordered class adds borders to a table:</p>            
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-	<div>
+	<div class="container">
 
 		<div id="Tooltip"
 			style='DISPLAY: none; background-color: #FFFFdd; font-family: tahoma; font-size: 2pt; text-align: left; WIDTH: 250px; HEIGHT: 200px; border: 1px solid black; overflow: auto;'
@@ -123,31 +87,22 @@ body, html {
 			} else {
 		%>
 
-		<table class="table-stripped table-bordered" onmouseout="tooltip.hide();return;hideDiv();">
-		<thead>
-			<tr>
-				<td width="100%"><table border=1 cellspacing=1 class=TBL>
-
-						<tr>
-							<td></td>
-							<td>User</td>
-							<td class="FHCELL" title="Numarul de scoruri corecte ghicite">Scoruri</td>
-							<td class=FHCELL
-								title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</td>
-							<td class=FHCELL title="Suma precedentelor doua coloane">S +
-								C</td>
-							<td class=FHCELL
-								title="Reprezinta cate scoruri au fost pronosticate corect din numarul total de meciuri la care castigatoarea a fost pronosticata corect.">Noroc</td>
-							<td class=FHCELL title="Numarul punctelor 'normale'">Puncte</td>
-							<td class=FHCELL title="Numarul punctelor bonus">Pct. bonus</td>
-							<td class=FHCELL title="Echipa favorita aleasa">Favorita</td>
-							<td class=FHCELL
-								title="Numarul punctelor bonus pentru echipa favorita">Bonus
-								favorita</td>
-							<td class=FHCELL
-								title="Numarul total de puncte (puncte+puncte bonus)">Total</td>
-						</tr>
-						</thead>
+		<table class="table table-bordered table-striped table-hover" onmouseout="tooltip.hide();return;hideDiv();">
+		    <thead>
+      <tr>
+        <th>Pos</th>
+        <th>User</th>
+        <th title="Numarul de scoruri corecte ghicite">Scoruri</th>
+        <th title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</th>
+        <th title="Numarul de scoruri corecte ghicite">S + C</th>
+        <th title="Reprezinta cate scoruri au fost pronosticate corect din numarul total de meciuri la care castigatoarea a fost pronosticata corect">Noroc</th>
+        <th title="Numarul punctelor 'normale'">Puncte</th>
+        <th title="Numarul punctelor bonus">Pct. bonus</th>
+        <th title="Echipa favorita aleasa">Favorita</th>
+        <th title="Numarul punctelor bonus pentru echipa favorita">Bonus favorita</th>
+        <th title="Numarul total de puncte (puncte+puncte bonus)">Total</th>
+      </tr>
+    </thead>
 						<tbody>
 						<%
 							int counter = 0;
@@ -156,10 +111,9 @@ body, html {
 								for (Classification c : vec) {
 									counter++;
 						%>
-						<TR
-							class="ROW<%=(c.getName().equals(user.getUser()) ? "USER" : ((counter % 2 == 1) ? "ODD" : "EVEN"))%>">
-							<td class="FCELL"><%=counter%></td>
-							<td class="FCELL"><B> <%=c.getName()%> <%
+						<TR <%= (c.getName().equals(user.getUser()) ?  "class=\"success\"" : "") %>>
+							<td><%=counter%></td>
+							<td><B> <%=c.getName()%> <%
  	String specialCrowns = "";
  			ArrayList<Integer> result = PreviousWinner.count(previousWinners, c.getName());
  			for (Integer year : result) {
@@ -177,45 +131,32 @@ body, html {
 								title="<%=Utils.escapeHTML(theUser.getComment())%>" /> <%
 							}
 							%></td>
-							<%
-								String cshtml = theUser.getCorrectScoresAsHTML(); 
-								String cswhtml = theUser.getCorrectWinnersAndScoresAsHTML();  
-								String cwhtml = theUser.getCorrectWinnersAsHTML(); 
-								String allhtml = theUser.getAllScoresAsHTML(); 
-								String bwhtml = theUser.getBonusWinnersAsHTML(); 
-							%>
-
-							<td class="FCELL"
-								onmouseover="tooltip.show('<%=cshtml%>', 300); return; ShowDiv(event,'<%=cshtml%>')">
+							<td>
 
 								<%=c.getScores()%></td>
 
-							<td class="FCELL"
-								onmouseover="tooltip.show('<%=cwhtml%>', 300); return; ShowDiv(event,'<%=cwhtml%>')">
+							<td>
 								<%=c.getWinners()%>
 							</td>
 
-							<td class="FCELL"
-								onmouseover="tooltip.show('<%=cswhtml%>', 300); return; ShowDiv(event,'<%=cswhtml%>')">
+							<td>
 								<%=c.getScores() + c.getWinners()%>
 							</td>
 
-							<td class="FCELL"><%=c.getScores() + c.getWinners() > 0
+							<td><%=c.getScores() + c.getWinners() > 0
 							? 100 * c.getScores() / (c.getScores() + c.getWinners()) : 0%>%</td>
 
-							<td class="FCELL"
-								onmouseover="tooltip.show('<%=allhtml%>', 300); return; ShowDiv(event,'<%=allhtml%>')">
+							<td>
 								<%=c.getWinners() + c.getScores() * 2%>
 							</td>
 
-							<td class="FCELL"
-								onmouseover="tooltip.show('<%=bwhtml%>', 300); return; ShowDiv(event,'<%=bwhtml%>')">
+							<td>
 								<%=c.getScoreBonus()%>
 							</td>
 
-							<td class="FCELL"><%=c.getBonusTeam() != null ? c.getBonusTeam() : "--"%></td>
-							<td class="FCELL"><%=c.getTeamBonus().toString()%></td>
-							<td class="FCELL"><%=c.getTeamBonus().intValue() + c.getScoreBonus() + c.getWinners() + c.getScores() * 2%></td>
+							<td><%=c.getBonusTeam() != null ? c.getBonusTeam() : "--"%></td>
+							<td><%=c.getTeamBonus().toString()%></td>
+							<td><%=c.getTeamBonus().intValue() + c.getScoreBonus() + c.getWinners() + c.getScores() * 2%></td>
 
 						</TR>
 

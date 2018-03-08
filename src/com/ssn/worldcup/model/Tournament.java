@@ -38,6 +38,7 @@ public class Tournament {
 	private List<Team> teams;
 
 	@OneToMany(mappedBy = "tournament")
+	@OrderBy(value = "date")
 	private List<Match> matches;
 
 	@OneToMany(mappedBy = "tournament")
