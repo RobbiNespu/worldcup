@@ -15,10 +15,10 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" language="javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 <title>Forecasts</title>
 
-<script language="JavaScript">
+<script>
 	window.onbeforeunload = confirmExit;
 	var dataChanged = false;
 	function confirmExit() {
@@ -86,9 +86,8 @@ if (request.getParameter("alert") != null) {
 		%>
 	<div class="container">		
 	<form action=setScore.jsp method=POST>
-	<input type=submit value='Salveaza' onclick='dataChanged = false;'/><SPAN class=SIMPLE_COMMENT>&nbsp;Nu uitati sa apasati butonul <B>Salveaza</B>  dupa ce ati editat scorurile, pentru a le salva in baza de date!!!</SPAN>
-			<tr>
-				<td>
+	
+	<div class="well">&nbsp;&nbsp;Nu uitati sa apasati butonul <button type="submit" class="btn btn-danger" onclick='dataChanged = false;'>Salveaza</button>  dupa ce ati editat scorurile, pentru a le salva in baza de date!!!</div>
 					<%
 
 							int counter = 0;
