@@ -41,7 +41,7 @@
 				} else {
 					out.write("<SPAN class=SIMPLE_TEXT>Your data was saved.</SPAN>");
 				}
-				response.sendRedirect("forecasts.jsp");
+				response.sendRedirect("forecasts.jsp?alertType=S&alert=Your scores were successfully saved in the database.");
 		%>
 
 		<%
