@@ -1,17 +1,21 @@
 <%@ page import="com.ssn.worldcup.model.*"%>
 <%@ page import="java.util.*"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8"/>
     <meta name="description" content="European Football Final Tournament 2008 competition" />
-	<LINK type="text/css" rel="stylesheet" href="wm.css"/>
-	<LINK type="text/css" rel="stylesheet" href="css/style.css"/>
-	<jsp:include page="style.jsp"/>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/script.js"></script>
 	<title>Rules</title>
 </head>
 <body>
-<center>
 <% 
   User user = (User)(session.getAttribute("user"));
 
@@ -26,14 +30,34 @@
    else
    {
 %>
-<jsp:include page="menuHeader.jsp">
-  <jsp:param name="menu" value="3"/>
-</jsp:include>
-<table class=SIMPLE_TEXT_LEFT><tr valign=top ><td width=100%>
+
+<div class="bg">
+	<img class="img-responsive" src="img/header.png" alt="Chania"
+		width="1920" />
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">SSI World Cup Competition</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="classification.jsp">Clasament</a></li>
+				<li><a href="forecasts.jsp">Pronosticuri</a></li>
+				<li><a href="champions.jsp">Echipa bonus</a></li>
+				<li class="active"><a href="links.jsp">Reguli</a></li>
+				<li><a href="settings.jsp">Setari</a></li>
+				<li><a href="logout.jsp">Iesire</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+	<div class="well">
+	<p>
 Regulile sunt urmatoarele:
-<br/><br/>
+</p>
+<p>
 Trebuie sa indicati scorul corect al partidelor la sfarsitul celor 90 de minunte regulamentare (inclusiv eventualele minute de prelungire indicate de arbitru). Nu se va lua in considerare scorul dupa eventualele reprize de prelungire sau lovituri de la 11m din faza eliminatorie a competitiei. 
-<br/>
+</p>
 <ul>
 <li>Se primeste 1 punct pentru indicarea corecta a echipei castigatoare dar nu si a scorului.</li>
 <li>Se primesc 3 puncte pentru indicarea corecta a scorului.</li>
@@ -49,7 +73,10 @@ Trebuie sa indicati scorul corect al partidelor la sfarsitul celor 90 de minunte
   <li>5 puncte pentru castigarea competitiei</li>
   </ul>
 </ul>
+<p>
 Scorul unui meci trebuie introdus cu cel putin 15 minute inainte de inceperea meciului respectiv. Echipa favorita poate fi aleasa inaintea inceperii primului meci al turneului.
+</p>
+<p>
 In cazul egalitatii de puncte intre doi sau mai multi participanti <B>la sfarsitul competitiei</B> castigatorul va fi desemnat in functie de urmatoarele criterii:
 <ul>
 <li>cel mai mare numar de scoruri corecte
@@ -58,23 +85,17 @@ In cazul egalitatii de puncte intre doi sau mai multi participanti <B>la sfarsit
 <li>cel mai mare numar de puncte obtinut in meciul 63
 <li>... si asa mai departe pana se ajunge la o diferenta
 </ul>
-<br/>
+</p>
+<p>
 Este permisa si participarea unor persoane care nu sunt angajati Schaefer (ex: rudele angajatilor), dar <U>cupa
 o va primi angajatul Schaefer cel mai bine plasat in clasament</U>.
-<br/>
+</p>
+</div>
+</div>
 
-</td>
-
-	</tr>
-	</table>
-
-
-</td>
-</tr>
-</table>
+</div>
 <%
    } //else
 %>
-</center>
 </body>
 </html>

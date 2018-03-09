@@ -62,10 +62,10 @@ body, html {
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="classification.jsp">Clasament</a></li>
 				<li><a href="forecasts.jsp">Pronosticuri</a></li>
-				<li><a href="#">Echipa bonus</a></li>
-				<li><a href="#">Reguli</a></li>
-				<li><a href="#">Setari</a></li>
-				<li><a href="#">Iesire</a></li>
+				<li><a href="champions.jsp">Echipa bonus</a></li>
+				<li><a href="links.jsp">Reguli</a></li>
+				<li><a href="settings.jsp">Setari</a></li>
+				<li><a href="logout.jsp">Iesire</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -113,7 +113,7 @@ body, html {
 						%>
 						<TR <%= (c.getName().equals(user.getUser()) ?  "class=\"success\"" : "") %>>
 							<td><%=counter%></td>
-							<td><B> <%=c.getName()%> <%
+							<td><B><A title="Vezi pronosticurile lui <%=c.getName()%>" href="forecasts4User.jsp?user=<%=c.getName()%>"> <%=c.getName()%></A> <%
  	String specialCrowns = "";
  			ArrayList<Integer> result = PreviousWinner.count(previousWinners, c.getName());
  			for (Integer year : result) {

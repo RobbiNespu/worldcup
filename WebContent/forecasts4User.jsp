@@ -16,17 +16,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/script.js"></script>
-<title>Forecasts</title>
+<title>Forecasts for user</title>
 
-<script>
-	window.onbeforeunload = confirmExit;
-	var dataChanged = false;
-	function confirmExit() {
-		if (dataChanged) {
-			return "Nu ati salvat ultimele scoruri introduse!";
-		}
-	}
-</script>
 <style>
 body, html {
     height: 100%;
@@ -38,21 +29,6 @@ body, html {
 
 <body>
 <div class="bg">
-
-<% 
-String alert = request.getParameter("alert");
-String type =  request.getParameter("alertType");
-
-if (request.getParameter("alert") != null) {
-%>
-  <div id="alert" class="alert <%=type.equals("S")?"alert-success":"alert-danger" %> alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><%= alert %></strong>
-  </div>
-<%
-}
-%>
-  
 	<img class="img-responsive" src="img/header.png" alt="Chania"
 		width="1920" />
 	<nav class="navbar navbar-inverse">
@@ -83,26 +59,27 @@ if (request.getParameter("alert") != null) {
 		<jsp:include page="index.jsp" />
 		<%
 			} else {
+				String requestedUser = request.getParameter("user");
+				User forUser = ApplicationFactory.getInstance().getModel().getUserByName(requestedUser);
 		%>
 	<div class="container">		
-	<form action=setScore.jsp method=POST>
-	
-	<div class="well">&nbsp;&nbsp;Nu uitati sa apasati butonul <button type="submit" class="btn btn-primary" onclick='dataChanged = false;'>Salveaza</button>  dupa ce ati editat scorurile, pentru a le salva in baza de date!!!</div>
 					<%
 
 							int counter = 0;
 					%>
+	<div class="well">&nbsp;&nbsp;Acestea sunt pronosticurile lui <strong><%= requestedUser %></strong>. Pentru a te intoarce la clasament apasa <button type="button" class="btn btn-primary" onclick="location.href='classification.jsp'">Inapoi</button></div>
+
 		<table class="table table-bordered table-striped table-hover table-condensed">
 		<thead>
 				
 			<tr>
-				<th>Nr</th>
+				<th >Nr</th>
 				<th >Data</th>
 				<th >Turul</th>
 				<th >Echipa 1</th>
 				<th >Echipa 2</th>
 				<th >Final</th>
-				<th >Scorul tau</th>
+				<th colspan=2>Pronostic</th>
 				<th >Puncte</th>
 				<!-- td class=FHCELL>Value</td-->
 			</tr>
@@ -112,11 +89,11 @@ if (request.getParameter("alert") != null) {
 				List<Match> vec = ApplicationFactory.getInstance().getModel().getMatchesForActiveTournament();
 					for (Match m : vec) {
 						counter++;
-						Forecast f = m.getForecastByUser(user);
+						Forecast f = m.getForecastByUser(forUser);
 
 						if (f == null) {
 							// create a dummy forecast if there is no forecast to make displaying easier
-							f = new Forecast(user, m, -1, -1) {
+							f = new Forecast(forUser, m, -1, -1) {
 								public int getBalls() {
 									return 0;
 								}
@@ -138,13 +115,11 @@ if (request.getParameter("alert") != null) {
 							}
 				%>
 				<td
-					data-toggle="tooltip" data-html="true" data-container="body" title="<%=tooltipT1 %>"
-					
-					>
+					onmouseover="tooltip.show('<%=tooltipT1%>',400); return;				
+								ShowDiv(event,'<%=tooltipT1%>')">
 					<%
-						System.out.println(m.getNumber());
 						if (user.getWinningTeamForecast(tour) != null
-										&& m.getTeam1() != null && m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
+										&& m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
 									out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
 								} else {
 									out.write((m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
@@ -159,10 +134,11 @@ if (request.getParameter("alert") != null) {
 							}
 				%>
 				<td
-					data-toggle="tooltip" data-html="true" data-container="body" title="<%=tooltipT2%>">
+					onmouseover="tooltip.show('<%=tooltipT2%>',400); return;				
+								ShowDiv(event,'<%=tooltipT2%>')">
 					<%
 						if (user.getWinningTeamForecast(tour) != null
-										&& m.getTeam2() != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
+										&& m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
 									out.write(Utils.bold(m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
 								} else {
 									out.write((m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
@@ -178,22 +154,13 @@ if (request.getParameter("alert") != null) {
 							if (m.isStillOpenForBets()) {
 								
 				%>
-				<td  data-toggle="tooltip" data-html="true" data-container="body" title="<%=tooltipStats %>">
-					<input
-					class="ROWINP"
-					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
-					type="text" name="fa<%=m.getId()%>" size="1"
-					value="<%=(f.getScore1() != -1 ? f.getScore1() : "")%>"></input>
-				
-					<input
-					class="ROWINP"
-					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
-					type="text" name="fb<%=m.getId()%>" size="1"
-					value="<%=(f.getScore2() != -1 ? f.getScore2() : "")%>"></input></td>
+				<td colspan="2" 
+					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
+								ShowDiv(event,'<%=tooltipStats%>')">? - ?</td>
 				<%
 					} else {
 				%>
-				<td  
+				<td colspan="2" 
 					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
 								ShowDiv(event,'<%=tooltipStats%>')"><%=f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
 				<%
@@ -218,19 +185,7 @@ if (request.getParameter("alert") != null) {
 			%>
 			</tbody>
 		</table>
-					</form>
 </div>
 </div>
 </body>
-<script>
-$("#alert").fadeTo(2000, 500).slideUp(500, function(){
-    $("#alert").slideUp(500);
-});
-
-$(function () {
-	  $('[data-toggle="tooltip"]').tooltip({
-	        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner" style="max-width:100%"></div></div>'
-	    })
-});
-</script>
 </html>

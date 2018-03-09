@@ -131,16 +131,16 @@ public class Team {
 		String result = "";
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
 
-		result += "<TABLE id=detail cellspacing=1 border=0 class=TOOLTIP_TBL >";
+		result += "<TABLE id=detail border='1' >";
 		int counter = 0;
 		for (Match m : matches) {
 			if (m.isPlayed()) {
 				counter++;
-				result += "<TR class=TOOLTIP_ROW" + (counter % 2 == 0 ? "ODD" : "EVEN") + "  >";
-				result += "<TD class=FCELL >" + format.format(m.getDate()) + "</TD>";
-				result += "<TD class=FCELL >" + m.getTeam1() + "</TD>";
-				result += "<TD class=FCELL >" + m.getTeam2() + "</TD>";
-				result += "<TD class=FCELL >" + m.getScore1() + " - " + m.getScore2() + "</TD>";
+				result += "<TR>";
+				result += "<TD>" + format.format(m.getDate()) + "</TD>";
+				result += "<TD>" + m.getTeam1() + "</TD>";
+				result += "<TD>" + m.getTeam2() + "</TD>";
+				result += "<TD>" + m.getScore1() + " - " + m.getScore2() + "</TD>";
 				result += "</TR>";
 			}
 		}

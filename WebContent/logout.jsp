@@ -8,9 +8,7 @@
 <%@ page import = "java.util.*" %>
 <% 
   session.invalidate();
-	  %>
-		  <jsp:include page="index.jsp"/>
-	  <%
+  response.sendRedirect("index.jsp?alertType=S&alert=Ati fost delogat cu succes.");
 %>
 
 

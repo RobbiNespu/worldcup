@@ -286,14 +286,14 @@ public class Match {
 		Map<String, Integer> scores = getScoresMap();
 		String result = "";
 
-		result += "<TABLE id=detail cellspacing=1 border=0 class=TOOLTIP_TBL >";
+		result += "<TABLE id='detail'>";
 		int counter = 0;
 		for (Entry<String, Integer> score : scores.entrySet()) {
 			counter++;
-			result += "<TR class=TOOLTIP_ROW" + (counter % 2 == 0 ? "ODD" : "EVEN") + "  >";
-			result += "<TD class=FCELL >" + score.getKey() + "</TD>";
-			result += "<TD class=FCELL >" + score.getValue() + "</TD>";
-			result += "<TD class=FCELL >" + (int) (100.0 * score.getValue() / forecasts.size()) + "%</TD>";
+			result += "<TR>";
+			result += "<TD>" + score.getKey() + "</TD>";
+			result += "<TD>" + score.getValue() + "</TD>";
+			result += "<TD>" + (int) (100.0 * score.getValue() / forecasts.size()) + "%</TD>";
 			result += "</TR>";
 		}
 		result += "</TABLE>";

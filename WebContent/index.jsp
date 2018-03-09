@@ -49,6 +49,21 @@ body, html {
 <body onload="document.all['user'].focus()" >
 
 <div class="bg">
+
+<% 
+String alert = request.getParameter("alert");
+String type =  request.getParameter("alertType");
+
+if (request.getParameter("alert") != null) {
+%>
+  <div id="alert" class="alert <%=type.equals("S")?"alert-success":"alert-danger" %> alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= alert %></strong>
+  </div>
+<%
+}
+%>
+
 <img class="img-responsive" src="img/header.png" alt="Chania" width="1920"/> 
 	<nav class="navbar navbar-inverse">
 	<div class="container-fluid">
@@ -84,7 +99,7 @@ body, html {
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" name="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
@@ -110,5 +125,18 @@ $(document).ready(function(){
 });
 </script>
 </body>
+
+<script>
+$("#alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert").slideUp(500);
+});
+
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip({
+	        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner" style="max-width:100%"></div></div>'
+	    })
+});
+</script>
+
 </html>
 

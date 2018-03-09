@@ -2,19 +2,40 @@
 <%@page import="com.ssn.core.ApplicationFactory"%>
 <%@ page import="com.ssn.worldcup.model.*"%>
 <%@ page import="java.util.*"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
-<meta name="description"
-	content="European Football Final Tournament 2010 competition" />
-<LINK type="text/css" rel="stylesheet" href="wm.css" />
-<LINK type="text/css" rel="stylesheet" href="css/style.css" />
-<jsp:include page="style.jsp" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Bonus team</title>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.bg {
+    /* The image used */
+    /*background-image: url("img/background1.jpg");*/
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+}
+</style>
 </head>
 <body>
-	<center>
 		<%
 			User user = (User) (session.getAttribute("user"));
 
@@ -25,21 +46,38 @@
 		<%
 			} else {
 		%>
-		<jsp:include page="menuHeader.jsp">
-			<jsp:param name="menu" value="2" />
-		</jsp:include>
-		<table width="100%" height="600px">
-			<tr valign=top>
-				<td width=100%><%@ page import="java.sql.*"%>
+<div class="bg">
+	<img class="img-responsive" src="img/header.png" alt="Chania"
+		width="1920" />
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">SSI World Cup Competition</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="classification.jsp">Clasament</a></li>
+				<li><a href="forecasts.jsp">Pronosticuri</a></li>
+				<li class="active"><a href="#">Echipa bonus</a></li>
+				<li><a href="links.jsp">Reguli</a></li>
+				<li><a href="settings.jsp">Setari</a></li>
+				<li><a href="logout.jsp">Iesire</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+				<%@ page import="java.sql.*"%>
 
 					<%
 					boolean before = !ApplicationFactory.getInstance().getModel().getActiveTournament().getMatches().get(0)
 					.isStillOpenForBets();
 						if (!before) {
-					%> <SPAN class=SIMPLE_TEXT>Selectati echipa bonus</SPAN> <%
+					%> <div class="well">Selectati echipa bonus <%
  	} else {
- %> <SPAN class=SIMPLE_TEXT>Posibilitatea selectarii echipei
-						bonus s-a incheiat. Urmatoarea sansa in 2020. Alegerea ta a fost:</SPAN>
+ %> 
+ <div class="well">Posibilitatea selectarii echipei
+						bonus s-a incheiat. Urmatoarea sansa in 2020. Alegerea ta a fost:
+ 
 					<%
 						}
 					%>
@@ -65,21 +103,18 @@
 						<%
 							if (!before) {
 						%>
-						<INPUT type="submit" value="Salveaza">
+						<button type="submit" class="btn btn-primary" onclick='classification.jsp'>Salveaza</button>
+						
 						<%
 							}
 						%>
-					</FORM></td>
+					</FORM>
 
-			</tr>
-		</table>
-
-		</td>
-		</tr>
+</div>
 		<%
 			} // else
 		%>
+</div>
 
-	</center>
 </body>
 </html>
