@@ -36,6 +36,19 @@ body, html {
 </style>
 </head>
 <body>
+<% 
+String alert = request.getParameter("alert");
+String type =  request.getParameter("alertType");
+
+if (request.getParameter("alert") != null) {
+%>
+  <div id="alert" class="alert <%=type.equals("S")?"alert-success":"alert-danger" %> alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= alert %></strong>
+  </div>
+<%
+}
+%>
 		<%
 			User user = (User) (session.getAttribute("user"));
 
@@ -45,7 +58,7 @@ body, html {
 		<jsp:include page="index.jsp" />
 		<%
 			} else {
-		%>
+		%>		
 <div class="bg">
 	<img class="img-responsive" src="img/header.png" alt="Chania"
 		width="1920" />
@@ -117,4 +130,10 @@ body, html {
 </div>
 
 </body>
+<script>
+$("#alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert").slideUp(500);
+});
+</script>
+
 </html>

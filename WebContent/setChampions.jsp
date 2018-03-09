@@ -20,10 +20,10 @@
 
 	  	String teamid = request.getParameter("teamid");
 
-	  	ApplicationFactory.getInstance().getModel().setBonusTeam(user.getUser(), teamid); 
-	  	out.write("<SPAN class=SIMPLE_TEXT>Your data was saved.</SPAN>");
+	  	ApplicationFactory.getInstance().getModel().setBonusTeam(user.getUser(), teamid);
+		response.sendRedirect("champions.jsp?alertType=S&alert=Echipa ta bonus a fost salvata.");
+
 	  %>
-<jsp:include page="champions.jsp"/>
 
 <%
    } //else

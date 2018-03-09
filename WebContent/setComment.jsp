@@ -20,9 +20,8 @@
 	String decl = request.getParameter("declaration");
 
 	ApplicationFactory.getInstance().getModel().setUserComment(user, decl);
-	out.write("<SPAN class=SIMPLE_TEXT>Your comment was saved.</SPAN>");
+	response.sendRedirect("settings.jsp?alertType=S&alert=Comentariul tau a fost salvat");
 %>
-<jsp:include page="settings.jsp"/>
 
 <%
    } //else
