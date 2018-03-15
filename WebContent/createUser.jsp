@@ -5,8 +5,8 @@
 	<%
 		//Database.getInstance().log(request.getRemoteAddr()+" createUser.jsp");
 		try {
-			String user = request.getParameter("user");
-			String password = request.getParameter("password");
+			String user = request.getParameter("userSI");
+			String password = request.getParameter("passwordSI");
 			String password2 = request.getParameter("repeatPassword");
 			String email = request.getParameter("email");
 
@@ -26,13 +26,13 @@
 
 						out.write("<SPAN class=SIMPLE_TEXT>User " + user + " created. </SPAN>");
 	%>
-	<jsp:include page="index.jsp" />
+	response.sendRedirect("index.jsp");
 	<%
 		} else {
 						out.write("<SPAN class=SIMPLE_TEXT_ERROR>Cannot create user " + user
 								+ ". User or email already exists.</SPAN>");
 	%>
-	<jsp:include page="signin.jsp" />
+	response.sendRedirect("index.jsp");
 	<%
 		}
 			} else {

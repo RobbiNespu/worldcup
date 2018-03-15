@@ -131,11 +131,11 @@ if (request.getParameter("alert") != null) {
           <form role="form" action="createUser.jsp">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" name="user" placeholder="Enter username">
+              <input type="text" class="form-control" name="userSI" placeholder="Enter username">
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="passwordSI" placeholder="Enter password">
             </div>
                 <div class="form-group">
               <label for="psw2"><span class="glyphicon glyphicon-eye-open"></span> Repeat Password</label>
