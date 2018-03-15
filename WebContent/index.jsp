@@ -143,7 +143,7 @@ if (request.getParameter("alert") != null) {
             </div>
              <div class="form-group">
               <label for="mail"></span> E-mail</label>
-              <input type="text" class="form-control" name="mail" placeholder="Enter e-mail">
+              <input type="text" class="form-control" name="email" placeholder="Enter e-mail">
             </div>
 
               <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-off"></span> Login</button>
