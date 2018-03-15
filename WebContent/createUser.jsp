@@ -7,7 +7,7 @@
 		try {
 			String user = request.getParameter("user");
 			String password = request.getParameter("password");
-			String password2 = request.getParameter("confirmPassword");
+			String password2 = request.getParameter("repeatPassword");
 			String email = request.getParameter("email");
 
 			if (user != null) {
