@@ -9,6 +9,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Utils {
+	public static final String LOST_ENCRYPTED = "4907be270063f355ec08ccd7414f3bb8";
 
 	public static String getParentsFromServletPath(String path) {
 		{

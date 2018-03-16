@@ -72,21 +72,21 @@ if (request.getParameter("alert") != null) {
 
 <form class="form-horizontal" action="setNewPwd.jsp"> 
   <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Old password:</label>
+    <label class="control-label col-sm-2" for="email">Parola veche:</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" name="old" placeholder="Enter old password">
+      <input type="password" class="form-control" name="old" placeholder="Parola veche">
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">New password:</label>
+    <label class="control-label col-sm-2" for="pwd">Parola noua:</label>
     <div class="col-sm-10"> 
-      <input type="password" class="form-control" name="new" placeholder="Enter new password">
+      <input type="password" class="form-control" name="new" placeholder="Parola noua">
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">Retype new password:</label>
+    <label class="control-label col-sm-2" for="pwd">Parola noua din nou:</label>
     <div class="col-sm-10"> 
-      <input type="password" class="form-control" name="confnew" placeholder="Enter new password again">
+      <input type="password" class="form-control" name="confnew" placeholder="Parola noua din nou">
     </div>
   </div>
   <div class="form-group"> 

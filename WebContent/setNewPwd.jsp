@@ -23,14 +23,12 @@
 	String newp = request.getParameter("new");
 	String confp = request.getParameter("confnew");
 
-	if (Utils.encrypt(oldp).equals(user.getPassword()) &&
-	    newp.equals(confp))
-	{
+	if (!newp.equals(confp)) {
+		response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Nu ati introdus parola noua la fel de doua ori.");		
+	} else if (Utils.encrypt(oldp).equals(user.getPassword())) {
 		ApplicationFactory.getInstance().getModel().changePassword(user.getUser(), oldp, newp);
-		response.sendRedirect("settings.jsp?alertType=S&alert=Noua parola a fost schimbata.");
-	}
-	else
-	{
+		response.sendRedirect("settings.jsp?alertType=S&alert=Noua parola a fost setata.");
+	} else	{
 		response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Vechea parola a fost gresita.");
 	}
 %>

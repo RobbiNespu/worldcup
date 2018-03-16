@@ -24,16 +24,12 @@
 </head>
 
 <body>
-	<center>
 	<%
-					out.write(
-							"<SPAN class=SIMPLE_TEXT_ERROR>Your account was not validated yet. Please reply to the validation mail. ");
-					out.write("<a href=\"index.jsp\">Try again</a> or <a href=\"resendValidation.jsp?user="+user+"\">resend validation mail</a></SPAN>");
-				}
+				response.sendRedirect("index.jsp?alertType=E&alert=Contul tau nu a fost inca validat. Nu uita sa dai reply la emailul de validare.");
+			}
 
 			} else {
-				out.write("<SPAN class=SIMPLE_TEXT_ERROR>Unknown user or wrong password. ");
-				out.write("<a href=\"index.jsp\">Try again</a></SPAN>");
+				response.sendRedirect("index.jsp?alertType=E&alert=User invalid sau parola gresita.");
 			}
 		%>
 	
