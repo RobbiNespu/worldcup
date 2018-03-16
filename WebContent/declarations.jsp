@@ -60,8 +60,8 @@ if (request.getParameter("alert") != null) {
 				<li><a href="forecasts.jsp">Pronosticuri</a></li>
 				<li><a href="champions.jsp">Echipa bonus</a></li>
 				<li><a href="links.jsp">Reguli</a></li>
-				<li><a href="declarations.jsp">Declaratii</a></li>
-				<li class="active"><a href="settings.jsp">Setari</a></li>
+				<li class="active"><a href="declarations.jsp">Declaratii</a></li>
+				<li><a href="settings.jsp">Setari</a></li>
 				<li><a href="logout.jsp">Iesire</a></li>
 			</ul>
 		</div>
@@ -70,31 +70,18 @@ if (request.getParameter("alert") != null) {
 	<div class="container">
 	<div class="well">
 
-<form class="form-horizontal" action="setNewPwd.jsp"> 
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Old password:</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" name="old" placeholder="Enter old password">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">New password:</label>
-    <div class="col-sm-10"> 
-      <input type="password" class="form-control" name="new" placeholder="Enter new password">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">Retype new password:</label>
-    <div class="col-sm-10"> 
-      <input type="password" class="form-control" name="confnew" placeholder="Enter new password again">
-    </div>
-  </div>
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
+<div class="bodyDiv">
+
+<FORM action="setComment.jsp" method=POST >
+						
+  <label>Introduceti declaratia dumneavoastra de presa: </label>					
+  <input name="declaration"  type='text' >
+  <button type="submit" class="btn btn-primary">Salveaza</button>
+</FORM>
+
+
+
+</div>
 </div>
 </div>
 </div>

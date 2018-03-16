@@ -36,11 +36,6 @@
 					}
 				}
 
-				if (!result) {
-					out.write("<SPAN class=SIMPLE_TEXT_ERROR>Unable to save your result.</SPAN>");
-				} else {
-					out.write("<SPAN class=SIMPLE_TEXT>Your data was saved.</SPAN>");
-				}
 				response.sendRedirect("forecasts.jsp?alertType=S&alert=Scorurile tale au fost salvate cu succes in baza de date.");
 		%>
 

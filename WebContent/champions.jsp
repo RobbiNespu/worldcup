@@ -72,6 +72,7 @@ if (request.getParameter("alert") != null) {
 				<li><a href="forecasts.jsp">Pronosticuri</a></li>
 				<li class="active"><a href="#">Echipa bonus</a></li>
 				<li><a href="links.jsp">Reguli</a></li>
+				<li><a href="declarations.jsp">Declaratii</a></li>
 				<li><a href="settings.jsp">Setari</a></li>
 				<li><a href="logout.jsp">Iesire</a></li>
 			</ul>

@@ -41,6 +41,7 @@ body, html {
 				<li class="active"><a href="forecasts.jsp">Pronosticuri</a></li>
 				<li><a href="champions.jsp">Echipa bonus</a></li>
 				<li><a href="links.jsp">Reguli</a></li>
+				<li><a href="declarations.jsp">Declaratii</a></li>
 				<li><a href="settings.jsp">Setari</a></li>
 				<li><a href="logout.jsp">Iesire</a></li>
 			</ul>

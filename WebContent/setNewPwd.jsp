@@ -1,11 +1,12 @@
-<%@ page import = "wmdb.*" %>
+<%@page import="com.ssn.core.ApplicationFactory"%>
+<%@ page import="com.ssn.worldcup.model.*"%>
+<%@ page import="com.ssn.core.utils.*"%>
+<%@ page import="java.util.*"%>
 <html>
 <body>
-<center>
 
 <% 
-Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
-  String user = (String)(session.getAttribute("user"));
+  User user = (User)(session.getAttribute("user"));
 
   if (user==null)
   {
@@ -22,19 +23,17 @@ Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
 	String newp = request.getParameter("new");
 	String confp = request.getParameter("confnew");
 
-	if (oldp.equals(Database.getInstance().getUsers().get(user).pass) &&
+	if (Utils.encrypt(oldp).equals(user.getPassword()) &&
 	    newp.equals(confp))
 	{
-		Database.getInstance().getUsers().get(user).pass = newp;
-		Database.getInstance().save();	  
-		out.write("<SPAN class=SIMPLE_TEXT>Your new password was saved.</SPAN>");
+		ApplicationFactory.getInstance().getModel().changePassword(user.getUser(), oldp, newp);
+		response.sendRedirect("settings.jsp?alertType=S&alert=Noua parola a fost schimbata.");
 	}
 	else
 	{
-		out.write("<SPAN class=SIMPLE_TEXT_ERROR>Your new password was not saved. Either old password was wrong or new password was different than its confirmation. </SPAN>");	  
+		response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Vechea parola a fost gresita.");
 	}
 %>
-<jsp:include page="settings.jsp"/>
 
 <%
    } //else
