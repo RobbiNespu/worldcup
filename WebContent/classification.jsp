@@ -95,7 +95,6 @@ body, html {
         <th>User</th>
         <th title="Numarul de scoruri corecte ghicite">Scoruri</th>
         <th title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</th>
-        <th title="Numarul de scoruri corecte ghicite">S + C</th>
         <th title="Reprezinta cate scoruri au fost pronosticate corect din numarul total de meciuri la care castigatoarea a fost pronosticata corect">Noroc</th>
         <th title="Numarul punctelor 'normale'">Puncte</th>
         <th title="Numarul punctelor bonus">Pct. bonus</th>
@@ -140,12 +139,9 @@ body, html {
 								<%=c.getWinners()%>
 							</td>
 
-							<td>
-								<%=c.getScores() + c.getWinners()%>
-							</td>
 
 							<td><%=c.getScores() + c.getWinners() > 0
-							? 100 * c.getScores() / (c.getScores() + c.getWinners()) : 0%>%</td>
+							? 100 * c.getScores() / (c.getWinners()) : 0%>%</td>
 
 							<td>
 								<%=c.getWinners() + c.getScores() * 2%>
