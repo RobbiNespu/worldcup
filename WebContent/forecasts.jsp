@@ -204,7 +204,7 @@ if (request.getParameter("alert") != null) {
 				<td >
 					<%
 						for (int j = 0; j < f.getBalls(); j++) {
-					%> <IMG width="10px" height="10px" src='img/ball.png' /> <%
+					%> <IMG width="20px" height="20px" src='img/ball.png' /> <%
  	}
  %>
 				</td>

@@ -120,7 +120,7 @@ body, html {
 								ShowDiv(event,'<%=tooltipT1%>')">
 					<%
 						if (user.getWinningTeamForecast(tour) != null
-										&& m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
+								&& m.getTeam1() != null && m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
 									out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
 								} else {
 									out.write((m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));
@@ -139,7 +139,7 @@ body, html {
 								ShowDiv(event,'<%=tooltipT2%>')">
 					<%
 						if (user.getWinningTeamForecast(tour) != null
-										&& m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
+								&& m.getTeam2() != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
 									out.write(Utils.bold(m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
 								} else {
 									out.write((m.getTeam2() != null ? m.getTeam2().getName() : m.getTeam2PlaceHolder()));
@@ -171,7 +171,7 @@ body, html {
 				<td >
 					<%
 						for (int j = 0; j < f.getBalls(); j++) {
-					%> <IMG width="10px" height="10px" src='img/ball.png' /> <%
+					%> <IMG width="20px" height="20px" src='img/ball.png' /> <%
  	}
  %>
 				</td>
