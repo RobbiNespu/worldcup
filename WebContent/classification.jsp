@@ -81,10 +81,7 @@ body, html {
 			User user = (User) (session.getAttribute("user"));
 
 			if (user == null) {
-				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
-		%>
-		<jsp:include page="index.jsp" />
-		<%
+					response.sendRedirect("index.jsp?alertType=E&alert=Ai fost deconectat. Relogineaza-te.");
 			} else {
 		%>
 

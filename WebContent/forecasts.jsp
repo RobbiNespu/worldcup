@@ -83,10 +83,8 @@ if (request.getParameter("alert") != null) {
 			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
 
 			if (user == null) {
-				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
-		%>
-		<jsp:include page="index.jsp" />
-		<%
+				response.sendRedirect("index.jsp?alertType=E&alert=Ai fost deconectat. Relogineaza-te.");
+
 			} else {
 		%>
 	<div class="container">		
