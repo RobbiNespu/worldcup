@@ -25,19 +25,19 @@
 						ApplicationFactory.getInstance().getModel().getMail().sendMessage(u, serverIP, serverPort);
 
 						out.write("<SPAN class=SIMPLE_TEXT>User " + user + " created. </SPAN>");
+	response.sendRedirect("index.jsp?alertType=S&alert=User-ul a fost creat. Valideaza-ti adresa de email.");
 	%>
-	response.sendRedirect("index.jsp");
 	<%
 		} else {
 						out.write("<SPAN class=SIMPLE_TEXT_ERROR>Cannot create user " + user
 								+ ". User or email already exists.</SPAN>");
+	response.sendRedirect("index.jsp?alertType=E&alert=User-ul nu a putut fi creat. Adresa de mail sau user-ul mai exista.");
 	%>
-	response.sendRedirect("index.jsp");
 	<%
 		}
 			} else {
 	%>
-	alert("different passwords were chosen")
+	alert("different passwords were chosen");
 	<%=password%>
 	<%=password2%>
 

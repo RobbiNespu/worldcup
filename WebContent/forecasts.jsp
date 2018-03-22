@@ -73,7 +73,11 @@ if (request.getParameter("alert") != null) {
 	</nav>
 		<%
 			User user = (User) (session.getAttribute("user"));
-			user = ApplicationFactory.getInstance().getModel().getUserByName(user.getUser());
+			if (user == null) {
+				response.sendRedirect("index.jsp?alertType=E&alert=Ai fost deloginat automat. Pentru a continua, relogineaza-te.");
+				return;
+			}
+			user = ApplicationFactory.getInstance().getModel().getUserByName(user.getUser());			
 			Tournament tour = ApplicationFactory.getInstance().getModel().getActiveTournament();
 
 			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);

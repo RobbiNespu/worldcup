@@ -49,20 +49,22 @@ public class ModelImpl implements Model {
 				ModelManager tm = new ModelManager(session);
 				List<User> findAllUsers = tm.findAllUsers();
 				if (findAllUsers.size() == 0) {
-					User raz = new User("raz", "raz", "razvan.veina@ss-schaefer.com", true, true);
+					User raz = new User("qwe", "raz", "razvan.veina@ss-schaefer.com", true, true);
 					session.save(raz);
-					User sorin = new User("sorin", "sorin", "razvan.veina@ss-schaefer.com", false, true);
-					session.save(sorin);
-					User dvr = new User("dvr", "dvr", "razvan.veina@ss-schaefer.com", false, true);
-					session.save(dvr);
+					// User sorin = new User("sorin", "sorin",
+					// "razvan.veina@ss-schaefer.com", false, true);
+					// session.save(sorin);
+					// User dvr = new User("dvr", "dvr",
+					// "razvan.veina@ss-schaefer.com", false, true);
+					// session.save(dvr);
 
 					Tournament tour = new Tournament("World Cup", 2018);
 					tour.setActive(true);
 					session.save(tour);
 
 					raz.getTournaments().add(tour);
-					sorin.getTournaments().add(tour);
-					dvr.getTournaments().add(tour);
+					// sorin.getTournaments().add(tour);
+					// dvr.getTournaments().add(tour);
 
 					importTeamsAndMatches(session, tour);
 
@@ -153,8 +155,8 @@ public class ModelImpl implements Model {
 					session.save(team2db);
 				}
 				Match m = new Match(number, date, stage, team1db, team2db, tour, presenceValue, victoryValue);
-				m.setScore1((int) (5.0 * Math.random()));
-				m.setScore2((int) (5.0 * Math.random()));
+				// m.setScore1((int) (5.0 * Math.random()));
+				// m.setScore2((int) (5.0 * Math.random()));
 				session.save(m);
 			} else {
 				Match m = new Match(number, date, stage, team1, team2, tour, presenceValue, victoryValue);

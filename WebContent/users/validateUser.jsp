@@ -12,7 +12,7 @@
 					out.write(
 							"<SPAN class=SIMPLE_TEXT_ERROR>Your account is already validated. Please proceed to login");
 					Thread.sleep(3000);
-					response.sendRedirect("../login.jsp");
+					response.sendRedirect("../index.jsp");
 				}else{
 		
 			if (user != null && code.equals(user.getValidationCode())) {
@@ -21,7 +21,7 @@
 				out.write(
 						"<SPAN class=SIMPLE_TEXT_ERROR>Your account is now validated. Good luck!");
 				Thread.sleep(3000);
-				response.sendRedirect("../settings.jsp");
+				response.sendRedirect("../classification.jsp");
 			}
 				}
 		%>
