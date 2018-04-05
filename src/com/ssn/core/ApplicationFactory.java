@@ -15,21 +15,21 @@ import com.ssn.worldcup.model.ModelImpl;
  */
 
 public class ApplicationFactory {
-	private static ApplicationFactory instance;
-	private Model model;
+  private static ApplicationFactory instance;
+  private Model model;
 
-	private ApplicationFactory() {
-		this.model = new ModelImpl();
-	}
+  private ApplicationFactory() {
+    this.model = new ModelImpl();
+  }
 
-	public static ApplicationFactory getInstance() {
-		if (instance == null) {
-			instance = new ApplicationFactory();
-		}
-		return instance;
-	}
+  public static ApplicationFactory getInstance() {
+    if (instance == null) {
+      instance = new ApplicationFactory();
+    }
+    return instance;
+  }
 
-	public Model getModel() {
-		return model;
-	}
+  public Model getModel() {
+    return model;
+  }
 }

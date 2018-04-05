@@ -39,4 +39,7 @@ public interface Model {
 	Mail getMail();
 
 	public void setUserComment(User user, String comment);
+
+	public void setResult(int id, int g1, int g2);
+
 }

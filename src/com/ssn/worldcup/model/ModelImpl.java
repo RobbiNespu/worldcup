@@ -1,3 +1,4 @@
+
 package com.ssn.worldcup.model;
 
 import java.io.BufferedReader;
@@ -21,377 +22,392 @@ import com.ssn.worldcup.manager.ModelManager;
 
 public class ModelImpl implements Model {
 
-	private Mail mail;
+  private Mail mail;
 
-	public ModelImpl() {
-		init();
-	}
+  public ModelImpl() {
+    init();
+  }
 
-	@Override
-	public User checkLogin(String user, String password) {
-		return new WithSessionAndTransaction<User>() {
+  @Override
+  public User checkLogin(String user, String password) {
+    return new WithSessionAndTransaction<User>() {
 
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				setReturnValue(tm.findUserByUserNameAndPassword(user, password));
-			}
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        setReturnValue(tm.findUserByUserNameAndPassword(user, password));
+      }
 
-		}.run();
-	}
+    }.run();
+  }
 
-	@Override
-	public void init() {
-		new WithSessionAndTransaction<User>() {
+  @Override
+  public void init() {
+    new WithSessionAndTransaction<User>() {
 
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				List<User> findAllUsers = tm.findAllUsers();
-				if (findAllUsers.size() == 0) {
-					User raz = new User("qwe", "raz", "razvan.veina@ss-schaefer.com", true, true);
-					session.save(raz);
-					// User sorin = new User("sorin", "sorin",
-					// "razvan.veina@ss-schaefer.com", false, true);
-					// session.save(sorin);
-					// User dvr = new User("dvr", "dvr",
-					// "razvan.veina@ss-schaefer.com", false, true);
-					// session.save(dvr);
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        List<User> findAllUsers = tm.findAllUsers();
+        if (findAllUsers.size() == 0) {
+          User raz = new User("qwe", "qwe", "razvan.veina@ss-schaefer.com", true, true);
+          session.save(raz);
+          // User sorin = new User("sorin", "sorin",
+          // "razvan.veina@ss-schaefer.com", false, true);
+          // session.save(sorin);
+          // User dvr = new User("dvr", "dvr",
+          // "razvan.veina@ss-schaefer.com", false, true);
+          // session.save(dvr);
 
-					Tournament tour = new Tournament("World Cup", 2018);
-					tour.setActive(true);
-					session.save(tour);
+          Tournament tour = new Tournament("World Cup", 2018);
+          tour.setActive(true);
+          session.save(tour);
 
-					raz.getTournaments().add(tour);
-					// sorin.getTournaments().add(tour);
-					// dvr.getTournaments().add(tour);
+          raz.getTournaments().add(tour);
+          // sorin.getTournaments().add(tour);
+          // dvr.getTournaments().add(tour);
 
-					importTeamsAndMatches(session, tour);
+          importTeamsAndMatches(session, tour);
 
-					// Team eng = new Team("Rusia", tour);
-					// session.save(eng);
-					// Team rom = new Team("Arabia Saudita", tour);
-					// session.save(rom);
-					// Team ger = new Team("Egipt", tour);
-					// session.save(ger);
-					// Team fra = new Team("Uruguay", tour);
-					// session.save(fra);
+          // Team eng = new Team("Rusia", tour);
+          // session.save(eng);
+          // Team rom = new Team("Arabia Saudita", tour);
+          // session.save(rom);
+          // Team ger = new Team("Egipt", tour);
+          // session.save(ger);
+          // Team fra = new Team("Uruguay", tour);
+          // session.save(fra);
 
-					// WinningTeamForecast wRaz = new WinningTeamForecast(raz,
-					// tour, rom);
-					// session.save(wRaz);
-					// WinningTeamForecast wSor = new WinningTeamForecast(sorin,
-					// tour, ger);
-					// session.save(wSor);
-					// WinningTeamForecast wDvr = new WinningTeamForecast(dvr,
-					// tour, eng);
-					// session.save(wDvr);
+          // WinningTeamForecast wRaz = new WinningTeamForecast(raz,
+          // tour, rom);
+          // session.save(wRaz);
+          // WinningTeamForecast wSor = new WinningTeamForecast(sorin,
+          // tour, ger);
+          // session.save(wSor);
+          // WinningTeamForecast wDvr = new WinningTeamForecast(dvr,
+          // tour, eng);
+          // session.save(wDvr);
 
-					// DateFormat format = new SimpleDateFormat("dd.MM.yyyy
-					// hh:mm", Locale.ENGLISH);
-					// Match m1;
-					// Match m2;
-					// try {
-					// m1 = new Match(1, format.parse("14.06.2018 18:00"), eng,
-					// rom, tour, 1, 1);
-					// session.save(m1);
-					// m2 = new Match(2, format.parse("15.06.2018 15:00"), ger,
-					// fra, tour, 1, 1);
-					// session.save(m2);
-					// } catch (ParseException e) {
-					// throw new RuntimeException(e);
-					// }
+          // DateFormat format = new SimpleDateFormat("dd.MM.yyyy
+          // hh:mm", Locale.ENGLISH);
+          // Match m1;
+          // Match m2;
+          // try {
+          // m1 = new Match(1, format.parse("14.06.2018 18:00"), eng,
+          // rom, tour, 1, 1);
+          // session.save(m1);
+          // m2 = new Match(2, format.parse("15.06.2018 15:00"), ger,
+          // fra, tour, 1, 1);
+          // session.save(m2);
+          // } catch (ParseException e) {
+          // throw new RuntimeException(e);
+          // }
 
-					// session.save(new Forecast(raz, m1, 1, 1));
-					// session.save(new Forecast(sorin, m1, 0, 1));
-					// session.save(new Forecast(dvr, m1, 5, 0));
-					// session.save(new Forecast(raz, m2, 2, 1));
+          // session.save(new Forecast(raz, m1, 1, 1));
+          // session.save(new Forecast(sorin, m1, 0, 1));
+          // session.save(new Forecast(dvr, m1, 5, 0));
+          // session.save(new Forecast(raz, m2, 2, 1));
 
-				}
-			}
+        }
+      }
 
-		}.run();
-	}
+    }.run();
+  }
 
-	protected void importTeamsAndMatches(Session session, Tournament tour) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("schedule.csv").getFile());
+  protected void importTeamsAndMatches(Session session, Tournament tour) {
+    ClassLoader classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource("schedule.csv").getFile());
 
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-			while (true) {
-				String s = br.readLine();
-				if (s == null) {
-					break;
-				}
-				importMatch(session, s, tour);
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+      while (true) {
+        String s = br.readLine();
+        if (s == null) {
+          break;
+        }
+        importMatch(session, s, tour);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
-	private void importMatch(Session session, String s, Tournament tour) {
-		ModelManager mm = new ModelManager(session);
-		try {
-			DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
-			String[] splits = s.split(",");
-			int number = Integer.parseInt(splits[0].trim());
-			String stage = splits[1].trim();
-			Date date = format.parse(splits[2].trim());
-			String team1 = splits[3].trim();
-			String team2 = splits[4].trim();
-			int presenceValue = Integer.parseInt(splits[5].trim());
-			int victoryValue = Integer.parseInt(splits[6].trim());
+  private void importMatch(Session session, String s, Tournament tour) {
+    ModelManager mm = new ModelManager(session);
+    try {
+      DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+      String[] splits = s.split(",");
+      int number = Integer.parseInt(splits[0].trim());
+      String stage = splits[1].trim();
+      Date date = format.parse(splits[2].trim());
+      String team1 = splits[3].trim();
+      String team2 = splits[4].trim();
+      int presenceValue = Integer.parseInt(splits[5].trim());
+      int victoryValue = Integer.parseInt(splits[6].trim());
+      String liveScoreId = splits[7].trim();
 
-			if (team1.length() > 3) {
-				Team team1db = mm.findTeamByName(team1);
-				if (team1db == null) {
-					team1db = new Team(team1, tour);
-					session.save(team1db);
-				}
-				Team team2db = mm.findTeamByName(team2);
-				if (team2db == null) {
-					team2db = new Team(team2, tour);
-					session.save(team2db);
-				}
-				Match m = new Match(number, date, stage, team1db, team2db, tour, presenceValue, victoryValue);
-				// m.setScore1((int) (5.0 * Math.random()));
-				// m.setScore2((int) (5.0 * Math.random()));
-				session.save(m);
-			} else {
-				Match m = new Match(number, date, stage, team1, team2, tour, presenceValue, victoryValue);
-				session.save(m);
-			}
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-	}
+      if (team1.length() > 3) {
+        Team team1db = mm.findTeamByName(team1);
+        if (team1db == null) {
+          team1db = new Team(team1, tour);
+          session.save(team1db);
+        }
+        Team team2db = mm.findTeamByName(team2);
+        if (team2db == null) {
+          team2db = new Team(team2, tour);
+          session.save(team2db);
+        }
+        Match m = new Match(number, date, stage, team1db, team2db, tour, presenceValue, victoryValue, liveScoreId);
+        // m.setScore1((int) (5.0 * Math.random()));
+        // m.setScore2((int) (5.0 * Math.random()));
+        session.save(m);
+      } else {
+        Match m = new Match(number, date, stage, team1, team2, tour, presenceValue, victoryValue);
+        session.save(m);
+      }
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
-	@Override
-	public boolean changePassword(String oldUser, String oldPass, String newPass) {
-		return new WithSessionAndTransaction<Boolean>() {
+  @Override
+  public boolean changePassword(String oldUser, String oldPass, String newPass) {
+    return new WithSessionAndTransaction<Boolean>() {
 
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				User tempUser = checkLogin(oldUser, oldPass);
-				if (tempUser != null) {
-					tempUser.setPassword(Utils.encrypt(newPass));
-					session.update(tempUser);
-					setReturnValue(true);
-				} else {
-					setReturnValue(false);
-				}
-			}
-		}.run();
-	}
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        User tempUser = checkLogin(oldUser, oldPass);
+        if (tempUser != null) {
+          tempUser.setPassword(Utils.encrypt(newPass));
+          session.update(tempUser);
+          setReturnValue(true);
+        } else {
+          setReturnValue(false);
+        }
+      }
+    }.run();
+  }
 
-	@Override
-	public Tournament getActiveTournament() {
-		return new WithSessionAndTransaction<Tournament>() {
+  @Override
+  public Tournament getActiveTournament() {
+    return new WithSessionAndTransaction<Tournament>() {
 
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager mm = new ModelManager(session);
-				Tournament tour = mm.findActiveTournament();
-				tour.getMatches().toString();
-				setReturnValue(tour);
-			}
-		}.run();
-	}
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager mm = new ModelManager(session);
+        Tournament tour = mm.findActiveTournament();
+        tour.getMatches().toString();
+        setReturnValue(tour);
+      }
+    }.run();
+  }
 
-	@Override
-	public List<User> getUsers() {
-		return new WithSessionAndTransaction<List<User>>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				setReturnValue(tm.findAllUsers());
-			}
-		}.run();
-	}
+  @Override
+  public List<User> getUsers() {
+    return new WithSessionAndTransaction<List<User>>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        setReturnValue(tm.findAllUsers());
+      }
+    }.run();
+  }
 
-	@Override
-	public User createUser(String name, String password, String email) {
-		return new WithSessionAndTransaction<User>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager mm = new ModelManager(session);
+  @Override
+  public User createUser(String name, String password, String email) {
+    return new WithSessionAndTransaction<User>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager mm = new ModelManager(session);
 
-				User user = new User(name, password, email, false, false);
-				session.save(user);
-				setReturnValue(user);
-			}
-		}.run();
-	}
+        User user = new User(name, password, email, false, false);
+        session.save(user);
+        setReturnValue(user);
+      }
+    }.run();
+  }
 
-	@Override
-	public List<Match> getMatchesForActiveTournament() {
-		return new WithSessionAndTransaction<List<Match>>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				Tournament tour = tm.findActiveTournament();
-				List<Match> matches = tour.getMatches();
-				for (Match m : matches) {
-					m.getForecasts().toString();
-				}
-				setReturnValue(matches);
-			}
-		}.run();
-	}
+  @Override
+  public List<Match> getMatchesForActiveTournament() {
+    return new WithSessionAndTransaction<List<Match>>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        List<Match> matches = tour.getMatches();
+        for (Match m : matches) {
+          m.getForecasts().toString();
+        }
+        setReturnValue(matches);
+      }
+    }.run();
+  }
 
-	@Override
-	public List<Classification> getClassification() {
-		return new WithSessionAndTransaction<List<Classification>>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				setReturnValue(tm.getClassification());
-			}
-		}.run();
-	}
+  @Override
+  public List<Classification> getClassification() {
+    return new WithSessionAndTransaction<List<Classification>>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        setReturnValue(tm.getClassification());
+      }
+    }.run();
+  }
 
-	@Override
-	public boolean setForecast(User user, int number, int score1, int score2) {
-		return new WithSessionAndTransaction<Boolean>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				Tournament tour = tm.findActiveTournament();
-				session.merge(user);
-				Match match = tm.findMatchByTournamentAndNumber(tour, number);
+  @Override
+  public boolean setForecast(User user, int number, int score1, int score2) {
+    return new WithSessionAndTransaction<Boolean>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        session.merge(user);
+        Match match = tm.findMatchByTournamentAndNumber(tour, number);
 
-				if (match.isStillOpenForBets()) {
-					Forecast forecast = tm.findForecastByMatchAndUser(match, user);
-					if (forecast == null) {
-						forecast = new Forecast(user, match, score1, score2);
-						session.save(forecast);
-					} else {
-						forecast.setScore1(score1);
-						forecast.setScore2(score2);
-					}
-					setReturnValue(true);
-				} else {
-					setReturnValue(false);
-				}
+        if (match.isStillOpenForBets()) {
+          Forecast forecast = tm.findForecastByMatchAndUser(match, user);
+          if (forecast == null) {
+            forecast = new Forecast(user, match, score1, score2);
+            session.save(forecast);
+          } else {
+            forecast.setScore1(score1);
+            forecast.setScore2(score2);
+          }
+          setReturnValue(true);
+        } else {
+          setReturnValue(false);
+        }
 
-			}
-		}.run();
-	}
+      }
+    }.run();
+  }
 
-	@Override
-	public User getUserByName(String name) {
-		return new WithSessionAndTransaction<User>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				User user = tm.findUserByUserName(name);
-				user.getWinningTeamForecasts().toString();
-				user.getForecasts().toString();
-				setReturnValue(user);
+  @Override
+  public User getUserByName(String name) {
+    return new WithSessionAndTransaction<User>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User user = tm.findUserByUserName(name);
+        user.getWinningTeamForecasts().toString();
+        user.getForecasts().toString();
+        setReturnValue(user);
 
-			}
-		}.run();
-	}
+      }
+    }.run();
+  }
 
-	@Override
-	public void setUserActivated(User user, boolean validated) {
-		new WithSessionAndTransaction() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				User userLocal = tm.findUserByUserName(user.getUser());
-				userLocal.setValidated(validated);
-				session.update(userLocal);
-			}
-		}.run();
-	}
+  @Override
+  public void setUserActivated(User user, boolean validated) {
+    new WithSessionAndTransaction() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User userLocal = tm.findUserByUserName(user.getUser());
+        userLocal.setValidated(validated);
+        session.update(userLocal);
+      }
+    }.run();
+  }
 
-	@Override
-	public List<Team> getTeamsForActiveTournament() {
-		return new WithSessionAndTransaction<List<Team>>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				Tournament tour = tm.findActiveTournament();
-				List<Team> teams = tour.getTeams();
-				teams.toString();
-				setReturnValue(teams);
-			}
-		}.run();
-	}
+  @Override
+  public List<Team> getTeamsForActiveTournament() {
+    return new WithSessionAndTransaction<List<Team>>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        List<Team> teams = tour.getTeams();
+        teams.toString();
+        setReturnValue(teams);
+      }
+    }.run();
+  }
 
-	@Override
-	public boolean setBonusTeam(String username, String name) {
-		return new WithSessionAndTransaction<Boolean>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				Tournament tour = tm.findActiveTournament();
-				User user = tm.findUserByUserName(username);
+  @Override
+  public boolean setBonusTeam(String username, String name) {
+    return new WithSessionAndTransaction<Boolean>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        User user = tm.findUserByUserName(username);
 
-				if (tour.getMatches().get(0).isStillOpenForBets()) {
-					WinningTeamForecast wtf = user.getWinningTeamForecast(tour);
-					Team team = tm.findTeamByName(name);
+        if (tour.getMatches().get(0).isStillOpenForBets()) {
+          WinningTeamForecast wtf = user.getWinningTeamForecast(tour);
+          Team team = tm.findTeamByName(name);
 
-					if (wtf == null) {
-						wtf = new WinningTeamForecast(user, tour, team);
-						session.save(wtf);
-					} else {
-						wtf.setTeam(team);
-						session.update(wtf);
-					}
-					setReturnValue(true);
-				} else {
-					setReturnValue(false);
-				}
+          if (wtf == null) {
+            wtf = new WinningTeamForecast(user, tour, team);
+            session.save(wtf);
+          } else {
+            wtf.setTeam(team);
+            session.update(wtf);
+          }
+          setReturnValue(true);
+        } else {
+          setReturnValue(false);
+        }
 
-			}
-		}.run();
+      }
+    }.run();
 
-	}
+  }
 
-	public void setSender(String user, String pass) {
-		mail = new Mail(user.trim(), pass.trim());
-	}
+  public void setSender(String user, String pass) {
+    mail = new Mail(user.trim(), pass.trim());
+  }
 
-	public Mail getMail() {
-		return mail;
-	}
+  public Mail getMail() {
+    return mail;
+  }
 
-	@Override
-	public User getUserByNameOrEmail(String name, String email) {
-		return new WithSessionAndTransaction<User>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				User user = tm.findUserByUserName(name);
-				if (user != null) {
-					user.getWinningTeamForecasts().toString();
-					setReturnValue(user);
-					return;
-				}
-				user = tm.findUserByEmail(email);
-				if (user != null) {
-					user.getWinningTeamForecasts().toString();
-					setReturnValue(user);
-					return;
-				}
+  @Override
+  public User getUserByNameOrEmail(String name, String email) {
+    return new WithSessionAndTransaction<User>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User user = tm.findUserByUserName(name);
+        if (user != null) {
+          user.getWinningTeamForecasts().toString();
+          setReturnValue(user);
+          return;
+        }
+        user = tm.findUserByEmail(email);
+        if (user != null) {
+          user.getWinningTeamForecasts().toString();
+          setReturnValue(user);
+          return;
+        }
 
-			}
-		}.run();
-	}
+      }
+    }.run();
+  }
 
-	@Override
-	public void setUserComment(User user, String comment) {
-		new WithSessionAndTransaction<Void>() {
-			@Override
-			protected void executeBusinessLogic(Session session) {
-				ModelManager tm = new ModelManager(session);
-				User userDb = tm.findUserByUserName(user.getUser());
-				userDb.setComment(comment);
-			}
-		}.run();
-	}
+  @Override
+  public void setUserComment(User user, String comment) {
+    new WithSessionAndTransaction<Void>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User userDb = tm.findUserByUserName(user.getUser());
+        userDb.setComment(comment);
+      }
+    }.run();
+  }
+
+  @Override
+  public void setResult(int id, int g1, int g2) {
+    new WithSessionAndTransaction<Void>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        Match match = tm.findMatchByTournamentAndNumber(tour, id);
+        match.setScore1(g1);
+        match.setScore2(g2);
+      }
+    }.run();
+  }
 
 }
