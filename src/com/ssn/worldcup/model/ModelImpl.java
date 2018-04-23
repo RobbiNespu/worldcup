@@ -143,7 +143,7 @@ public class ModelImpl implements Model {
       String team2 = splits[4].trim();
       int presenceValue = Integer.parseInt(splits[5].trim());
       int victoryValue = Integer.parseInt(splits[6].trim());
-      String liveScoreId = splits[7].trim();
+      //      String liveScoreId = splits[7].trim();
 
       if (team1.length() > 3) {
         Team team1db = mm.findTeamByName(team1);
@@ -156,7 +156,7 @@ public class ModelImpl implements Model {
           team2db = new Team(team2, tour);
           session.save(team2db);
         }
-        Match m = new Match(number, date, stage, team1db, team2db, tour, presenceValue, victoryValue, liveScoreId);
+        Match m = new Match(number, date, stage, team1db, team2db, tour, presenceValue, victoryValue, "");
         // m.setScore1((int) (5.0 * Math.random()));
         // m.setScore2((int) (5.0 * Math.random()));
         session.save(m);

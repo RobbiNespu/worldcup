@@ -20,7 +20,7 @@
 	String decl = request.getParameter("declaration");
 
 	ApplicationFactory.getInstance().getModel().setUserComment(user, decl);
-	response.sendRedirect("settings.jsp?alertType=S&alert=Comentariul tau a fost salvat");
+	response.sendRedirect("declarations.jsp?alertType=S&alert=Comentariul tau a fost salvat");
 %>
 
 <%
