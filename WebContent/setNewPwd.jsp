@@ -5,37 +5,30 @@
 <html>
 <body>
 
-<% 
-  User user = (User)(session.getAttribute("user"));
+  <%
+    User user = (User) (session.getAttribute("user"));
 
-  if (user==null)
-  {
-	  out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
-	  %>
-		  <jsp:include page="index.jsp"/>
-	  <%
+    if (user == null) {
+      response.sendRedirect("index.jsp?alertType=E&alert=Ai fost deconectat. Relogineaza-te.");
+    } else {
 
-   }
-   else
-   {
+      String oldp = request.getParameter("old");
+      String newp = request.getParameter("new");
+      String confp = request.getParameter("confnew");
 
-	String oldp = request.getParameter("old");
-	String newp = request.getParameter("new");
-	String confp = request.getParameter("confnew");
+      if (!newp.equals(confp)) {
+        response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Nu ati introdus parola noua la fel de doua ori.");
+      } else if (Utils.encrypt(oldp).equals(user.getPassword())) {
+        ApplicationFactory.getInstance().getModel().changePassword(user.getUser(), oldp, newp);
+        response.sendRedirect("settings.jsp?alertType=S&alert=Noua parola a fost setata.");
+      } else {
+        response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Vechea parola a fost gresita.");
+      }
+  %>
 
-	if (!newp.equals(confp)) {
-		response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Nu ati introdus parola noua la fel de doua ori.");		
-	} else if (Utils.encrypt(oldp).equals(user.getPassword())) {
-		ApplicationFactory.getInstance().getModel().changePassword(user.getUser(), oldp, newp);
-		response.sendRedirect("settings.jsp?alertType=S&alert=Noua parola a fost setata.");
-	} else	{
-		response.sendRedirect("settings.jsp?alertType=E&alert=Noua parola nu a putut fi schimbata. Vechea parola a fost gresita.");
-	}
-%>
-
-<%
-   } //else
-%>
-</center>
+  <%
+    } //else
+  %>
+  </center>
 </body>
 </html>

@@ -3,46 +3,42 @@
 <%@ page import="java.util.*"%>
 <html>
 <body>
-	<div style="text-align: center">
+  <div style="text-align: center">
 
-		<%@ page import="java.util.*"%>
-		<%
-			User user = (User) (session.getAttribute("user"));
+    <%@ page import="java.util.*"%>
+    <%
+      User user = (User) (session.getAttribute("user"));
 
-			if (user == null) {
-				out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
-		%>
-		<jsp:include page="index.jsp" />
-		<%
-			} else {
+      if (user == null) {
+        response.sendRedirect("index.jsp?alertType=E&alert=Ai fost deconectat. Relogineaza-te.");
 
-				boolean result = true;
-				for (int i = 1; i <= 64; i++) {
-					String ch = request.getParameter("ch" + i);
-					String fa = request.getParameter("fa" + i);
-					String fb = request.getParameter("fb" + i);
+      } else {
 
-					if (ch != null && ch.equals("true") && fa != null && fb != null && !fa.equals("")
-							&& !fb.equals("")) {
-						try {
-							boolean res = ApplicationFactory.getInstance().getModel().setForecast(user, i,
-									Integer.parseInt(fa), Integer.parseInt(fb));
-							if (!res) {
-								result = false;
-							}
-						} catch (NumberFormatException ex) {
-							//        
-						}
-					}
-				}
+        boolean result = true;
+        for (int i = 1; i <= 64; i++) {
+          String ch = request.getParameter("ch" + i);
+          String fa = request.getParameter("fa" + i);
+          String fb = request.getParameter("fb" + i);
 
-				response.sendRedirect("forecasts.jsp?alertType=S&alert=Scorurile tale au fost salvate cu succes in baza de date.");
-		%>
+          if (ch != null && ch.equals("true") && fa != null && fb != null && !fa.equals("") && !fb.equals("")) {
+            try {
+              boolean res = ApplicationFactory.getInstance().getModel().setForecast(user, i, Integer.parseInt(fa), Integer.parseInt(fb));
+              if (!res) {
+                result = false;
+              }
+            } catch (NumberFormatException ex) {
+              //        
+            }
+          }
+        }
 
-		<%
-			} // else
-		%>
+        response.sendRedirect("forecasts.jsp?alertType=S&alert=Scorurile tale au fost salvate cu succes in baza de date.");
+    %>
 
-	</div>
+    <%
+      } // else
+    %>
+
+  </div>
 </body>
 </html>

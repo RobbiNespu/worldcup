@@ -54,7 +54,7 @@ if (user == null) {
 Regulile sunt urmatoarele:
 </p>
 <p>
-Trebuie sa indicati scorul corect al partidelor la sfarsitul celor 90 de minunte regulamentare (inclusiv eventualele minute de prelungire indicate de arbitru). Nu se va lua in considerare scorul dupa eventualele reprize de prelungire sau lovituri de la 11m din faza eliminatorie a competitiei. 
+Trebuie sa indicati scorul corect al partidelor la sfarsitul celor 90 de minunte regulamentare (inclusiv eventualele minute de prelungire indicate de arbitru). Nu se va lua in considerare scorul dupa eventualele reprize de prelungiri sau lovituri de la 11m din faza eliminatorie a competitiei. 
 </p>
 <ul>
 <li>Se primeste 1 punct pentru indicarea corecta a echipei castigatoare dar nu si a scorului.</li>

@@ -3,31 +3,24 @@
 <html>
 <body>
 
-<%@ page import = "java.sql.*" %>
-<% 
-//Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
-  User user = (User )(session.getAttribute("user"));
+  <%@ page import="java.sql.*"%>
+  <%
+    //Database.getInstance().log(request.getRemoteAddr()+" setChampions.jsp");
+    User user = (User) (session.getAttribute("user"));
 
-  if (user==null)
-  {
-	  out.write("<SPAN class=SIMPLE_TEXT_ERROR>You are not logged in. Please log in.</SPAN>");
-	  %>
-		  <jsp:include page="index.jsp"/>
-	  <%
-	    }
-	     else
-	     {
+    if (user == null) {
+      response.sendRedirect("index.jsp?alertType=E&alert=Ai fost deconectat. Relogineaza-te.");
+    } else {
 
-	  	String teamid = request.getParameter("teamid");
+      String teamid = request.getParameter("teamid");
 
-	  	ApplicationFactory.getInstance().getModel().setBonusTeam(user.getUser(), teamid);
-		response.sendRedirect("champions.jsp?alertType=S&alert=Echipa ta bonus a fost salvata.");
+      ApplicationFactory.getInstance().getModel().setBonusTeam(user.getUser(), teamid);
+      response.sendRedirect("champions.jsp?alertType=S&alert=Echipa ta bonus a fost salvata.");
+  %>
 
-	  %>
-
-<%
-   } //else
-%>
-</center>
+  <%
+    } //else
+  %>
+  </center>
 </body>
 </html>

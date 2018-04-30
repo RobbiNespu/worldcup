@@ -73,7 +73,7 @@ if (request.getParameter("alert") != null) {
 <FORM action="setComment.jsp" method=POST >
 						
   <label>Introduceti declaratia dumneavoastra de presa: </label>					
-  <input name="declaration"  type='text' >
+  <input name="declaration"  type='text' placeholder="Hai Romania!">
   <button type="submit" class="btn btn-primary">Salveaza</button>
 </FORM>
 
