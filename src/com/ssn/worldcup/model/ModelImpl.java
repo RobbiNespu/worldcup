@@ -29,7 +29,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public User checkLogin(String user, String password) {
+  public User checkLogin(final String user, final String password) {
     return new WithSessionAndTransaction<User>() {
 
       @Override
@@ -170,7 +170,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public boolean changePassword(String oldUser, String oldPass, String newPass) {
+  public boolean changePassword(final String oldUser, final String oldPass, final String newPass) {
     return new WithSessionAndTransaction<Boolean>() {
 
       @Override
@@ -213,7 +213,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public User createUser(String name, String password, String email) {
+  public User createUser(final String name, final String password, final String email) {
     return new WithSessionAndTransaction<User>() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -254,7 +254,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public boolean setForecast(User user, int number, int score1, int score2) {
+  public boolean setForecast(final User user, final int number, final int score1, final int score2) {
     return new WithSessionAndTransaction<Boolean>() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -282,7 +282,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public User getUserByName(String name) {
+  public User getUserByName(final String name) {
     return new WithSessionAndTransaction<User>() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -297,7 +297,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public void setUserActivated(User user, boolean validated) {
+  public void setUserActivated(final User user, final boolean validated) {
     new WithSessionAndTransaction() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -324,7 +324,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public boolean setBonusTeam(String username, String name) {
+  public boolean setBonusTeam(final String username, final String name) {
     return new WithSessionAndTransaction<Boolean>() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -362,7 +362,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public User getUserByNameOrEmail(String name, String email) {
+  public User getUserByNameOrEmail(final String name, final String email) {
     return new WithSessionAndTransaction<User>() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -385,7 +385,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public void setUserComment(User user, String comment) {
+  public void setUserComment(final User user, final String comment) {
     new WithSessionAndTransaction<Void>() {
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -397,7 +397,7 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public void setResult(int id, int g1, int g2) {
+  public void setResult(final int id, final int g1, final int g2) {
     new WithSessionAndTransaction<Void>() {
       @Override
       protected void executeBusinessLogic(Session session) {

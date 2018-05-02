@@ -142,7 +142,7 @@ if (request.getParameter("alert") != null) {
               <input type="text" class="form-control" name="email" placeholder="Enter e-mail">
             </div>
 
-              <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-off"></span> Login</button>
+              <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-off"></span> Sign in</button>
           </form>
         </div>
         <div class="modal-footer">

@@ -22,7 +22,7 @@
 						if (ApplicationFactory.getInstance().getModel().getMail() == null) {
 							throw new RuntimeException("Server configuration error");
 						}
-						ApplicationFactory.getInstance().getModel().getMail().sendMessage(u, serverIP, serverPort);
+						ApplicationFactory.getInstance().getModel().getMail().sendMessage(u, "fotbal", 80);
 
 						out.write("<SPAN class=SIMPLE_TEXT>User " + user + " created. </SPAN>");
 	response.sendRedirect("index.jsp?alertType=S&alert=User-ul a fost creat. Valideaza-ti adresa de email.");

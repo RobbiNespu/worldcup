@@ -1,3 +1,4 @@
+
 package com.ssn.worldcup.mail;
 
 import java.util.Properties;
@@ -12,35 +13,35 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMailSSL {
 
-	public void sendMail(String sender, String pass, String target, String content) {
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "timms004.wamas.com");
-		props.put("mail.smtp.socketFactory.port", "25");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "25");
+  public void sendMail(final String sender, final String pass, String target, String content) {
+    Properties props = new Properties();
+    props.put("mail.smtp.host", "timms004.wamas.com");
+    props.put("mail.smtp.socketFactory.port", "25");
+    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.port", "25");
 
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(sender, pass);
-			}
-		});
+    Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+      protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(sender, pass);
+      }
+    });
 
-		try {
+    try {
 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("razvan.veina@ssi-schaefer.com"));
-			System.out.println(target);
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(target));
-			message.setSubject("User validation");
-			message.setText(content);
+      Message message = new MimeMessage(session);
+      message.setFrom(new InternetAddress("razvan.veina@ssi-schaefer.com"));
+      System.out.println(target);
+      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(target));
+      message.setSubject("User validation");
+      message.setText(content);
 
-			Transport.send(message);
+      Transport.send(message);
 
-			System.out.println("Done");
+      System.out.println("Done");
 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    } catch (MessagingException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

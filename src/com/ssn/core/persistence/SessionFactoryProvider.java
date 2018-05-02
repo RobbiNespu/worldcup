@@ -26,6 +26,7 @@ public class SessionFactoryProvider {
         factory = configuration.buildSessionFactory(builder.build());
       } catch (Throwable ex) {
         System.err.println("Failed to create sessionFactory object." + ex);
+        System.out.println("Failed to create sessionFactory object." + ex);
       }
     }
 
