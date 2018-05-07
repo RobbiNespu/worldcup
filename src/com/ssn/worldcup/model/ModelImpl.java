@@ -50,7 +50,7 @@ public class ModelImpl implements Model {
         ModelManager tm = new ModelManager(session);
         List<User> findAllUsers = tm.findAllUsers();
         if (findAllUsers.size() == 0) {
-          User raz = new User("qwe", "qwe", "razvan.veina@ss-schaefer.com", true, true);
+          User raz = new User("raz", "qwe", "razvan.veina@ssi-schaefer.com", true, true);
           session.save(raz);
           // User sorin = new User("sorin", "sorin",
           // "razvan.veina@ss-schaefer.com", false, true);

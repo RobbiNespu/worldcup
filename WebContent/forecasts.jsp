@@ -181,7 +181,14 @@ if (request.getParameter("alert") != null) {
 							if (m.isStillOpenForBets()) {
 								
 				%>
-				<td  data-toggle="tooltip" data-html="true" data-container="body" title="<%=tooltipStats %>">
+				<td  data-toggle="tooltip" data-html="true" data-container="body" 
+        
+        <% 
+        if (tooltipStats != null) { 
+        out.write("title=\"" + tooltipStats +"\"");
+        }
+        %>
+        >
 					<input
 					class="ROWINP"
 					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
@@ -232,7 +239,7 @@ $("#alert").fadeTo(2000, 500).slideUp(500, function(){
 
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip({
-	        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner" style="max-width:100%"></div></div>'
+	        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner" style="max-width:100%; color: black"></div></div>'
 	    })
 });
 </script>

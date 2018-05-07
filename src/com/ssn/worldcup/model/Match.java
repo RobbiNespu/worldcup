@@ -287,8 +287,20 @@ public class Match {
   public String getScoresAsTable() {
     Map<String, Integer> scores = getScoresMap();
     String result = "";
-
-    result += "<TABLE id='detail'>";
+    if (scores.size() == 0) {
+      return null;
+    }
+    result += "<TABLE id='detail' border='1' class='table table-bordered table-striped table-hover table-condensed'>";
+    result += "<THEAD>";
+    result += "<tr style='background-color: white'>";
+    result += "<th>Scor";
+    result += "</th>";
+    result += "<th>Aparitii";
+    result += "</th>";
+    result += "<th>Procent";
+    result += "</th>";
+    result += "</tr>";
+    result += "</THEAD>";
     int counter = 0;
     for (Entry<String, Integer> score : scores.entrySet()) {
       counter++;
