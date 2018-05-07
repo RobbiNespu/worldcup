@@ -52,6 +52,8 @@ public class ModelImpl implements Model {
         if (findAllUsers.size() == 0) {
           User raz = new User("raz", "qwe", "razvan.veina@ssi-schaefer.com", true, true);
           session.save(raz);
+          //          User raz2 = new User("raz2", "qwe", "1razvan.veina@ssi-schaefer.com", true, true);
+          //          session.save(raz2);
           // User sorin = new User("sorin", "sorin",
           // "razvan.veina@ss-schaefer.com", false, true);
           // session.save(sorin);

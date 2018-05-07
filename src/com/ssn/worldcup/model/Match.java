@@ -290,7 +290,7 @@ public class Match {
     if (scores.size() == 0) {
       return null;
     }
-    result += "<TABLE id='detail' border='1' class='table table-bordered table-striped table-hover table-condensed'>";
+    result += "<TABLE id='detail' border='1' class='table table-bordered table-hover table-condensed'>";
     result += "<THEAD>";
     result += "<tr style='background-color: white'>";
     result += "<th>Scor";
@@ -304,7 +304,7 @@ public class Match {
     int counter = 0;
     for (Entry<String, Integer> score : scores.entrySet()) {
       counter++;
-      result += "<TR>";
+      result += "<TR style='background-color: white'>";
       result += "<TD>" + score.getKey() + "</TD>";
       result += "<TD>" + score.getValue() + "</TD>";
       result += "<TD>" + (int) (100.0 * score.getValue() / forecasts.size()) + "%</TD>";
