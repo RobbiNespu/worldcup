@@ -62,6 +62,11 @@ if (request.getParameter("alert") != null) {
   </div>
 <%
 }
+
+if (ApplicationFactory.getInstance().getModel().getMail() == null) {
+  response.sendRedirect("mailsetForm.jsp");
+  return;
+}
 %>
 
 <img class="img-responsive" src="img/header.png" alt="Chania" width="1920"/> 
@@ -107,6 +112,7 @@ if (request.getParameter("alert") != null) {
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
           <p>Not a member? <a href="#" id="signup2" data-dismiss="modal">Sign Up</a></p>
+          <p><a href="#" id="forgot" data-dismiss="modal">Forgot password?</a></p>
         </div>
       </div>
   
@@ -142,7 +148,7 @@ if (request.getParameter("alert") != null) {
               <input type="text" class="form-control" name="email" placeholder="Enter e-mail">
             </div>
 
-              <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-off"></span> Sign in</button>
+              <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-off"></span> Sign up</button>
           </form>
         </div>
         <div class="modal-footer">

@@ -10,7 +10,7 @@
 			String password2 = request.getParameter("repeatPassword");
 			String email = request.getParameter("email");
 
-			if (user != null) {
+			if (user != null) { 
 				if (password.equals(password2)) {
 
 					User tempUser = ApplicationFactory.getInstance().getModel().getUserByNameOrEmail(user, email);
@@ -22,7 +22,20 @@
 						if (ApplicationFactory.getInstance().getModel().getMail() == null) {
 							throw new RuntimeException("Server configuration error");
 						}
-						ApplicationFactory.getInstance().getModel().getMail().sendMessage(u, "fotbal", 80);
+            //String SERVER_AND_PORT = "localhost:19080";
+            String SERVER_AND_PORT = "fotbal";
+            
+            String message = 
+            "Salut, " + user + "!" + System.lineSeparator() + //
+            "Pentru a-ti valida contul la WorldCup 2018 apasa pe urmatorul link:" + System.lineSeparator() + //
+            "http://" + SERVER_AND_PORT + "/worldcup/users/validateUser.jsp?user=" + user.trim() + "&vc=" + u.getValidationCode().trim() + System.lineSeparator() + // 
+            "Succes!";
+
+            try {
+						  ApplicationFactory.getInstance().getModel().getMail().sendMessage(u, message);
+            } catch (Throwable ex) {
+              throw new RuntimeException("Could not send validation email");
+            }
 
 						out.write("<SPAN class=SIMPLE_TEXT>User " + user + " created. </SPAN>");
 	response.sendRedirect("index.jsp?alertType=S&alert=User-ul a fost creat. Valideaza-ti adresa de email.");
@@ -46,7 +59,7 @@
 			}
 		} catch (Exception ex) {
 			out.write(ex.getMessage());
-			response.sendRedirect("error.jsp?param="+ex.getMessage());
+			response.sendRedirect("index.jsp?alert=Error: "+ex.getMessage()+"&alertType=E");
 		}
 	%>
 
