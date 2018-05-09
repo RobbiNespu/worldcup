@@ -112,7 +112,7 @@ if (ApplicationFactory.getInstance().getModel().getMail() == null) {
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
           <p>Not a member? <a href="#" id="signup2" data-dismiss="modal">Sign Up</a></p>
-          <p><a href="forgot.jsp" id="forgot" data-dismiss="modal">Forgot password?</a></p>
+          <p><a href="#" id="forgot" onclick="Redirect();" data-dismiss="modal">Forgot password?</a></p>
         </div>
       </div>
   
@@ -178,6 +178,14 @@ $(document).ready(function(){
 });
 
 </script>
+
+<script type="text/javascript">
+         
+            function Redirect() {
+               window.location="forgot.jsp";
+            }
+        
+      </script>
 </body>
 
 <script>
