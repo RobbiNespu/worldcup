@@ -22,8 +22,7 @@
 						if (ApplicationFactory.getInstance().getModel().getMail() == null) {
 							throw new RuntimeException("Server configuration error");
 						}
-            //String SERVER_AND_PORT = "localhost:19080";
-            String SERVER_AND_PORT = "fotbal";
+		        String SERVER_AND_PORT = getServletContext().getInitParameter("serverAddress");
             
             String message = 
             "Salut, " + user + "!" + System.lineSeparator() + //
