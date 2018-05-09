@@ -1,9 +1,11 @@
 <%@page import="com.ssn.core.ApplicationFactory"%>
 <%@ page import="com.ssn.core.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
+<link rel="stylesheet" href="button.css">
 <meta name="description" content="" />
 <title><%=ApplicationFactory.getInstance().getModel().getActiveTournament().toString()%></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +17,11 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
+@font-face {
+    font-family: roboto_bold;
+    src: url(../fonts/roboto_bold.ttf);
+    font-weight: 100;
+}
 .modal-header, h4, .close {
 	background-color: #5cb85c;
 	color: white !important;
@@ -30,25 +37,62 @@ body, html {
     height: 100%;
     margin: 0;
 }
-.bg {
-    /* The image used */
-    background-image: url("img/background1.jpg");
 
+.bg {
     /* Full height */
     height: 100%; 
-
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: #e6e8ed;
 }
+
+#corners {
+    border-radius: 25px;
+    background-color:#efeff7;
+   
+    background-repeat: repeat;
+    padding-top: 7px; 
+    padding-left:20px;
+    width: 700px;
+    height: 300px; 
+    margin-top:70px;
+    margin-left:150px;
+}
+
+.txt_h1 {
+ display:block;
+ font-size:40px;
+ color:#000000;
+ line-height:1.2;
+ font-family:Nexa Regular,arial,helvetica,sans-serif;
+ text-shadow: 3px 2px #d9dbe0;
+}
+
+
+.p{
+	font-family:Nexa Regular,arial,helvetica,sans-serif;
+	font-size:20px;
+	font-family: "Times New Roman", Times, serif;
+}
+input[type=text] {
+    width: 60%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 
 </style>
 
 </head>
-<body onload="document.all['user'].focus()" >
+<body onload="document.all['user'].focus()" class="bg" >
 
-<div class="bg">
+<div >
 
 <% 
 String alert = request.getParameter("alert");
@@ -112,7 +156,7 @@ if (ApplicationFactory.getInstance().getModel().getMail() == null) {
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
           <p>Not a member? <a href="#" id="signup2" data-dismiss="modal">Sign Up</a></p>
-          <p><a href="forgot.jsp" id="forgot" data-dismiss="modal">Forgot password?</a></p>
+          <p><a href="#" id="forgot" data-dismiss="modal">Forgot password?</a></p>
         </div>
       </div>
   
@@ -159,6 +203,19 @@ if (ApplicationFactory.getInstance().getModel().getMail() == null) {
   
       
     </div>
+  </div>
+  
+  <div id="corners">
+  <h2 class="txt_h1">Forgot your password?</h2>
+  <p>
+  To reset your password, please enter your email below. Password reset instructions will be sent to the email address associated with your account. 
+  </p>
+  <form action="sendChangePasswordLink.jsp">
+    <input type="text" name="email" placeholder="E-mail...">
+    <button class="user-button" type="submit">
+			<span>Submit</span>
+		</button>
+   </form>
   </div>
   
   <script>

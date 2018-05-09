@@ -1,0 +1,62 @@
+@charset "ISO-8859-1";
+
+@font-face {
+	font-family: roboto_reg;
+	src: url(../fonts/roboto_regular.ttf);
+	font-weight: 100;
+}
+
+.user-button {
+	font-family: roboto_reg;
+	display: inline-block;
+	border-radius: 7px;
+	background-color: red;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 16px;
+	padding: 10px;
+	width: 20%;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin-right: 25%;
+	margin-top: 20px;
+	box-shadow: 4px 5px 2px 1px rgba(224, 224, 224, 0.61);
+}
+
+.user-button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.user-button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.user-button:hover span {
+	padding-right: 25px;
+}
+
+.user-button:hover {
+	background-color: red;
+}
+
+.user-button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
+.cancel {
+	background-color: #ff680a;
+}
+
+.cancel:hover {
+	background-color: #f43500;
+}@charset "ISO-8859-1";
