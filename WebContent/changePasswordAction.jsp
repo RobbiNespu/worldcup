@@ -28,6 +28,7 @@
 	<div>
 
 		<%
+		String validationCode = request.getParameter("vc");
 		  String alert = request.getParameter("alert");
 					String type = request.getParameter("alertType");
 
@@ -182,7 +183,7 @@
 		<h2 class="txt_h1">Change password</h2>
 		<p>Please enter your new password below:</p>
 		<form action="confirmation.jsp">
-		
+			<input type="hidden" name="vc" value="<%= validationCode %>"/>
 			<label for="password">New password</label> <input type="text"
 				name="password" id="password" placeholder="New password...">
 			<br></br> <br></br>
