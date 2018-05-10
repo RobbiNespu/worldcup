@@ -15,7 +15,7 @@
         String message = 
         "Salut!" + System.lineSeparator() + System.lineSeparator() + //
         "Serios, cum ai reusit sa-ti uiti parola?! Da click pe linkul de mai jos sa ti-o schimbi. :(" + System.lineSeparator() + System.lineSeparator() + //
-        "http://" + SERVER_AND_PORT + "/worldcup/users/changePassword.jsp?vc=" + tempUser.getValidationCode().trim() + System.lineSeparator() + System.lineSeparator() +// 
+        "http://" + SERVER_AND_PORT + "/worldcup/changePassword.jsp?vc=" + tempUser.getValidationCode().trim() + System.lineSeparator() + System.lineSeparator() +// 
         "Succes!";
 
         try {

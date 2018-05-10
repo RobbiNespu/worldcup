@@ -192,6 +192,24 @@ public class ModelImpl implements Model {
   }
 
   @Override
+  public boolean changePassword(final String oldUser, final String newPass) {
+    return new WithSessionAndTransaction<Boolean>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User tempUser = tm.findUserByUserName(oldUser);
+        if (tempUser != null) {
+          tempUser.setPassword(Utils.encrypt(newPass));
+          session.update(tempUser);
+          setReturnValue(true);
+        } else {
+          setReturnValue(false);
+        }
+      }
+    }.run();
+  }
+
+  @Override
   public Tournament getActiveTournament() {
     return new WithSessionAndTransaction<Tournament>() {
 
@@ -410,6 +428,20 @@ public class ModelImpl implements Model {
         Match match = tm.findMatchByTournamentAndNumber(tour, id);
         match.setScore1(g1);
         match.setScore2(g2);
+      }
+    }.run();
+  }
+
+  public User getUserByValidationCode(final String code) {
+    return new WithSessionAndTransaction<User>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User user = tm.findUserByValidationCode(code);
+        user.getWinningTeamForecasts().toString();
+        user.getForecasts().toString();
+        setReturnValue(user);
+
       }
     }.run();
   }

@@ -13,6 +13,8 @@ public interface Model {
 
   public boolean changePassword(String oldUser, String oldPass, String newPass);
 
+  public boolean changePassword(final String oldUser, final String newPass);
+
   public Tournament getActiveTournament();
 
   public List<User> getUsers();
@@ -26,6 +28,8 @@ public interface Model {
   public boolean setForecast(User user, int number, int score1, int score2);
 
   public User getUserByName(String name);
+
+  public User getUserByValidationCode(String code);
 
   public User getUserByNameOrEmail(String name, String email);
 
