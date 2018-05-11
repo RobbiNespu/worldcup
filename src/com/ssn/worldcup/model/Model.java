@@ -47,4 +47,9 @@ public interface Model {
 
   public void setResult(int id, int g1, int g2);
 
+  public void setMatchTeams(int id, String t1, String t2);
+
+  public void setMatchQualifiedTeam(int id, int t12);
+
+  public void removeUser(String name);
 }

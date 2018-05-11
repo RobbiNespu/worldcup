@@ -19,7 +19,7 @@
 			} else { %>
 <%
 				//response.sendRedirect("index.jsp?alertType=E&alert=Contul tau nu a fost inca validat. Nu uita sa dai reply la emailul de validare.");
-        response.sendRedirect("resendActivationCode.jsp?alertType=E&alert=Contul tau nu a fost inca validat. Nu uita sa dai reply la emailul de validare.");
+        response.sendRedirect("index.jsp?alertType=E&alert=Contul tau nu a fost inca validat. Nu uita sa dai reply la emailul de validare.");
 			}
 
 			} else {

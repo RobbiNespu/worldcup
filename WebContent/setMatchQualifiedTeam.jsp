@@ -1,17 +1,18 @@
-  <%@ page import = "wmdb.*" %>
+<%@page import="com.ssn.core.ApplicationFactory"%>
+<%@ page import = "com.ssn.worldcup.model.*" %>
 <html>
 <body>
-<center>
 
-<%@ page import = "java.sql.*" %>
 <% 
-	Database.getInstance().log(request.getRemoteAddr()+" setMatchQualifiedTeam.jsp");
-	String id = request.getParameter("id");
-	String team = request.getParameter("team");
+String code = request.getParameter("code");
+String id = request.getParameter("id");
+String t12 = request.getParameter("t12");
 
-	Database.getInstance().setMatchQualifiedTeam(id, team); 
-	Database.getInstance().save();
+if (code.equals("qwe")) {
+  ApplicationFactory.getInstance().getModel().setMatchQualifiedTeam(Integer.parseInt(id), Integer.parseInt(t12)); 
+}
+
+response.sendRedirect("admin123.html");
 %>
-</center>
 </body>
 </html>

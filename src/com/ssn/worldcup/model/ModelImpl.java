@@ -446,4 +446,42 @@ public class ModelImpl implements Model {
     }.run();
   }
 
+  public void setMatchTeams(final int id, final String t1, final String t2) {
+    new WithSessionAndTransaction<Void>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        Match match = tm.findMatchByTournamentAndNumber(tour, id);
+        Team team1 = tm.findTeamByName(t1);
+        Team team2 = tm.findTeamByName(t2);
+        match.setTeam1(team1);
+        match.setTeam2(team2);
+      }
+    }.run();
+  }
+
+  public void setMatchQualifiedTeam(final int id, final int t12) {
+    new WithSessionAndTransaction<Void>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        Tournament tour = tm.findActiveTournament();
+        Match match = tm.findMatchByTournamentAndNumber(tour, id);
+        match.setWinningTeam(t12 == 1 ? match.getTeam1() : match.getTeam2());
+      }
+    }.run();
+  }
+
+  public void removeUser(final String name) {
+    new WithSessionAndTransaction<Void>() {
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ModelManager tm = new ModelManager(session);
+        User user = tm.findUserByUserName(name);
+        session.delete(user);
+      }
+    }.run();
+  }
+
 }
