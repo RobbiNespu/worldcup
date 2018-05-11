@@ -22,6 +22,30 @@
 
 
 </head>
+<style>
+input[type=text] {
+    width: 60%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#corners {
+    border-radius: 25px;
+    background-color:#efeff7;
+    background-repeat: repeat;
+    padding-top: 7px; 
+    padding-left:30px;
+    padding-right:10px;
+    width: 900px;
+    height: 310px; 
+    margin-top:70px;
+    margin-left:150px;
+}
+</style>
 <body onload="document.all['user'].focus()" class="bg" >
 
 <div >
@@ -140,8 +164,9 @@ if (ApplicationFactory.getInstance().getModel().getMail() == null) {
   <div id="corners">
   <h1 class="txt_h1">Account activation</h1>
   <h2 >Your account has not been activated. A validation code will be sent to your e-mail address in a few moments.</h2>
-  
+  <input type="text" name="email" placeholder="Your e-mail address...">
   <form action="#">
+  
   <button class="user-button" type="submit">
 				<span>Send activation code</span>
 			</button>
