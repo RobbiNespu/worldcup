@@ -221,13 +221,13 @@ body, html {
 		<table class="table table-bordered table-striped table-hover" onmouseout="tooltip.hide();return;hideDiv();">
 		    <thead>
       <tr>
-        <th>Pos</th>
-        <th>User</th>
+        <th>Locul</th>
+        <th>Nume</th>
         <th title="Numarul de scoruri corecte ghicite">Scoruri</th>
         <th title="Numarul de meciuri la care a indicat corect echipa castigatoare">Castigatori</th>
         <th title="Reprezinta cate scoruri au fost pronosticate corect din numarul total de meciuri la care castigatoarea a fost pronosticata corect">Noroc</th>
         <th title="Numarul punctelor 'normale'">Puncte</th>
-        <th title="Numarul punctelor bonus">Pct. bonus</th>
+        <th title="Numarul punctelor bonus">Puncte bonus</th>
         <th title="Echipa favorita aleasa">Favorita</th>
         <th title="Numarul punctelor bonus pentru echipa favorita">Bonus favorita</th>
         <th title="Numarul total de puncte (puncte+puncte bonus)">Total</th>
@@ -242,7 +242,20 @@ body, html {
 									counter++;
 						%>
 						<TR <%= (c.getName().equals(user.getUser()) ?  "class=\"success\"" : "") %>>
-							<td><%=counter%></td>
+            <%
+            int currentPos = 1+c.getHowManyAreBiggerIn(vec);
+            %>
+							<td><%= currentPos %>
+              
+              <%
+              if (currentPos > c.getLastPosition()) {
+                out.write("<IMG src=\"img/delta_min.gif\" title=\""+c.getLastPosition()+"\"/>");
+              } else if (currentPos < c.getLastPosition()) {
+                out.write("<IMG src=\"img/delta_plus.gif\" title=\""+c.getLastPosition()+"\"/>");                
+              }
+              %>
+              
+              </td>
 							<td><B><A title="Vezi pronosticurile lui <%=c.getName()%>" href="forecasts4User.jsp?user=<%=c.getName()%>"> <%=c.getName()%></A> <%
  	String specialCrowns = "";
  			ArrayList<Integer> result = PreviousWinner.count(previousWinners, c.getName());

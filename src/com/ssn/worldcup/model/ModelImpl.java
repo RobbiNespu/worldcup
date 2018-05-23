@@ -424,6 +424,15 @@ public class ModelImpl implements Model {
       @Override
       protected void executeBusinessLogic(Session session) {
         ModelManager tm = new ModelManager(session);
+        List<Classification> classification = getClassification();
+
+        for (Classification cls : classification) {
+          int howManyAreBigger = cls.getHowManyAreBiggerIn(classification);
+
+          User user = tm.findUserByUserName(cls.getName());
+          user.setLastPosition(howManyAreBigger + 1);
+        }
+
         Tournament tour = tm.findActiveTournament();
         Match match = tm.findMatchByTournamentAndNumber(tour, id);
         match.setScore1(g1);

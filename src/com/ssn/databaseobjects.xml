@@ -6,7 +6,7 @@
 	<database-object>
 		<create>
 			create or replace view vw_results as
-select u.id id, u.USERNAME username, m.id mid, f.SCORE1 fsc1, f.score2 fsc2, m.score1 msc1, m.score2 msc2, 
+select u.id id, u.USERNAME username, u.lastPosition lastposition, m.id mid, f.SCORE1 fsc1, f.score2 fsc2, m.score1 msc1, m.score2 msc2, 
 sign(f.score1-f.score2) dif_f, sign(m.score1-m.score2) dif_m, 
 case
 when m.score1 = -1 then 0
@@ -24,15 +24,15 @@ then m.score1+m.score2-3 else 0 end bonus from forecast f inner join match m on 
 
 	<database-object>
 		<create>
-			create or replace view vw_scores as
-			select vwr.id, vwr.username name, sum(points) winners, sum(scores) scores,
-			sum(bonus) scorebonus,
-			sum(points) + sum(scores) +sum(bonus) total
-			from vw_results vwr
-			left outer join winningteamforecast wtf
-			on vwr.id=wtf.USER_ID
-			group by vwr.id, vwr.username
-			order by total desc
+      create or replace view vw_scores as
+      select vwr.id, vwr.lastposition, vwr.username name, sum(points) winners, sum(scores) scores,
+      sum(bonus) scorebonus,
+      sum(points) + sum(scores) +sum(bonus) total
+      from vw_results vwr
+      left outer join winningteamforecast wtf
+      on vwr.id=wtf.USER_ID
+      group by vwr.id, vwr.username, vwr.lastposition
+      order by total desc
 		</create>
 
 

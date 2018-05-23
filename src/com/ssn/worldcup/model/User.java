@@ -69,6 +69,8 @@ public class User {
   @Column(name = "usercomment")
   private String comment;
 
+  private int lastPosition = 0;
+
   public User() {
     //
   }
@@ -303,6 +305,14 @@ public class User {
 
   public void setComment(String comment) {
     this.comment = comment;
+  }
+
+  public int getLastPosition() {
+    return lastPosition;
+  }
+
+  public void setLastPosition(int lastPosition) {
+    this.lastPosition = lastPosition;
   }
 
 }

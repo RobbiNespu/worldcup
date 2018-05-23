@@ -1,4 +1,7 @@
+
 package com.ssn.worldcup.model;
+
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,81 +13,111 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Immutable
 public class Classification {
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	private long id;
+  @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  private long id;
 
-	private String name;
+  private String name;
 
-	private int winners;
+  private int winners;
 
-	private int scores;
+  private int scores;
 
-	private int scoreBonus;
+  private int scoreBonus;
 
-	private String bonusTeam;
+  private String bonusTeam;
 
-	private Integer teamBonus;
+  private Integer teamBonus;
 
-	public Classification() {
-		//
-	}
+  private int lastPosition;
 
-	public long getId() {
-		return id;
-	}
+  public Classification() {
+    //
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public int getWinners() {
-		return winners;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setWinners(int winners) {
-		this.winners = winners;
-	}
+  public int getWinners() {
+    return winners;
+  }
 
-	public int getScores() {
-		return scores;
-	}
+  public void setWinners(int winners) {
+    this.winners = winners;
+  }
 
-	public void setScores(int scores) {
-		this.scores = scores;
-	}
+  public int getScores() {
+    return scores;
+  }
 
-	public int getScoreBonus() {
-		return scoreBonus;
-	}
+  public void setScores(int scores) {
+    this.scores = scores;
+  }
 
-	public void setScoreBonus(int bonus) {
-		this.scoreBonus = bonus;
-	}
+  public int getScoreBonus() {
+    return scoreBonus;
+  }
 
-	public String getBonusTeam() {
-		return bonusTeam;
-	}
+  public void setScoreBonus(int bonus) {
+    this.scoreBonus = bonus;
+  }
 
-	public void setBonusTeam(String bonusTeam) {
-		this.bonusTeam = bonusTeam;
-	}
+  public String getBonusTeam() {
+    return bonusTeam;
+  }
 
-	public Integer getTeamBonus() {
-		return teamBonus == null ? 0 : teamBonus;
-	}
+  public void setBonusTeam(String bonusTeam) {
+    this.bonusTeam = bonusTeam;
+  }
 
-	public void setTeamBonus(Integer teamBonus) {
-		this.teamBonus = teamBonus;
-	}
+  public Integer getTeamBonus() {
+    return teamBonus == null ? 0 : teamBonus;
+  }
 
+  public void setTeamBonus(Integer teamBonus) {
+    this.teamBonus = teamBonus;
+  }
+
+  public int getHowManyAreBiggerIn(List<Classification> list) {
+    int counter = 0;
+    for (Classification cls : list) {
+      if (cls.getTotalPoints() > this.getTotalPoints()) {
+        counter++;
+      } else if (cls.getTotalPoints() == this.getTotalPoints() && //
+        cls.getWinners() > this.getWinners()) {
+        counter++;
+      } else if (cls.getTotalPoints() == this.getTotalPoints() && //
+        cls.getWinners() == this.getWinners() && //
+        cls.getScoreBonus() + cls.getTeamBonus() > getScoreBonus() + getTeamBonus()) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  public int getTotalPoints() {
+    return getTeamBonus().intValue() + getScoreBonus() + getWinners() + getScores() * 2;
+  }
+
+  public int getLastPosition() {
+    return lastPosition;
+  }
+
+  public void setLastPosition(int lastPosition) {
+    this.lastPosition = lastPosition;
+  }
 }

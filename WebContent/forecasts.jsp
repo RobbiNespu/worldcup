@@ -141,7 +141,7 @@ if (request.getParameter("alert") != null) {
 							}
 				%>
 				<td
-					data-toggle="tooltip" data-html="true" data-container="body" title="<%=tooltipT1 %>"
+					data-toggle="tooltip" data-html="true" data-container="body" 
 					
 					>
 					<%
@@ -162,7 +162,7 @@ if (request.getParameter("alert") != null) {
 							}
 				%>
 				<td
-					data-toggle="tooltip" data-html="true" data-container="body" title="<%=tooltipT2%>">
+					data-toggle="tooltip" data-html="true" data-container="body">
 					<%
 						if (user.getWinningTeamForecast(tour) != null
 										&& m.getTeam2() != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
