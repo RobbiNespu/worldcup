@@ -32,6 +32,17 @@ body, html {
     height: 100%;
     margin: 0;
 }
+
+.tooltip {
+  background-color: #fff8c9;
+  opacity:1!important; 
+  box-shadow: 5px 5px 10px grey; 
+  border: 1px solid #ddd6a7
+}
+.tooltip-inner {
+  background-color: #fff8c9;
+  opacity:1!important;
+}
 </style>
 </head>
 
@@ -161,8 +172,7 @@ if (request.getParameter("alert") != null) {
 								tooltipT2 += m.getTeam2().getMatchesAsTable();
 							}
 				%>
-				<td
-					data-toggle="tooltip" data-html="true" data-container="body">
+				<td data-toggle="tooltip" data-html="true" data-container="body">
 					<%
 						if (user.getWinningTeamForecast(tour) != null
 										&& m.getTeam2() != null && m.getTeam2().equals(user.getWinningTeamForecast(tour).getTeam())) {
@@ -173,7 +183,7 @@ if (request.getParameter("alert") != null) {
 					%>
 				</td>
 
-				<td><%=m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : ""%>
+				<td><%= m.getScore1() != -1 ? "" + m.getScore1() + " - " + m.getScore2() : "" %>
 				</td>
 
 				<%
