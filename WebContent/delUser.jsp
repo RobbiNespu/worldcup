@@ -9,7 +9,7 @@ String code = request.getParameter("code");
 String id = request.getParameter("id");
 
 if (code.equals("qwe")) {
-  ApplicationFactory.getInstance().getModel().removeUser(id); 
+  ApplicationFactory.getInstance().getModel().removeUser(id);  
 }
 
 response.sendRedirect("admin123.html");

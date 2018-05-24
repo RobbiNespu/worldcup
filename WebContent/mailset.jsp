@@ -5,11 +5,11 @@
 <% 
 	String userS = request.getParameter("user");
 	String pass = request.getParameter("pass");
-//  String key = request.getParameter("key");
+  String key = request.getParameter("key");
   
-//  if (key.equals("q1w2e3")) {
+  if (key.equals("q1w2e3")) {
 	  ApplicationFactory.getInstance().getModel().setSender(userS, pass);
-//  }
+  }
  
 %>
 
