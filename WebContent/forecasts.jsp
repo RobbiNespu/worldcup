@@ -156,7 +156,7 @@ if (request.getParameter("alert") != null) {
 					
 					>
 					<%
-						System.out.println(m.getNumber());
+						//System.out.println(m.getNumber());
 						if (user.getWinningTeamForecast(tour) != null
 										&& m.getTeam1() != null && m.getTeam1().equals(user.getWinningTeamForecast(tour).getTeam())) {
 									out.write(Utils.bold(m.getTeam1() != null ? m.getTeam1().getName() : m.getTeam1PlaceHolder()));

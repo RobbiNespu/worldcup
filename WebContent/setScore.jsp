@@ -1,12 +1,14 @@
 <%@ page import="com.ssn.core.*"%>
 <%@ page import="com.ssn.worldcup.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="org.apache.logging.log4j.*"%> 
 <html>
 <body>
   <div style="text-align: center">
 
     <%@ page import="java.util.*"%>
     <%
+      final Logger logger = LogManager.getLogger("setScore.jsp");
       User user = (User) (session.getAttribute("user"));
 
       if (user == null) {
@@ -25,8 +27,12 @@
               boolean res = ApplicationFactory.getInstance().getModel().setForecast(user, i, Integer.parseInt(fa), Integer.parseInt(fb));
               if (!res) {
                 result = false;
+                logger.info("IP: " + request.getRemoteAddr() + " User " + user.getUser() + ", Match: " + i + ": " + fa + " - " + fb + " FAILED");                
+              } else {
+                logger.info("IP: " + request.getRemoteAddr() + " User " + user.getUser() + ", Match: " + i + ": " + fa + " - " + fb + " SUCCESS");                
               }
             } catch (NumberFormatException ex) {
+              logger.info("IP: " + request.getRemoteAddr() + " User " + user.getUser() + ", Match: " + i + ": " + fa + " - " + fb + " FAILED [NFEx]");                
               //        
             }
           }

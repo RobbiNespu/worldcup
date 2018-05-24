@@ -1,8 +1,11 @@
 <%@ page import="com.ssn.core.*, com.ssn.worldcup.model.*, com.ssn.core.utils.*"%>
+<%@ page import="org.apache.logging.log4j.*"%> 
+
 <html>
 <body>
   <%
     //Database.getInstance().log(request.getRemoteAddr()+" createUser.jsp");
+    final Logger logger = LogManager.getLogger(Model.class);
 
     try {
       String vc = request.getParameter("vc");
