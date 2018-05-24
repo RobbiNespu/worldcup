@@ -13,6 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 <style>
 .modal-header, h4, .close {
@@ -130,25 +131,32 @@ if (ApplicationFactory.getInstance().getModel().getMail() == null) {
           <h4 style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-lock" style="background-color:rgba(173, 0, 0);"></span> Sign Up</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" action="createUser.jsp">
+          <form role="form" action="createUser.jsp" name="myForm" ng-app="">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" name="userSI" placeholder="Enter username">
+              <span ng-show="user.length<3 || user.length>15"><img width="16" height="16" src="img/error.png" title="Numele de utilizator trebuie sa fie de minim 3 caractere, maxim 15"/></span>
+              <input ng-model="user" type="text" class="form-control" name="userSI" placeholder="Enter username" required />
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="passwordSI" placeholder="Enter password">
+              <span ng-show="pass2.length>0 && pass1!=pass2"><img width="16" height="16" src="img/error.png" title="Parolele sunt diferite"/></span>
+              <input type="password" class="form-control" name="passwordSI" placeholder="Enter password" required ng-model="pass1"/>
             </div>
                 <div class="form-group">
               <label for="psw2"><span class="glyphicon glyphicon-eye-open"></span> Repeat Password</label>
-              <input type="password" class="form-control" name="repeatPassword" placeholder="Enter password">
+              <span ng-show="pass2.length>0  && pass1!=pass2"><img width="16" height="16" src="img/error.png" title="Parolele sunt diferite"/></span>
+              <input type="password" class="form-control" name="repeatPassword" placeholder="Enter password" required ng-model="pass2"/>
             </div>
              <div class="form-group">
               <label for="mail">E-mail</label>
-              <input type="text" class="form-control" name="email" placeholder="Enter e-mail">
+              <span ng-show="myForm.email.$error.email"><img width="16" height="16" src="img/error.png" title="Adresa de mail invalida"/></span>
+              <input type="email" class="form-control" name="email" placeholder="Enter e-mail" ng-model="email" required />
             </div>
 
-              <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);"><span class="glyphicon glyphicon-off"></span> Sign up</button>
+              <button type="submit" class="btn btn-success btn-block" style="background-color:rgba(173, 0, 0);" 
+              ng-disabled="user.length == 0 || user.length<3 || user.length>15 ||  myForm.email.$dirty && myForm.email.$invalid || (pass2.length>0 && pass1!=pass2)">
+                <span class="glyphicon glyphicon-off"></span> Sign up
+              </button>
           </form>
         </div>
         <div class="modal-footer">
