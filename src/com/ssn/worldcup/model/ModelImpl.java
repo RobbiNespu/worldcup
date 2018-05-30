@@ -488,6 +488,9 @@ public class ModelImpl implements Model {
       protected void executeBusinessLogic(Session session) {
         ModelManager tm = new ModelManager(session);
         User user = tm.findUserByUserName(name);
+        for (WinningTeamForecast wtf : user.getWinningTeamForecasts()) {
+          session.delete(wtf);
+        }
         session.delete(user);
       }
     }.run();

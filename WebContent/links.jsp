@@ -13,6 +13,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/script.js"></script>
+<link rel="stylesheet" href="css/bootstrapOverrides.css"/>
+
 	<title>Rules</title>
 </head>
 <body>

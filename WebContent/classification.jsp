@@ -24,7 +24,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" language="javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<link rel="stylesheet" href="css/bootstrapOverrides.css"/>
 
 <title>Hall Of Fame</title>
 
@@ -191,6 +192,7 @@ body, html {
                 <ul id="ticker">
                     <li>Bine ati venit la a 8-a editie a concursului de pronosticuri SSI Schaefer.</li>
                     <li>Pentru consultarea regulamentului va invitam <A href="links.jsp">aici</A></li>
+                    
                     <% 
                     for (User u : ApplicationFactory.getInstance().getModel().getUsers()) {  
                       if (u.getComment() != null) {
@@ -237,21 +239,25 @@ body, html {
 						<%
 							int counter = 0;
 								List<Classification> vec = ApplicationFactory.getInstance().getModel().getClassification();
-
+                int previousPosition = 0;
 								for (Classification c : vec) {
 									counter++;
 						%>
 						<TR <%= (c.getName().equals(user.getUser()) ?  "class=\"success\"" : "") %>>
             <%
-            int currentPos = 1+c.getHowManyAreBiggerIn(vec);
+            int currentPos = 1 + c.getHowManyAreBiggerIn(vec);
+            
             %>
-							<td><%= currentPos %>
+							<td><%= currentPos != previousPosition ? currentPos : "=" %>
               
               <%
+              previousPosition = currentPos;
+              if (c.getLastPosition() != 0) {
               if (currentPos > c.getLastPosition()) {
                 out.write("<IMG src=\"img/delta_min.gif\" title=\""+c.getLastPosition()+"\"/>");
               } else if (currentPos < c.getLastPosition()) {
                 out.write("<IMG src=\"img/delta_plus.gif\" title=\""+c.getLastPosition()+"\"/>");                
+              }
               }
               %>
               

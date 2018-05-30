@@ -54,16 +54,16 @@ public class User {
   private boolean admin;
   private String validationCode;
 
-  @ManyToMany(cascade = { CascadeType.ALL })
+  @ManyToMany()
   @JoinTable(name = "user_tournament", //
       joinColumns = { @JoinColumn(name = "user_id") }, //
       inverseJoinColumns = { @JoinColumn(name = "tournament_id") })
   private List<Tournament> tournaments = new ArrayList<>();
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = { CascadeType.ALL })
   private List<WinningTeamForecast> winningTeamForecasts = new ArrayList<>();
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = { CascadeType.ALL })
   private List<Forecast> forecasts = new ArrayList<>();
 
   @Column(name = "usercomment")
