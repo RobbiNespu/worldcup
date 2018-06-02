@@ -14,4 +14,11 @@
         <param-name>serverAddress</param-name>
         <param-value>localhost:19080</param-value>
     </context-param>
+    
+    <resource-ref>
+  <description>This is a MySQL database connection</description>
+  <res-ref-name>jdbc/sakila</res-ref-name>
+  <res-type>javax.sql.DataSource</res-type>
+  <res-auth>Container</res-auth>
+</resource-ref>
 </web-app>
