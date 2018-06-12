@@ -1,6 +1,9 @@
 
 package com.ssn.worldcup.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -302,7 +305,22 @@ public class Match {
     result += "</tr>";
     result += "</THEAD>";
     int counter = 0;
+
+    List<Entry<String, Integer>> entries = new ArrayList<>();
+
     for (Entry<String, Integer> score : scores.entrySet()) {
+      entries.add(score);
+    }
+
+    Collections.sort(entries, new Comparator<Entry<String, Integer>>() {
+
+      public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+        return o2.getValue() - o1.getValue();
+      }
+
+    });
+
+    for (Entry<String, Integer> score : entries) {
       counter++;
       result += "<TR style='background-color: white'>";
       result += "<TD>" + score.getKey() + "</TD>";

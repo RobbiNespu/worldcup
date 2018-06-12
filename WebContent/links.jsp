@@ -74,6 +74,9 @@ Trebuie sa indicati scorul corect al partidelor la sfarsitul celor 90 de minunte
   </ul>
 </ul>
 <p>
+Echipa favorita se poate seta doar inainte de primul meci al turneului!
+</p>
+<p>
 Scorul unui meci trebuie introdus cu cel putin 15 minute inainte de inceperea meciului respectiv. Echipa favorita poate fi aleasa inaintea inceperii primului meci al turneului.
 </p>
 <p>

@@ -1,5 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+Application not available. Please contact application administrator.
 <FORM action="mailset.jsp" method="POST">
 User:<INPUT type="text" name="user"/><BR/>
 Pass:<INPUT type="password" name="pass"/><br>
