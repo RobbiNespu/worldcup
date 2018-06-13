@@ -190,8 +190,26 @@ body, html {
 
                 <div class="news_tricker">
                 <ul id="ticker">
-                    <li>Bine ati venit la a 8-a editie a concursului de pronosticuri SSI Schaefer.</li>
-                    <li>Pentru consultarea regulamentului va invitam <A href="links.jsp">aici</A></li>
+                    <%
+                    for (int i=0; i<4; i++) {
+                      Match match = ApplicationFactory.getInstance().getModel().getMatchesForActiveTournament().get(i);
+                      Map<String, Integer> scoresMap = match.getScoresMap();
+                      Map.Entry<String, Integer> max = null;
+                      for (Map.Entry<String, Integer> entry : scoresMap.entrySet()) {
+                        if (max == null || max.getValue() < entry.getValue()) {
+                          max = entry;
+                        }
+                      }
+                      
+                      if (max != null) {
+                        %>
+                        <li><%= max.getValue() %> utilizatori cred ca rezultatul meciului <B><%= match.getTeam1() %> - <%= match.getTeam2() %></B> va fi <b><%= max.getKey() %></b></li>
+                        <%
+                      }
+                    }
+                    %>
+                    <!-- li>Bine ati venit la a 8-a editie a concursului de pronosticuri SSI Schaefer.</li-->
+                    <li>Pentru consultarea regulamentului va invitam <A href="links.jsp"><U>aici</U></A></li>
                     
                     <% 
                     for (User u : ApplicationFactory.getInstance().getModel().getUsers()) {  
