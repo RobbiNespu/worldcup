@@ -191,7 +191,7 @@ body, html {
                 <div class="news_tricker">
                 <ul id="ticker">
                     <%
-                    for (int i=0; i<4; i++) {
+                    for (int i=1; i<=0; i++) {
                       Match match = ApplicationFactory.getInstance().getModel().getMatchesForActiveTournament().get(i);
                       Map<String, Integer> scoresMap = match.getScoresMap();
                       Map.Entry<String, Integer> max = null;

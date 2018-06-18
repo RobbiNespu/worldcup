@@ -190,7 +190,6 @@ if (request.getParameter("alert") != null) {
 
 				<%
 							String tooltipStats = m.getScoresAsTable();
-							if (m.isStillOpenForBets()) {
 								
 				%>
 				<td  data-toggle="tooltip" data-html="true" data-container="body" 
@@ -199,8 +198,12 @@ if (request.getParameter("alert") != null) {
         if (tooltipStats != null) { 
         out.write("title=\"" + tooltipStats +"\"");
         }
+        
         %>
         >
+        <%        
+							if (m.isStillOpenForBets()) {
+                %>
 					<input
 					class="ROWINP"
 					onchange='dataChanged=true; this.style.background="red"; ch<%=m.getId()%>.value=true;'
@@ -215,9 +218,7 @@ if (request.getParameter("alert") != null) {
 				<%
 					} else {
 				%>
-				<td  
-					onmouseover="tooltip.show('<%=tooltipStats%>',400); return;				
-								ShowDiv(event,'<%=tooltipStats%>')"><%=f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
+				<%=f.getScore1() != -1 ? f.getScore1() + " - " + f.getScore2() : "--"%></td>
 				<%
 					}
 				%>

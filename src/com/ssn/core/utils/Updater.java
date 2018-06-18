@@ -27,9 +27,15 @@ public class Updater {
   public static void main(String[] args) throws ParseException {
     System.setProperty("java.net.useSystemProxies", "true");
     MatchData[] data = { //
-      new MatchData(64, "https://m.flashscore.ro/meci/nDxZrI2c/?s=2", simpleDateFormat.parse("12.04.2018 11:00")), //
-      new MatchData(63, "https://m.flashscore.ro/meci/KAvDEopp/?s=2", simpleDateFormat.parse("22.03.2018 14:45")), //
-      new MatchData(62, "https://m.flashscore.ro/meci/d0RJgcK5/?s=2", simpleDateFormat.parse("22.03.2018 14:45")) };
+      new MatchData(5, "rkwPqmMo", simpleDateFormat.parse("16.04.2018 13:00")), //
+      new MatchData(6, "nmJlvqjN", simpleDateFormat.parse("16.04.2018 16:00")), //
+      new MatchData(7, "dhsTr7yh", simpleDateFormat.parse("16.04.2018 19:00")), //
+      new MatchData(8, "0jNhw35T", simpleDateFormat.parse("16.04.2018 22:00")), //
+
+      new MatchData(9, "6ijFf4z4", simpleDateFormat.parse("17.04.2018 15:00")), //
+      new MatchData(10, "hlO2o0cj", simpleDateFormat.parse("17.04.2018 18:00")), //
+      new MatchData(11, "IRgJgOkA", simpleDateFormat.parse("17.04.2018 21:00")), //
+    };
 
     while (true) {
       long currentTime = System.currentTimeMillis();
@@ -68,7 +74,7 @@ public class Updater {
         if (s.indexOf("Prelungiri") != -1) {
           match.finished = true;
         } else {
-          informServerAboutTheScore(match, score);
+          informServerAboutTheScore(match, score, false);
         }
       } else {
         if (detailElements.size() < 3) {
@@ -79,6 +85,7 @@ public class Updater {
           if (status.toString().contains("Final")) {
             Node score = detailElements.get(0).childNode(0).childNode(0);
             System.out.println("Match " + match.index + " finished, score: " + score);
+            informServerAboutTheScore(match, score, true);
             informServerAboutTheWinningTeam(match, score);
             match.finished = true;
           } else {
@@ -99,13 +106,13 @@ public class Updater {
     String splits[] = score.toString().split(":");
     int g1 = Integer.parseInt(splits[0]);
     int g2 = Integer.parseInt(splits[1]);
-    URLReader.readURL("http://172.28.154.100:8080/worldcup2014/setMatchQualifiedTeam.jsp?id=" + match.index + "&team=" + (g1 > g2 ? "1" : "2"));
+    URLReader.readURL("http://fotbal/worldcup/setMatchQualifiedTeam.jsp?id=" + match.index + "&team=" + (g1 > g2 ? "1" : "2"));
     System.out.println("Server informed about the change of q team: " + score);
   }
 
-  protected static void informServerAboutTheScore(MatchData match, Node score) {
+  protected static void informServerAboutTheScore(MatchData match, Node score, boolean finalResult) {
     String splits[] = score.toString().split(":");
-    URLReader.readURLNoProxy("http://timw0186:8999/worldcup/setResult.jsp?id=" + match.index + "&g1=" + splits[0] + "&g2=" + splits[1]);
+    URLReader.readURLNoProxy("http://fotbal/worldcup/setResult.jsp?code=qwe&id=" + match.index + "&g1=" + splits[0] + "&g2=" + splits[1] + "&final=" + finalResult);
     System.out.println("Server informed about the change: " + score);
   }
 }

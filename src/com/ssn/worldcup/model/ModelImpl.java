@@ -419,20 +419,21 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public void setResult(final int id, final int g1, final int g2) {
+  public void setResult(final int id, final int g1, final int g2, final boolean finalResult) {
     new WithSessionAndTransaction<Void>() {
       @Override
       protected void executeBusinessLogic(Session session) {
         ModelManager tm = new ModelManager(session);
-        List<Classification> classification = getClassification();
+        if (finalResult) {
+          List<Classification> classification = getClassification();
 
-        for (Classification cls : classification) {
-          int howManyAreBigger = cls.getHowManyAreBiggerIn(classification);
+          for (Classification cls : classification) {
+            int howManyAreBigger = cls.getHowManyAreBiggerIn(classification);
 
-          User user = tm.findUserByUserName(cls.getName());
-          user.setLastPosition(howManyAreBigger + 1);
+            User user = tm.findUserByUserName(cls.getName());
+            user.setLastPosition(howManyAreBigger + 1);
+          }
         }
-
         Tournament tour = tm.findActiveTournament();
         Match match = tm.findMatchByTournamentAndNumber(tour, id);
         match.setScore1(g1);

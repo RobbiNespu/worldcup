@@ -98,10 +98,10 @@ public class Classification {
       if (cls.getTotalPoints() > this.getTotalPoints()) {
         counter++;
       } else if (cls.getTotalPoints() == this.getTotalPoints() && //
-        cls.getWinners() > this.getWinners()) {
+        cls.getScores() > this.getScores()) {
         counter++;
       } else if (cls.getTotalPoints() == this.getTotalPoints() && //
-        cls.getWinners() == this.getWinners() && //
+        cls.getScores() == this.getScores() && //
         cls.getScoreBonus() + cls.getTeamBonus() > getScoreBonus() + getTeamBonus()) {
         counter++;
       }

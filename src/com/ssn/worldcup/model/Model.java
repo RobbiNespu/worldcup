@@ -45,7 +45,7 @@ public interface Model {
 
   public void setUserComment(User user, String comment);
 
-  public void setResult(int id, int g1, int g2);
+  public void setResult(int id, int g1, int g2, boolean finalResult);
 
   public void setMatchTeams(int id, String t1, String t2);
 
