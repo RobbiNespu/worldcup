@@ -424,7 +424,9 @@ public class ModelImpl implements Model {
       @Override
       protected void executeBusinessLogic(Session session) {
         ModelManager tm = new ModelManager(session);
-        if (finalResult) {
+        Tournament tour = tm.findActiveTournament();
+        Match match = tm.findMatchByTournamentAndNumber(tour, id);
+        if (match.getScore1() == -1 || match.getScore2() == -1) {
           List<Classification> classification = getClassification();
 
           for (Classification cls : classification) {
@@ -434,8 +436,6 @@ public class ModelImpl implements Model {
             user.setLastPosition(howManyAreBigger + 1);
           }
         }
-        Tournament tour = tm.findActiveTournament();
-        Match match = tm.findMatchByTournamentAndNumber(tour, id);
         match.setScore1(g1);
         match.setScore2(g2);
       }

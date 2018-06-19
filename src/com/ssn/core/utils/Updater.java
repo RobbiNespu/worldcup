@@ -27,14 +27,14 @@ public class Updater {
   public static void main(String[] args) throws ParseException {
     System.setProperty("java.net.useSystemProxies", "true");
     MatchData[] data = { //
-      new MatchData(5, "rkwPqmMo", simpleDateFormat.parse("16.04.2018 13:00")), //
-      new MatchData(6, "nmJlvqjN", simpleDateFormat.parse("16.04.2018 16:00")), //
-      new MatchData(7, "dhsTr7yh", simpleDateFormat.parse("16.04.2018 19:00")), //
-      new MatchData(8, "0jNhw35T", simpleDateFormat.parse("16.04.2018 22:00")), //
+      //      new MatchData(5, "rkwPqmMo", simpleDateFormat.parse("16.04.2018 13:00")), //
+      //      new MatchData(6, "nmJlvqjN", simpleDateFormat.parse("16.04.2018 16:00")), //
+      //      new MatchData(7, "dhsTr7yh", simpleDateFormat.parse("16.04.2018 19:00")), //
+      //      new MatchData(8, "0jNhw35T", simpleDateFormat.parse("16.04.2018 22:00")), //
 
-      new MatchData(9, "6ijFf4z4", simpleDateFormat.parse("17.04.2018 15:00")), //
-      new MatchData(10, "hlO2o0cj", simpleDateFormat.parse("17.04.2018 18:00")), //
-      new MatchData(11, "IRgJgOkA", simpleDateFormat.parse("17.04.2018 21:00")), //
+      new MatchData(12, "6iS6pKCd", simpleDateFormat.parse("18.06.2018 15:00")), //
+      new MatchData(13, "bLqc5LlM", simpleDateFormat.parse("18.06.2018 18:00")), //
+      new MatchData(14, "COm14u4S", simpleDateFormat.parse("18.06.2018 21:00")), //
     };
 
     while (true) {
@@ -85,7 +85,7 @@ public class Updater {
           if (status.toString().contains("Final")) {
             Node score = detailElements.get(0).childNode(0).childNode(0);
             System.out.println("Match " + match.index + " finished, score: " + score);
-            informServerAboutTheScore(match, score, true);
+            informServerAboutTheScore(match, score, false);
             informServerAboutTheWinningTeam(match, score);
             match.finished = true;
           } else {

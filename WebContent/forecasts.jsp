@@ -138,9 +138,12 @@ if (request.getParameter("alert") != null) {
 								}
 							};
 						}
+            int balls = f.getBalls();
 			%>
 
-			<tr>
+			<tr
+      <%= balls == 3 ? "class=\"success\"":(balls==1?"class=\"info\"":(balls>3?"class=\"danger\"":"")) %>
+      >
 				<td><%=m.getNumber()%><input
 					name="ch<%=m.getNumber()%>" id="ch<%=m.getNumber()%>" type="hidden"
 					value="false" /></td>

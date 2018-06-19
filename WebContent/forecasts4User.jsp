@@ -97,14 +97,18 @@ body, html {
 						if (f == null) {
 							// create a dummy forecast if there is no forecast to make displaying easier
 							f = new Forecast(forUser, m, -1, -1) {
+                @Override
 								public int getBalls() {
 									return 0;
 								}
 							};
 						}
+            int balls = f.getBalls();
 			%>
 
-			<tr>
+			<tr
+      <%= balls == 3 ? "class=\"success\"":(balls==1?"class=\"info\"":(balls>3?"class=\"danger\"":"")) %>
+      >
 				<td><%=m.getNumber()%><input
 					name="ch<%=m.getNumber()%>" id="ch<%=m.getNumber()%>" type="hidden"
 					value="false" /></td>
