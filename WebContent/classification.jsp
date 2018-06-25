@@ -1,6 +1,9 @@
 <%@page import="com.ssn.core.ApplicationFactory"%>
+<%@page import="com.ssn.core.persistence.*"%>
 <%@page import="com.ssn.core.utils.*"%>
+<%@page import="org.hibernate.*"%>
 <%@ page import="com.ssn.worldcup.model.*"%>
+<%@ page import="com.ssn.worldcup.manager.*"%>
 <%@ page import="java.util.*"%>
 
 <%
@@ -258,7 +261,7 @@ body, html {
 							int counter = 0;
 								List<Classification> vec = ApplicationFactory.getInstance().getModel().getClassification();
                 int previousPosition = 0;
-								for (Classification c : vec) {
+								for (final Classification c : vec) {
 									counter++;
 						%>
 						<TR <%= (c.getName().equals(user.getUser()) ?  "class=\"success\"" : "") %>>
@@ -317,8 +320,23 @@ body, html {
 							<td>
 								<%=c.getScoreBonus()%>
 							</td>
+              <%
+              Team team = new WithSessionAndTransaction<Team>() {  
 
-							<td><%=c.getBonusTeam() != null ? c.getBonusTeam() : "--"%></td>
+                @Override
+                protected void executeBusinessLogic(Session sess) {
+                  ModelManager tm = new ModelManager(sess);
+                  setReturnValue(tm.findTeamByName(c.getBonusTeam()));
+                }
+
+              }.run();
+              
+              %>
+							<td>
+              <%=c.getBonusTeam() != null ? 
+                (team.isEliminated() ?"<div style=\"color:gray;\"><strike>"+c.getBonusTeam()+"</strike></div>":c.getBonusTeam()) 
+                : "--"%>
+              </td>
 							<td><%=c.getTeamBonus().toString()%></td>
 							<td><%=c.getTeamBonus().intValue() + c.getScoreBonus() + c.getWinners() + c.getScores() * 2%></td>
 
