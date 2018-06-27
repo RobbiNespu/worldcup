@@ -8,7 +8,7 @@
 String code = request.getParameter("code");
 String id = request.getParameter("id");
 
-if (code.equals("qwe")) {
+if (code.equals("q1w2e3")) {
   ApplicationFactory.getInstance().getModel().removeUser(id);  
 }
 

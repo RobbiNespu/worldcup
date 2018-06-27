@@ -1,0 +1,45 @@
+<HTML>
+<BODY>
+<A href="http://fotbal/worldcup">http://fotbal/worldcup</A>
+<HR/> 
+<B>Set Result</B> (seteaza rezultatul final al unui meci)
+<form method="get" action="http://fotbal/worldcup/setResult.jsp">
+Code<input type="text" name="code" value=""/>
+Match id<input type="text" name="id" />
+goals 1<input type="text" name="g1" />
+goals 2<input type="text" name="g2" />
+<input type="hidden" name="final" value="true" />
+<input type="submit" value="Set result" />
+</form>
+<HR/>
+
+<B>Set Teams</B> (seteaza echipele care vor juca intr-un meci din fazele superioare ale competitiei)
+<form method="get" action="http://fotbal/worldcup/setTeams.jsp">
+Code<input type="text" name="code" value=""/>
+Match id<input type="text" name="id" />
+Team 1 name<input type="text" name="t1" />
+Team 2 name<input type="text" name="t2" />
+<input type="submit" value="Set teams" />
+</form>
+<HR/>
+
+<B>Set Match Qualified Team</B> (seteaza echipa calificata la un meci eliminatoriu la care scorul la sfarsitul timpului regulamentar de joc a fost egal)
+<form method="get" action="http://fotbal/worldcup/setMatchQualifiedTeam.jsp">
+Code<input type="text" name="code" value=""/>
+Match id<input type="text" name="id" />
+Team (1/2)<input type="text" name="t12" />
+<input type="submit" value="Set match qualified team" />
+</form>
+<HR/>
+
+<B>Set Eliminated</B> (seteaza faptul ca o echipa a fost eliminata din competitie)
+<form method="get" action="http://fotbal/worldcup/setEliminated.jsp">
+Code<input type="text" name="code" value=""/>
+Team<input type="text" name="team" />
+<input type="submit" value="Set Eliminated" />
+</form>
+<HR/>
+
+<HR/>
+</BODY>
+</HTML>
